@@ -66,6 +66,14 @@ namespace WhoIs
 				}
 			});
 
+            this.edWatcher.GetEvent<InterdictedEvent>()?.AddHandler((s, e) => {
+                if(e.IsPlayer)
+                {
+                    if(!String.IsNullOrWhiteSpace(e.Interdictor))
+                        this.CheckPilot(e.Interdictor);
+                }
+            });
+
             //стартуем читалку логов 
 
             this.edWatcher.StartWatching();
