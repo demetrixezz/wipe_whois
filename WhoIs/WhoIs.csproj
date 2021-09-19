@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4A02820-EF41-43FD-9F15-7FC568D155CF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WhoIs</RootNamespace>
+    <AssemblyName>WhoIs</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataManagers\BaseDataManager.cs" />
+    <Compile Include="EliteJournalReader\BioData.cs" />
+    <Compile Include="EliteJournalReader\CargoTransfer.cs" />
+    <Compile Include="EliteJournalReader\Commodity.cs" />
+    <Compile Include="EliteJournalReader\Conflict.cs" />
+    <Compile Include="EliteJournalReader\Economy.cs" />
+    <Compile Include="EliteJournalReader\EngineeredModule.cs" />
+    <Compile Include="EliteJournalReader\EngineeringModifiers.cs" />
+    <Compile Include="EliteJournalReader\EnumHelpers.cs" />
+    <Compile Include="EliteJournalReader\Events\AfmuRepairsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\AppliedToSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ApproachBodyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ApproachSettlementEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\AsteroidCrackedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BackpackMaterialsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BookDropshipEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BookTaxiEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BountyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyAmmoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyDronesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyExplorationDataEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyMicroResourcesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuySuitEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyTradeDataEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\BuyWeaponEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CancelDropshipEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CancelTaxiEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CapShipBondEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CargoDepotEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CargoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CargoTransferEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierBankTransferEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierBuyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierCancelDecommissionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierCrewServicesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierDecommissionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierDepositFuelEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierDockingPermissionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierFinanceEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierJumpCancelledEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierJumpEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierJumpRequestEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierModulePackEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierNameChangedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierShipPackEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierStatsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CarrierTradeOrderEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ChangeCrewRoleEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ClearSavedGameEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CockpitBreachedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CodexEntryEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CollectCargoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CollectItemsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommanderEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommitCrimeEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommunityGoalDiscardEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommunityGoalEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommunityGoalJoinEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CommunityGoalRewardEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ContinuedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CreateSuitLoadoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewAssignEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewFireEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewHireEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewLaunchFighterEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewMemberJoinsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewMemberQuitsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrewMemberRoleChangeEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\CrimeVictimEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DatalinkScanEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DatalinkVoucherEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DataScannedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DeleteSuitLoadoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DiedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DisbandedSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DiscoveryScanEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DisembarkEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockFighterEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockingCancelledEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockingDeniedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockingGrantedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockingRequestedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockingTimeoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DockSRVEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DropItemsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\DropShipDeployEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EjectCargoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EmbarkEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EndCrewSessionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EngineerContributionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EngineerCraftEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EngineerLegacyConvertEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EngineerProgressEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\EscapeInterdictionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FactionKillBondEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FetchRemoteModuleEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FighterDestroyedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FighterRebuiltEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FileheaderEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FriendsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FSDJumpEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FSDTargetEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FSSAllBodiesFoundEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FSSDiscoveryScanEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FSSSignalDiscoveredEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\FuelScoopEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\HeatDamageEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\HeatWarningEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\HullDamageEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\InterdictedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\InterdictionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\InvitedToSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\IsLiveEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\JetConeBoostEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\JetConeDamageEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\JoinACrewEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\JoinedSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\KickCrewMemberEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\KickedFromSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LaunchDroneEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LaunchFighterEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LaunchSRVEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LeaveBodyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LeftSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LiftoffEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LoadGameEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LoadoutEquipModuleEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LoadoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LoadoutRemoveModuleEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\LocationEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MarketBuyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MarketEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MarketRefinedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MarketSellEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MassModuleStoreEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MaterialCollectedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MaterialDiscardedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MaterialDiscoveredEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MaterialsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MaterialTradeEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MiningRefinedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionAbandonedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionAcceptedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionCompletedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionFailedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionRedirectedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MissionsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleBuyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleInfoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleRetrieveEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleSellEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleSellRemoteEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModulesInfoEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleStoreEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ModuleSwapEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MultiSellExplorationDataEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\MusicEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\NavBeaconScanEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\NavRouteEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\NewCommanderEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\NpcCrewPaidWageEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\NpcCrewRankEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\OutfittingEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PassengersEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PayBountiesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PayFinesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PayLegacyFinesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayCollectEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayDefectEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayDeliverEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayFastTrackEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayJoinEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayLeaveEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplaySalaryEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayVoteEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PowerplayVoucherEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ProgressEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PromotionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ProspectedAsteroidEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\PVPKillEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\QuitACrewEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RankEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RebootRepairEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ReceiveTextEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RedeemVoucherEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RefuelAllEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RefuelPartialEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RenameSuitLoadoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RepairAllEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RepairDroneEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RepairEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ReputationEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ReservoirReplenishedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RestockVehicleEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ResurrectEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\RouteEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SAAScanCompleteEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SAASignalsFoundEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ScanEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ScannedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ScanOrganicEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ScientificResearchEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ScreenshotEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SearchAndRescueEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SelfDestructEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellDronesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellExplorationDataEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellMicroResourcesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellOrganicDataEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellShipOnRebuyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellSuitEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SellWeaponEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SendTextEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SetUserShipNameEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SharedBookmarkToSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShieldStateEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipLockerEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipLockerMaterialsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipTargetedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardBuyEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardNewEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardSellEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardSwapEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShipyardTransferEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\ShutdownEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SquadronCreatedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SquadronDemotionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SquadronPromotionEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SquadronStartupEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SRVDestroyedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\StartJumpEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\StatisticsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\StatusFileEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\StoredModulesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\StoredShipsEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SupercruiseEntryEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SupercruiseExitEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SwitchSuitLoadoutEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SynthesisEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\SystemsShutdownEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\TechnologyBrokerEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\TouchdownEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\TradeMicroResourcesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\TransferMicroResourcesEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\UnderAttackEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\UndockedEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\UpgradeSuitEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\UpgradeWeaponEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\UseConsumableEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\USSDropEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\VehicleSwitchEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\WingAddEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\WingJoinEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\WingLeaveEvent.cs" />
+    <Compile Include="EliteJournalReader\Events\WonATrophyForSquadronEvent.cs" />
+    <Compile Include="EliteJournalReader\Faction.cs" />
+    <Compile Include="EliteJournalReader\Item.cs" />
+    <Compile Include="EliteJournalReader\JournalDescriptions.cs" />
+    <Compile Include="EliteJournalReader\JournalEvent.cs" />
+    <Compile Include="EliteJournalReader\JournalEventArgs.cs" />
+    <Compile Include="EliteJournalReader\JournalWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EliteJournalReader\LandingPads.cs" />
+    <Compile Include="EliteJournalReader\Material.cs" />
+    <Compile Include="EliteJournalReader\MessageReceivedEventArgs.cs" />
+    <Compile Include="EliteJournalReader\MicroResource.cs" />
+    <Compile Include="EliteJournalReader\Mission.cs" />
+    <Compile Include="EliteJournalReader\Module.cs" />
+    <Compile Include="EliteJournalReader\Passenger.cs" />
+    <Compile Include="EliteJournalReader\Ranks.cs" />
+    <Compile Include="EliteJournalReader\RouteElement.cs" />
+    <Compile Include="EliteJournalReader\SAASignal.cs" />
+    <Compile Include="EliteJournalReader\StatusWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EliteJournalReader\SuitModule.cs" />
+    <Compile Include="EliteJournalReader\SystemPosition.cs" />
+    <Compile Include="EliteJournalReader\SystemScan.cs" />
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\SqlHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="EliteJournalReader\EliteJournalReader.csproj" />
+    <None Include="Resources\AboutForm.resx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About_Alena.gz" />
+    <None Include="Resources\About_Filipp.gz" />
+    <None Include="Resources\intro.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About_Alena.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\About_Filipp.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
