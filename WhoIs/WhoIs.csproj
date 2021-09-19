@@ -393,19 +393,12 @@
   <ItemGroup>
     <None Include="Resources\About_Alena.gz" />
     <None Include="Resources\About_Filipp.gz" />
-    <None Include="Resources\intro.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WIPE_text.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WIPE_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\About_Alena.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\About_Filipp.wav" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -420,4 +413,7 @@
     <None Include="Resources\Dividing line.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>tasklist /fi "imagename eq WhoIs.exe" |find ":" &gt; nul &amp; if errorlevel 1 taskkill /f /im "WhoIs.exe"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

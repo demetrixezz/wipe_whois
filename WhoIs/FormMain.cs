@@ -20,7 +20,8 @@ namespace WhoIs
 {
     public partial class FormMain : Form
     {
-        string PathToLogs => $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\";
+        string path;
+        string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
         string FullName = "";
 
         JournalWatcher edWatcher = new JournalWatcher(""); // инициируем читалку логов
