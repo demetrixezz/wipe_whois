@@ -31,3 +31,26 @@ D:\projects\WIPE\WhoIs1\WhoIs\WhoIs\obj\Debug\WhoIs.csproj.CoreCompileInputs.cac
 D:\projects\WIPE\WhoIs1\WhoIs\WhoIs\obj\Debug\WhoIs.csproj.CopyComplete
 D:\projects\WIPE\WhoIs1\WhoIs\WhoIs\obj\Debug\WhoIs.exe
 D:\projects\WIPE\WhoIs1\WhoIs\WhoIs\obj\Debug\WhoIs.pdb
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\WhoIs.exe.config
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\WhoIs.exe
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\WhoIs.pdb
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\Newtonsoft.Json.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Buffers.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Memory.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Numerics.Vectors.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.ValueTuple.dll
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\Newtonsoft.Json.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Buffers.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Memory.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Numerics.Vectors.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\bin\Debug\System.ValueTuple.xml
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.csproj.AssemblyReference.cache
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.FormMain.resources
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.Properties.Resources.resources
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.csproj.GenerateResource.cache
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.csproj.CoreCompileInputs.cache
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.csproj.CopyComplete
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.exe
+E:\MS VS 2019 Projects\WhoIs\wipe_whois\WhoIs\obj\Debug\WhoIs.pdb
