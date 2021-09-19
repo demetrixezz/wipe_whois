@@ -410,5 +410,14 @@
   <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_logo_two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dividing line.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

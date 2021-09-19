@@ -83,10 +83,40 @@ namespace WhoIs.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Dividing_line {
+            get {
+                object obj = ResourceManager.GetObject("Dividing_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap WIPE_logo {
             get {
                 object obj = ResourceManager.GetObject("WIPE_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap WIPE_logo_two {
+            get {
+                object obj = ResourceManager.GetObject("WIPE_logo_two", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
+        /// </summary>
+        public static System.Drawing.Icon WIPE_logo1 {
+            get {
+                object obj = ResourceManager.GetObject("WIPE_logo1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
