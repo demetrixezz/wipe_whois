@@ -20,47 +20,48 @@ namespace WhoIs
 {
     public partial class FormMain : Form
     {
+        // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-        string FullName = "";
 
-        JournalWatcher edWatcher = new JournalWatcher(""); // инициируем читалку логов
-        
+        // Создаём экземпляр вотчера событий
+        JournalWatcher edWatcher = new JournalWatcher("");
+
         public FormMain()
         {
             InitializeComponent();
             SettingsLoad();
         }
 
+        // Загрузка формы
         private void FormMain_Load(object sender, EventArgs e)
         {
-            this.InitWatcher();
-
-            toolStripStatusLabel.Text = "Папка:";
-            toolStripStatusLabelData.Text = this.PathToLogs;
-            
+            // Инициализация вотчера файлов
             FileSystemWatcher watcher = new FileSystemWatcher(PathToLogs, "*.log")
             {
                 EnableRaisingEvents = true,
                 SynchronizingObject = this
             };
             watcher.Created += Watcher_Created;
-            watcher.Changed += Watcher_Changed;
+            //watcher.Changed += Watcher_Changed;
+            
+            // Инициализация вотчера ED-событий
+            this.InitWatcher();
+            label1.Text = $"PathToLogs: {PathToLogs}\nLatestJournalFile: {this.edWatcher.LatestJournalFile}\nwatcher.Path: {watcher.Path}";
 
-
+            toolStripStatusLabel.Text = "Папка:";
+            toolStripStatusLabelData.Text = PathToLogs;
         }
 
+        // Инициализация вотчера ED-событий
         private void InitWatcher()
         {
-            // указываем вотчеру на папку с логами
+            // указываем вотчеру на папку с логами и подписываемся на его события
             this.edWatcher = new JournalWatcher(PathToLogs);
-            // подписываемся на события обрати внимание на лямбда функцию (она же стрелочная функция) очень полезная хрень для сосздания мелких обработчиков
-            
-
             this.edWatcher.GetEvent<ShipTargetedEvent>()?.AddHandler((s, e) => {
                 if (e.ScanStage == 1)
 				{
-					if (!String.IsNullOrWhiteSpace(e.PilotName))
+					if (!string.IsNullOrWhiteSpace(e.PilotName))
 					    this.CheckPilot(e.PilotName);
                     
 				}
@@ -69,77 +70,117 @@ namespace WhoIs
             this.edWatcher.GetEvent<InterdictedEvent>()?.AddHandler((s, e) => {
                 if(e.IsPlayer)
                 {
-                    if(!String.IsNullOrWhiteSpace(e.Interdictor))
+                    if(!string.IsNullOrWhiteSpace(e.Interdictor))
                         this.CheckPilot(e.Interdictor);
                 }
             });
 
-            //стартуем читалку логов 
-
+            // стартуем вотчер ED-событий
             this.edWatcher.StartWatching();
         }
 
+        // Метод обработки пилотов-игроков
         private void CheckPilot(string pilotName)
         { }
 
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        // Обработчик создания нового лог-файла
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            //выключаем читалку логов 
-            this.edWatcher.StopWatching();
-            SettingsSave();
-
+            label1.Text += $"Создан файл {e.FullPath}\n Прошлый файл: {PathToLogs}\n LatestJournalFile: {this.edWatcher.LatestJournalFile}";
+            toolStripStatusLabel.Text = "Журнал:";
+            toolStripStatusLabelData.Text = e.FullPath;
+            // Добавить указание вотчеру событий имени нового файла
         }
 
+        // Обработчик закрытия программы
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //выключаем читалку логов и записываем параметры в реестр
+            this.edWatcher.StopWatching();
+            SettingsSave();
+        }
+
+        // Запись параметров программы в реестр
         void SettingsSave()
         {
             using (RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
             {
+                // Путь к папке логов и последние координаты окна программы
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
+                if(this.WindowState != FormWindowState.Minimized)
+                {
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
+                }
             }
         }
 
+        // Загрузка параметров предыдущего запуска программы
         void SettingsLoad()
         {
             using (RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
             {
-                //PathToLogs = Convert.ToString(RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String));
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
             }
         }
 
-        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        // Сворачивание в трей
+        private void FormMain_Resize(object sender, EventArgs e)
         {
-            FullName = e.FullPath;
-            label1.Text += $"Создан файл {FullName}\n";
-            toolStripStatusLabel.Text = "Журнал:";
-            toolStripStatusLabelData.Text = this.FullName;
-        }
-        private void Watcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            label1.Text += $"Изменён файл {FullName}\n";
-            using (StreamReader stream = new StreamReader(new FileStream(FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
+            if(this.WindowState == FormWindowState.Minimized)
             {
-                //label1.Text = stream.ReadLine().Last;
+                this.Hide();
+                NotifyIcon.Visible = true;
+                NotifyIcon.ShowBalloonTip(1000);
+            }
+            else if(this.WindowState == FormWindowState.Normal)
+            {
+                NotifyIcon.Visible = false;
             }
         }
 
+        // Двойной клик по значку в трее (разворачиваем из трея)
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            NotifyIcon.Visible = false;
+            WindowState = FormWindowState.Normal;
+        }
+
+        // Контекстное меню программы в трее - пункт меню "Закрыть"
+        private void ToolStripMenuItemClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        // Контекстное меню программы в трее - пункт меню "О программе"
+        private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        // Контекстное меню программы в трее - пункт меню "Просмотреть списки"
+        private void ToolStripMenuItemViewLists_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
         {
-            //string name = "About_Alena";
+            //string name = "Intro";
             //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";
             //label1.Text = path + name;
             //using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
             //using(FileStream fileOut = File.Create($@"{path}.gz"))
             //using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
             //    fileIn.CopyTo(gz);
+
             using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
-                new SoundPlayer(gz).Play();
+                new SoundPlayer(gz).Play(); 
         }
     }
 }

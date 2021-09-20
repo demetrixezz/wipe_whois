@@ -395,6 +395,7 @@
     <None Include="Resources\About_Filipp.gz" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Intro.gz" />
     <None Include="Resources\WIPE_text.png" />
   </ItemGroup>
   <ItemGroup>
