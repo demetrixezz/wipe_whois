@@ -25,7 +25,7 @@ namespace WhoIs
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
 
         // Создаём экземпляр вотчера событий
-        JournalWatcher edWatcher = new JournalWatcher("");
+        JournalWatcher edWatcher = null;
 
         public FormMain()
         {
@@ -36,18 +36,10 @@ namespace WhoIs
         // Загрузка формы
         private void FormMain_Load(object sender, EventArgs e)
         {
-            // Инициализация вотчера файлов
-            FileSystemWatcher watcher = new FileSystemWatcher(PathToLogs, "*.log")
-            {
-                EnableRaisingEvents = true,
-                SynchronizingObject = this
-            };
-            watcher.Created += Watcher_Created;
-            //watcher.Changed += Watcher_Changed;
-            
             // Инициализация вотчера ED-событий
             this.InitWatcher();
-            label1.Text = $"PathToLogs: {PathToLogs}\nLatestJournalFile: {this.edWatcher.LatestJournalFile}\nwatcher.Path: {watcher.Path}";
+            this.edWatcher.Created += Watcher_Created;
+            this.edWatcher.Changed += Watcher_Changed;
 
             toolStripStatusLabel.Text = "Папка:";
             toolStripStatusLabelData.Text = PathToLogs;
@@ -59,14 +51,12 @@ namespace WhoIs
             // указываем вотчеру на папку с логами и подписываемся на его события
             this.edWatcher = new JournalWatcher(PathToLogs);
             this.edWatcher.GetEvent<ShipTargetedEvent>()?.AddHandler((s, e) => {
-                if (e.ScanStage == 1)
-				{
-					if (!string.IsNullOrWhiteSpace(e.PilotName))
-					    this.CheckPilot(e.PilotName);
-                    
-				}
-			});
-
+                if(e.ScanStage == 1)
+                {
+                    if(!string.IsNullOrWhiteSpace(e.PilotName))
+                        this.CheckPilot(e.PilotName);
+                }
+            });
             this.edWatcher.GetEvent<InterdictedEvent>()?.AddHandler((s, e) => {
                 if(e.IsPlayer)
                 {
@@ -80,16 +70,20 @@ namespace WhoIs
         }
 
         // Метод обработки пилотов-игроков
-        private void CheckPilot(string pilotName)
-        { }
+        private void CheckPilot(string pilotName) { }
 
         // Обработчик создания нового лог-файла
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            label1.Text += $"Создан файл {e.FullPath}\n Прошлый файл: {PathToLogs}\n LatestJournalFile: {this.edWatcher.LatestJournalFile}";
             toolStripStatusLabel.Text = "Журнал:";
             toolStripStatusLabelData.Text = e.FullPath;
-            // Добавить указание вотчеру событий имени нового файла
+        }
+
+        // Обработчик изменения лог-файла
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            toolStripStatusLabel.Text = "Журнал:";
+            toolStripStatusLabelData.Text = e.FullPath;
         }
 
         // Обработчик закрытия программы
@@ -97,28 +91,26 @@ namespace WhoIs
         {
             //выключаем читалку логов и записываем параметры в реестр
             this.edWatcher.StopWatching();
-            SettingsSave();
+            if(this.WindowState != FormWindowState.Minimized)
+                SettingsSave();
         }
 
         // Запись параметров программы в реестр
         void SettingsSave()
         {
-            using (RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
+            using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
             {
                 // Путь к папке логов и последние координаты окна программы
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
-                if(this.WindowState != FormWindowState.Minimized)
-                {
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
-                }
             }
         }
 
         // Загрузка параметров предыдущего запуска программы
         void SettingsLoad()
         {
-            using (RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
+            using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
             {
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
@@ -158,17 +150,24 @@ namespace WhoIs
         // Контекстное меню программы в трее - пункт меню "О программе"
         private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         // Контекстное меню программы в трее - пункт меню "Просмотреть списки"
         private void ToolStripMenuItemViewLists_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        // Для упаковки звуков
-        private void button1_Click(object sender, EventArgs e)
+        // Возвращает последний файл в папке логов игры по фильтру ("*log" == лог-файл)
+        public FileInfo GetLatestJournalFile(string searchPattern)
+            {
+            DirectoryInfo LogDirectory = new DirectoryInfo(PathToLogs);
+            return LogDirectory.GetFiles(searchPattern).OrderByDescending(f => f.LastWriteTime).First();
+            }
+
+    // Для упаковки звуков
+    private void button1_Click(object sender, EventArgs e)
         {
             //string name = "Intro";
             //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";

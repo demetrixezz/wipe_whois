@@ -51,9 +51,9 @@ namespace WhoIs
             this.statusStripFormMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel,
             this.toolStripStatusLabelData});
-            this.statusStripFormMain.Location = new System.Drawing.Point(0, 217);
+            this.statusStripFormMain.Location = new System.Drawing.Point(0, 276);
             this.statusStripFormMain.Name = "statusStripFormMain";
-            this.statusStripFormMain.Size = new System.Drawing.Size(475, 22);
+            this.statusStripFormMain.Size = new System.Drawing.Size(674, 22);
             this.statusStripFormMain.SizingGrip = false;
             this.statusStripFormMain.TabIndex = 2;
             this.statusStripFormMain.Text = "statusStrip";
@@ -79,7 +79,7 @@ namespace WhoIs
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(353, 167);
+            this.button1.Location = new System.Drawing.Point(552, 226);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 47);
             this.button1.TabIndex = 4;
@@ -136,7 +136,7 @@ namespace WhoIs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(475, 239);
+            this.ClientSize = new System.Drawing.Size(674, 298);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStripFormMain);
