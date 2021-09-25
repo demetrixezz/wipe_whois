@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using EliteJournalReader;
 using EliteJournalReader.Events;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
 
 namespace WhoIs
 {
@@ -24,7 +25,7 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-
+        
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
 
@@ -43,7 +44,7 @@ namespace WhoIs
             #endregion
 
             // Устанавливаем контролам формы (в заголовке) свойства перемещения
-            new List<Control> { panelHeader, labelHeader }.ForEach(x =>
+            new List<Control> { panelHeader, panelLogoWIPE, labelHeader }.ForEach(x =>
             {
                 x.MouseDown += (s, e) =>
                 {
@@ -54,12 +55,22 @@ namespace WhoIs
                 };
             });
 
+
             SettingsLoad();
         }
-
+        
         // Загрузка формы
         private void FormMain_Load(object sender, EventArgs e)
         {
+            // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
+            foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
+            {
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+            }
+
             // Инициализация вотчера ED-событий
             this.InitWatcher();
             this.edWatcher.Created += Watcher_Created;
