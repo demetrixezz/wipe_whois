@@ -15,10 +15,11 @@ using System.Windows.Forms;
 //========================================================= добавляем юзинги 
 using EliteJournalReader;
 using EliteJournalReader.Events;
+using System.Drawing.Drawing2D;
 
 namespace WhoIs
 {
-    public partial class FormMain : Form
+    public partial class FormMain : FormBase
     {
         // PathToLogs - путь к папке логов программы
         string path;
@@ -30,6 +31,29 @@ namespace WhoIs
         public FormMain()
         {
             InitializeComponent();
+            buttonClose.Click += (s, e) => Close();
+
+            // Рисуем фон формы
+            #region
+            Color clr1 = Color.FromArgb(47, 49, 54);
+            Color clr2 = Color.FromArgb(54, 57, 63);
+            Color clr3 = Color.FromArgb(54, 57, 63);
+            Color clr4 = Color.FromArgb(54, 57, 63);
+            FormPaint(clr1, clr2, clr3, clr4);
+            #endregion
+
+            // Устанавливаем контролам формы (в заголовке) свойства перемещения
+            new List<Control> { panelHeader, labelHeader }.ForEach(x =>
+            {
+                x.MouseDown += (s, e) =>
+                {
+                    x.Capture = false;
+                    Capture = false;
+                    Message m = Message.Create(Handle, 0xA1, new IntPtr(2), IntPtr.Zero);
+                    base.WndProc(ref m);
+                };
+            });
+
             SettingsLoad();
         }
 
@@ -41,8 +65,8 @@ namespace WhoIs
             this.edWatcher.Created += Watcher_Created;
             this.edWatcher.Changed += Watcher_Changed;
 
-            toolStripStatusLabel.Text = "Папка:";
-            toolStripStatusLabelData.Text = PathToLogs;
+            //toolStripStatusLabel.Text = "Папка:";
+            //toolStripStatusLabelData.Text = PathToLogs;
         }
 
         // Инициализация вотчера ED-событий
@@ -75,15 +99,15 @@ namespace WhoIs
         // Обработчик создания нового лог-файла
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            toolStripStatusLabel.Text = "Журнал:";
-            toolStripStatusLabelData.Text = e.FullPath;
+            //toolStripStatusLabel.Text = "Журнал:";
+            //toolStripStatusLabelData.Text = e.FullPath;
         }
 
         // Обработчик изменения лог-файла
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            toolStripStatusLabel.Text = "Журнал:";
-            toolStripStatusLabelData.Text = e.FullPath;
+            //toolStripStatusLabel.Text = "Журнал:";
+            //toolStripStatusLabelData.Text = e.FullPath;
         }
 
         // Обработчик закрытия программы
@@ -166,8 +190,26 @@ namespace WhoIs
             return LogDirectory.GetFiles(searchPattern).OrderByDescending(f => f.LastWriteTime).First();
             }
 
-    // Для упаковки звуков
-    private void button1_Click(object sender, EventArgs e)
+        // Закрашивает форму
+        public void FormPaint(Color color1, Color color2, Color color3, Color color4)
+        {
+            void OnPaintEventHandler(object s, PaintEventArgs e)
+            {
+                if(ClientRectangle == Rectangle.Empty)
+                    return;
+                var lgb = new LinearGradientBrush(ClientRectangle, Color.Empty, Color.Empty, 90);
+                var cblend = new ColorBlend { Colors = new[] { color1, color1, color2, color3 }, Positions = new[] { 0, 0.07f, 0.075f, 1} };
+
+                lgb.InterpolationColors = cblend;
+                e.Graphics.FillRectangle(lgb, ClientRectangle);
+            }
+            Paint -= OnPaintEventHandler;
+            Paint += OnPaintEventHandler;
+            Invalidate();
+        }
+
+        // Для упаковки звуков
+        private void button1_Click(object sender, EventArgs e)
         {
             //string name = "Intro";
             //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";

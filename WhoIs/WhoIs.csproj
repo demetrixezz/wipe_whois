@@ -351,6 +351,9 @@
     <Compile Include="EliteJournalReader\SuitModule.cs" />
     <Compile Include="EliteJournalReader\SystemPosition.cs" />
     <Compile Include="EliteJournalReader\SystemScan.cs" />
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>

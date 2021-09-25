@@ -31,9 +31,6 @@ namespace WhoIs
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.statusStripFormMain = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelData = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.NotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -42,32 +39,14 @@ namespace WhoIs
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStripFormMain.SuspendLayout();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.panelFormMain = new System.Windows.Forms.Panel();
+            this.labelHeader = new System.Windows.Forms.Label();
+            this.panelHeader = new System.Windows.Forms.Panel();
             this.contextMenuStrip.SuspendLayout();
+            this.panelFormMain.SuspendLayout();
+            this.panelHeader.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // statusStripFormMain
-            // 
-            this.statusStripFormMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel,
-            this.toolStripStatusLabelData});
-            this.statusStripFormMain.Location = new System.Drawing.Point(0, 276);
-            this.statusStripFormMain.Name = "statusStripFormMain";
-            this.statusStripFormMain.Size = new System.Drawing.Size(674, 22);
-            this.statusStripFormMain.SizingGrip = false;
-            this.statusStripFormMain.TabIndex = 2;
-            this.statusStripFormMain.Text = "statusStrip";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(61, 17);
-            this.toolStripStatusLabel.Text = "Свойства:";
-            // 
-            // toolStripStatusLabelData
-            // 
-            this.toolStripStatusLabelData.Name = "toolStripStatusLabelData";
-            this.toolStripStatusLabelData.Size = new System.Drawing.Size(0, 17);
             // 
             // label1
             // 
@@ -79,9 +58,10 @@ namespace WhoIs
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(552, 226);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(624, 377);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 47);
+            this.button1.Size = new System.Drawing.Size(54, 27);
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -131,17 +111,62 @@ namespace WhoIs
             this.ToolStripMenuItemClose.Text = "Закрыть";
             this.ToolStripMenuItemClose.Click += new System.EventHandler(this.ToolStripMenuItemClose_Click);
             // 
+            // buttonClose
+            // 
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.FlatAppearance.BorderSize = 0;
+            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.buttonClose.Location = new System.Drawing.Point(647, 0);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(43, 32);
+            this.buttonClose.TabIndex = 5;
+            this.buttonClose.Text = "CLS";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            // 
+            // panelFormMain
+            // 
+            this.panelFormMain.BackColor = System.Drawing.Color.Transparent;
+            this.panelFormMain.Controls.Add(this.button1);
+            this.panelFormMain.Location = new System.Drawing.Point(0, 34);
+            this.panelFormMain.Name = "panelFormMain";
+            this.panelFormMain.Size = new System.Drawing.Size(690, 416);
+            this.panelFormMain.TabIndex = 6;
+            // 
+            // labelHeader
+            // 
+            this.labelHeader.AutoSize = true;
+            this.labelHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelHeader.Location = new System.Drawing.Point(37, 9);
+            this.labelHeader.Name = "labelHeader";
+            this.labelHeader.Size = new System.Drawing.Size(38, 13);
+            this.labelHeader.TabIndex = 7;
+            this.labelHeader.Text = "WhoIs";
+            // 
+            // panelHeader
+            // 
+            this.panelHeader.BackColor = System.Drawing.Color.Transparent;
+            this.panelHeader.Controls.Add(this.labelHeader);
+            this.panelHeader.Controls.Add(this.buttonClose);
+            this.panelHeader.Location = new System.Drawing.Point(0, 0);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(690, 34);
+            this.panelHeader.TabIndex = 7;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(674, 298);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(690, 450);
+            this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.statusStripFormMain);
+            this.Controls.Add(this.panelFormMain);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 100);
             this.Name = "FormMain";
@@ -150,18 +175,16 @@ namespace WhoIs
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
-            this.statusStripFormMain.ResumeLayout(false);
-            this.statusStripFormMain.PerformLayout();
             this.contextMenuStrip.ResumeLayout(false);
+            this.panelFormMain.ResumeLayout(false);
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.StatusStrip statusStripFormMain;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelData;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon NotifyIcon;
@@ -170,5 +193,9 @@ namespace WhoIs
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemViewLists;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAbout;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Panel panelFormMain;
+        private System.Windows.Forms.Label labelHeader;
+        private System.Windows.Forms.Panel panelHeader;
     }
 }
