@@ -124,8 +124,26 @@
   <data name="About_Filipp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\About_Filipp.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CrossClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CrossClose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CrossCloseDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CrossCloseDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CrossCloseOver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CrossCloseOver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Dividing_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dividing line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToTray" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ToTray.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToTrayDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ToTrayDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ToTrayOver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ToTrayOver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WIPE_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WIPE_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

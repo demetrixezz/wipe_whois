@@ -33,6 +33,23 @@ namespace WhoIs
         {
             InitializeComponent();
             buttonClose.Click += (s, e) => Close();
+            buttonClose.MouseEnter += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseOver;
+            buttonClose.MouseDown += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseDown;
+            buttonClose.MouseLeave += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossClose;
+
+            buttonToTray.Click += (s, e) => { };
+            buttonToTray.MouseEnter += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayOver;
+            buttonToTray.MouseDown += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayDown;
+            buttonToTray.MouseLeave += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTray;
+
+            // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
+            foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
+            {
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+            }
 
             // Рисуем фон формы
             #region
@@ -55,29 +72,15 @@ namespace WhoIs
                 };
             });
 
-
+            // Загружаем настройки программы из реестра
             SettingsLoad();
         }
         
         // Загрузка формы
         private void FormMain_Load(object sender, EventArgs e)
         {
-            // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
-            foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
-            {
-                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
-                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
-                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
-                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
-            }
-
             // Инициализация вотчера ED-событий
             this.InitWatcher();
-            this.edWatcher.Created += Watcher_Created;
-            this.edWatcher.Changed += Watcher_Changed;
-
-            //toolStripStatusLabel.Text = "Папка:";
-            //toolStripStatusLabelData.Text = PathToLogs;
         }
 
         // Инициализация вотчера ED-событий
@@ -85,6 +88,7 @@ namespace WhoIs
         {
             // указываем вотчеру на папку с логами и подписываемся на его события
             this.edWatcher = new JournalWatcher(PathToLogs);
+            this.edWatcher.Changed += Watcher_Changed;
             this.edWatcher.GetEvent<ShipTargetedEvent>()?.AddHandler((s, e) => {
                 if(e.ScanStage == 1)
                 {
@@ -107,18 +111,10 @@ namespace WhoIs
         // Метод обработки пилотов-игроков
         private void CheckPilot(string pilotName) { }
 
-        // Обработчик создания нового лог-файла
-        private void Watcher_Created(object sender, FileSystemEventArgs e)
-        {
-            //toolStripStatusLabel.Text = "Журнал:";
-            //toolStripStatusLabelData.Text = e.FullPath;
-        }
-
-        // Обработчик изменения лог-файла
+        // Обработчик изменения лог-файла - факт произошедшего абстрактного события
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            //toolStripStatusLabel.Text = "Журнал:";
-            //toolStripStatusLabelData.Text = e.FullPath;
+
         }
 
         // Обработчик закрытия программы
@@ -154,8 +150,9 @@ namespace WhoIs
         }
 
         // Сворачивание в трей
-        private void FormMain_Resize(object sender, EventArgs e)
+        private void ButtonToTray_Click(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Minimized;
             if(this.WindowState == FormWindowState.Minimized)
             {
                 this.Hide();
@@ -234,5 +231,6 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
+
     }
 }

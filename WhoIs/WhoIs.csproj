@@ -416,6 +416,27 @@
   <ItemGroup>
     <None Include="Resources\Dividing line.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewLists.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossCloseDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossCloseOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTrayDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTrayOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTray.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>tasklist /fi "imagename eq WhoIs.exe" |find ":" &gt; nul &amp; if errorlevel 1 taskkill /f /im "WhoIs.exe"</PreBuildEvent>

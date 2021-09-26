@@ -47,7 +47,9 @@ namespace WhoIs
             this.label2 = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
+            this.imageListHeaderButtons = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -80,52 +82,60 @@ namespace WhoIs
             // 
             // contextMenuStrip
             // 
+            this.contextMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemViewLists,
             this.ToolStripMenuItemAbout,
             this.toolStripSeparator1,
             this.ToolStripMenuItemClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(191, 76);
-            this.contextMenuStrip.Text = "Ну текст";
+            this.contextMenuStrip.ShowImageMargin = false;
+            this.contextMenuStrip.Size = new System.Drawing.Size(166, 76);
             // 
             // ToolStripMenuItemViewLists
             // 
+            this.ToolStripMenuItemViewLists.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.ToolStripMenuItemViewLists.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ToolStripMenuItemViewLists.Name = "ToolStripMenuItemViewLists";
-            this.ToolStripMenuItemViewLists.Size = new System.Drawing.Size(190, 22);
+            this.ToolStripMenuItemViewLists.Size = new System.Drawing.Size(165, 22);
             this.ToolStripMenuItemViewLists.Text = "Просмотреть списки";
+            this.ToolStripMenuItemViewLists.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // ToolStripMenuItemAbout
             // 
+            this.ToolStripMenuItemAbout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.ToolStripMenuItemAbout.Name = "ToolStripMenuItemAbout";
-            this.ToolStripMenuItemAbout.Size = new System.Drawing.Size(190, 22);
+            this.ToolStripMenuItemAbout.Size = new System.Drawing.Size(165, 22);
             this.ToolStripMenuItemAbout.Text = "О программе";
             // 
             // toolStripSeparator1
             // 
+            this.toolStripSeparator1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(162, 6);
             // 
             // ToolStripMenuItemClose
             // 
+            this.ToolStripMenuItemClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.ToolStripMenuItemClose.Name = "ToolStripMenuItemClose";
-            this.ToolStripMenuItemClose.Size = new System.Drawing.Size(190, 22);
+            this.ToolStripMenuItemClose.Size = new System.Drawing.Size(165, 22);
             this.ToolStripMenuItemClose.Text = "Закрыть";
             this.ToolStripMenuItemClose.Click += new System.EventHandler(this.ToolStripMenuItemClose_Click);
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonClose.BackgroundImage")));
+            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonClose.FlatAppearance.BorderSize = 0;
-            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.OrangeRed;
+            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClose.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.buttonClose.Location = new System.Drawing.Point(647, 0);
+            this.buttonClose.Location = new System.Drawing.Point(658, 0);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(43, 32);
+            this.buttonClose.Size = new System.Drawing.Size(32, 32);
             this.buttonClose.TabIndex = 5;
-            this.buttonClose.Text = "CLS";
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // panelFormMain
@@ -195,16 +205,18 @@ namespace WhoIs
             // labelHeader
             // 
             this.labelHeader.AutoSize = true;
+            this.labelHeader.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.labelHeader.Location = new System.Drawing.Point(35, 9);
             this.labelHeader.Name = "labelHeader";
-            this.labelHeader.Size = new System.Drawing.Size(38, 13);
+            this.labelHeader.Size = new System.Drawing.Size(43, 15);
             this.labelHeader.TabIndex = 7;
             this.labelHeader.Text = "WhoIs";
             // 
             // panelHeader
             // 
             this.panelHeader.BackColor = System.Drawing.Color.Transparent;
+            this.panelHeader.Controls.Add(this.buttonToTray);
             this.panelHeader.Controls.Add(this.panelLogoWIPE);
             this.panelHeader.Controls.Add(this.labelHeader);
             this.panelHeader.Controls.Add(this.buttonClose);
@@ -212,6 +224,23 @@ namespace WhoIs
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(690, 34);
             this.panelHeader.TabIndex = 7;
+            // 
+            // buttonToTray
+            // 
+            this.buttonToTray.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonToTray.BackgroundImage = global::WhoIs.Properties.Resources.ToTray;
+            this.buttonToTray.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonToTray.FlatAppearance.BorderSize = 0;
+            this.buttonToTray.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonToTray.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonToTray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonToTray.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.buttonToTray.Location = new System.Drawing.Point(620, 0);
+            this.buttonToTray.Name = "buttonToTray";
+            this.buttonToTray.Size = new System.Drawing.Size(32, 32);
+            this.buttonToTray.TabIndex = 9;
+            this.buttonToTray.UseVisualStyleBackColor = true;
+            this.buttonToTray.Click += new System.EventHandler(this.ButtonToTray_Click);
             // 
             // panelLogoWIPE
             // 
@@ -221,6 +250,12 @@ namespace WhoIs
             this.panelLogoWIPE.Name = "panelLogoWIPE";
             this.panelLogoWIPE.Size = new System.Drawing.Size(38, 38);
             this.panelLogoWIPE.TabIndex = 8;
+            // 
+            // imageListHeaderButtons
+            // 
+            this.imageListHeaderButtons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageListHeaderButtons.ImageSize = new System.Drawing.Size(32, 32);
+            this.imageListHeaderButtons.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // FormMain
             // 
@@ -240,7 +275,6 @@ namespace WhoIs
             this.Text = "WhoIs";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.contextMenuStrip.ResumeLayout(false);
             this.panelFormMain.ResumeLayout(false);
             this.panelFormMain.PerformLayout();
@@ -268,5 +302,7 @@ namespace WhoIs
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ImageList imageListHeaderButtons;
+        private System.Windows.Forms.Button buttonToTray;
     }
 }
