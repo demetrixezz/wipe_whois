@@ -35,21 +35,17 @@ namespace WhoIs
             this.NotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItemViewLists = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonClose = new System.Windows.Forms.Button();
             this.panelFormMain = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelTest = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
-            this.imageListHeaderButtons = new System.Windows.Forms.ImageList(this.components);
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -85,12 +81,13 @@ namespace WhoIs
             this.contextMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItemViewLists,
+            this.ToolStripMenuItemHelp,
             this.ToolStripMenuItemAbout,
             this.toolStripSeparator1,
             this.ToolStripMenuItemClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.ShowImageMargin = false;
-            this.contextMenuStrip.Size = new System.Drawing.Size(166, 76);
+            this.contextMenuStrip.Size = new System.Drawing.Size(166, 98);
             // 
             // ToolStripMenuItemViewLists
             // 
@@ -100,6 +97,14 @@ namespace WhoIs
             this.ToolStripMenuItemViewLists.Size = new System.Drawing.Size(165, 22);
             this.ToolStripMenuItemViewLists.Text = "Просмотреть списки";
             this.ToolStripMenuItemViewLists.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // ToolStripMenuItemHelp
+            // 
+            this.ToolStripMenuItemHelp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.ToolStripMenuItemHelp.Name = "ToolStripMenuItemHelp";
+            this.ToolStripMenuItemHelp.Size = new System.Drawing.Size(165, 22);
+            this.ToolStripMenuItemHelp.Text = "Справка";
+            this.ToolStripMenuItemHelp.Click += new System.EventHandler(this.ToolStripMenuItemHelp_Click);
             // 
             // ToolStripMenuItemAbout
             // 
@@ -119,7 +124,7 @@ namespace WhoIs
             this.ToolStripMenuItemClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.ToolStripMenuItemClose.Name = "ToolStripMenuItemClose";
             this.ToolStripMenuItemClose.Size = new System.Drawing.Size(165, 22);
-            this.ToolStripMenuItemClose.Text = "Закрыть";
+            this.ToolStripMenuItemClose.Text = "LogOFF";
             this.ToolStripMenuItemClose.Click += new System.EventHandler(this.ToolStripMenuItemClose_Click);
             // 
             // buttonClose
@@ -141,66 +146,21 @@ namespace WhoIs
             // panelFormMain
             // 
             this.panelFormMain.BackColor = System.Drawing.Color.Transparent;
-            this.panelFormMain.Controls.Add(this.label5);
-            this.panelFormMain.Controls.Add(this.label4);
-            this.panelFormMain.Controls.Add(this.label3);
-            this.panelFormMain.Controls.Add(this.label1);
-            this.panelFormMain.Controls.Add(this.label2);
+            this.panelFormMain.Controls.Add(this.labelTest);
             this.panelFormMain.Controls.Add(this.button1);
             this.panelFormMain.Location = new System.Drawing.Point(0, 34);
             this.panelFormMain.Name = "panelFormMain";
             this.panelFormMain.Size = new System.Drawing.Size(690, 416);
             this.panelFormMain.TabIndex = 6;
             // 
-            // label5
+            // labelTest
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.label5.Location = new System.Drawing.Point(22, 78);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "label5";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.label4.Location = new System.Drawing.Point(22, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "label4";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.label3.Location = new System.Drawing.Point(22, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "label3";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.label1.Location = new System.Drawing.Point(22, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.label2.Location = new System.Drawing.Point(22, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "label2";
+            this.labelTest.AutoSize = true;
+            this.labelTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelTest.Location = new System.Drawing.Point(12, 389);
+            this.labelTest.Name = "labelTest";
+            this.labelTest.Size = new System.Drawing.Size(0, 13);
+            this.labelTest.TabIndex = 5;
             // 
             // labelHeader
             // 
@@ -251,12 +211,6 @@ namespace WhoIs
             this.panelLogoWIPE.Size = new System.Drawing.Size(38, 38);
             this.panelLogoWIPE.TabIndex = 8;
             // 
-            // imageListHeaderButtons
-            // 
-            this.imageListHeaderButtons.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageListHeaderButtons.ImageSize = new System.Drawing.Size(32, 32);
-            this.imageListHeaderButtons.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,7 +224,10 @@ namespace WhoIs
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 100);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormMain";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "WhoIs";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
@@ -297,12 +254,8 @@ namespace WhoIs
         private System.Windows.Forms.Label labelHeader;
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Panel panelLogoWIPE;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ImageList imageListHeaderButtons;
+        private System.Windows.Forms.Label labelTest;
         private System.Windows.Forms.Button buttonToTray;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemHelp;
     }
 }

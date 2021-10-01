@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace WhoIs
 {
-    public class FormBase : Form 
+    public class FormBase : Form
     {
         #region Тень формы + перетаскивание окна + предотвращение разворачивания
         #if !DEBUG

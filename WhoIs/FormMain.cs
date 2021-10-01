@@ -25,41 +25,30 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-        
+        // Login - имя пилота = логин
+        string Login="";
+        bool Autorized=false;
+
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
 
         public FormMain()
         {
             InitializeComponent();
-            buttonClose.Click += (s, e) => Close();
-            buttonClose.MouseEnter += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseOver;
-            buttonClose.MouseDown += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseDown;
-            buttonClose.MouseLeave += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossClose;
-
-            buttonToTray.Click += (s, e) => { };
-            buttonToTray.MouseEnter += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayOver;
-            buttonToTray.MouseDown += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayDown;
-            buttonToTray.MouseLeave += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTray;
-
-            // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
-            foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
+            // Проверка уже запущенного экземпляра программы и выход
+            if(!InstanceChecker.TakeMemory())
             {
-                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
-                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
-                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
-                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                // интересно, как развернуть окно, если программа в трее?
+                Process[] processes = Process.GetProcessesByName("WhoIs");
+                if(processes.Length > 0)
+                {
+                    //MessageBox.Show("Length: "+processes.Length.ToString());
+                }
+                this.Close();
             }
 
-            // Рисуем фон формы
+            // Построение внешнего вида формы
             #region
-            Color clr1 = Color.FromArgb(47, 49, 54);
-            Color clr2 = Color.FromArgb(54, 57, 63);
-            Color clr3 = Color.FromArgb(54, 57, 63);
-            Color clr4 = Color.FromArgb(54, 57, 63);
-            FormPaint(clr1, clr2, clr3, clr4);
-            #endregion
-
             // Устанавливаем контролам формы (в заголовке) свойства перемещения
             new List<Control> { panelHeader, panelLogoWIPE, labelHeader }.ForEach(x =>
             {
@@ -71,6 +60,41 @@ namespace WhoIs
                     base.WndProc(ref m);
                 };
             });
+            // Рисуем фон формы
+            #region
+            Color clr1 = Color.FromArgb(47, 49, 54);
+            Color clr2 = Color.FromArgb(54, 57, 63);
+            Color clr3 = Color.FromArgb(54, 57, 63);
+            Color clr4 = Color.FromArgb(54, 57, 63);
+            FormPaint(clr1, clr2, clr3, clr4);
+            #endregion
+           // Обработка нажатий кнопок в заголовке формы
+            #region
+            buttonClose.Click += (s, e) => Close();
+            buttonClose.MouseEnter += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseOver;
+            buttonClose.MouseDown += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossCloseDown;
+            buttonClose.MouseLeave += (s, e) => buttonClose.BackgroundImage = Properties.Resources.CrossClose;
+
+            buttonToTray.Click += (s, e) => { };
+            buttonToTray.MouseEnter += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayOver;
+            buttonToTray.MouseDown += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayDown;
+            buttonToTray.MouseLeave += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTray;
+            #endregion
+            // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
+            foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
+            {
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+            }
+            // Цвет контекстного меню и определение нового рендера
+            #region
+            contextMenuStrip.BackColor = Color.FromArgb(54, 57, 63);
+            contextMenuStrip.ForeColor = Color.FromArgb(171, 171, 171);
+            contextMenuStrip.Renderer = new CMSRenderer();
+            #endregion
+            #endregion
 
             // Загружаем настройки программы из реестра
             SettingsLoad();
@@ -103,7 +127,6 @@ namespace WhoIs
                         this.CheckPilot(e.Interdictor);
                 }
             });
-
             // стартуем вотчер ED-событий
             this.edWatcher.StartWatching();
         }
@@ -124,6 +147,7 @@ namespace WhoIs
             this.edWatcher.StopWatching();
             if(this.WindowState != FormWindowState.Minimized)
                 SettingsSave();
+            InstanceChecker.ReleaseMemory();
         }
 
         // Запись параметров программы в реестр
@@ -135,6 +159,8 @@ namespace WhoIs
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
+                if(Autorized)
+                    RegKey.SetValue("Login", Login, RegistryValueKind.String);
             }
         }
 
@@ -146,9 +172,12 @@ namespace WhoIs
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
+                this.Login = (RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "");
+                this.Autorized = (this.Login != "" ? true : false);
+                labelTest.Text = "Login = \"" + Login + "\" autorized = "+ Autorized.ToString();
             }
         }
-
+        
         // Сворачивание в трей
         private void ButtonToTray_Click(object sender, EventArgs e)
         {
@@ -173,22 +202,25 @@ namespace WhoIs
             WindowState = FormWindowState.Normal;
         }
 
-        // Контекстное меню программы в трее - пункт меню "Закрыть"
-        private void ToolStripMenuItemClose_Click(object sender, EventArgs e)
+        // Контекстное меню программы в трее - пункт меню "Просмотреть списки"
+        private void ToolStripMenuItemViewLists_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
 
+        }
+        // Контекстное меню программы в трее - пункт меню "Справка"
+        private void ToolStripMenuItemHelp_Click(object sender, EventArgs e)
+        {
+            
+        }
         // Контекстное меню программы в трее - пункт меню "О программе"
         private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
 
         }
-
-        // Контекстное меню программы в трее - пункт меню "Просмотреть списки"
-        private void ToolStripMenuItemViewLists_Click(object sender, EventArgs e)
+        // Контекстное меню программы в трее - пункт меню "Закрыть"
+        private void ToolStripMenuItemClose_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         // Возвращает последний файл в папке логов игры по фильтру ("*log" == лог-файл)
@@ -215,6 +247,16 @@ namespace WhoIs
             Paint += OnPaintEventHandler;
             Invalidate();
         }
+        // Новый рендерер контекстного меню
+        class CMSRenderer : ToolStripProfessionalRenderer
+        {
+            public CMSRenderer() : base(new CMSColors()) { }
+        }
+        class CMSColors : ProfessionalColorTable
+        {
+            public override Color MenuItemSelected => Color.FromArgb(64, 67, 73);
+            public override Color MenuItemBorder => Color.FromArgb(56, 59, 65);
+        }
 
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
@@ -231,6 +273,5 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
-
     }
 }
