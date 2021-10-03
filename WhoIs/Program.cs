@@ -17,10 +17,11 @@ namespace WhoIs
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += new ThreadExceptionEventHandler(Exeption);
+            Application.ThreadException += new ThreadExceptionEventHandler(Exeption); // Глобальный обработчик ошибок
             Application.Run(new FormMain());
         }
 
+        // Глобальный обработчик ошибок - выводим описание ошибки
         private static void Exeption(object sender, ThreadExceptionEventArgs e)
         {
             MessageBox.Show(e.Exception.ToString());

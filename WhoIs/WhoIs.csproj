@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>WIPE_logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -351,6 +354,9 @@
     <Compile Include="EliteJournalReader\SuitModule.cs" />
     <Compile Include="EliteJournalReader\SystemPosition.cs" />
     <Compile Include="EliteJournalReader\SystemScan.cs" />
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -358,6 +364,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\SqlHelper.cs" />
+    <Compile Include="InstanceChecker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -366,6 +373,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Voices\VoiceActor.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -393,7 +401,6 @@
   <ItemGroup>
     <None Include="Resources\About_Alena.gz" />
     <None Include="Resources\About_Filipp.gz" />
-    <None Include="Resources\intro.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WIPE_text.png" />
@@ -402,13 +409,43 @@
     <None Include="Resources\WIPE_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\About_Alena.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\About_Filipp.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_logo_two.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WIPE_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dividing line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ViewLists.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossCloseDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CrossCloseOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTrayDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTrayOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ToTray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WIPE_logo.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>tasklist /fi "imagename eq WhoIs.exe" |find ":" &gt; nul &amp; if errorlevel 1 taskkill /f /im "WhoIs.exe"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
