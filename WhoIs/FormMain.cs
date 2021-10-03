@@ -25,9 +25,6 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-        // Login - имя пилота = логин
-        string Login="";
-        bool Autorized=false;
 
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
@@ -62,7 +59,7 @@ namespace WhoIs
             });
             // Рисуем фон формы
             #region
-            Color clr1 = Color.FromArgb(47, 49, 54);
+            Color clr1 = Color.FromArgb(32, 34, 37);
             Color clr2 = Color.FromArgb(54, 57, 63);
             Color clr3 = Color.FromArgb(54, 57, 63);
             Color clr4 = Color.FromArgb(54, 57, 63);
@@ -105,6 +102,9 @@ namespace WhoIs
         {
             // Инициализация вотчера ED-событий
             this.InitWatcher();
+
+            // Авторизируемся
+            Autorize.Run();
         }
 
         // Инициализация вотчера ED-событий
@@ -159,8 +159,8 @@ namespace WhoIs
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
-                if(Autorized)
-                    RegKey.SetValue("Login", Login, RegistryValueKind.String);
+                //if(Autorize.OK())
+                //    RegKey.SetValue("Login", Autorize.Login(), RegistryValueKind.String);
             }
         }
 
@@ -172,9 +172,20 @@ namespace WhoIs
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
-                this.Login = (RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "");
-                this.Autorized = (this.Login != "" ? true : false);
-                labelTest.Text = "Login = \"" + Login + "\" autorized = "+ Autorized.ToString();
+
+                //if(Autorize.OK())
+
+                //Autorize.SetName(RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "Требуется авторизация!");
+                //Autorize = (this.Login != "" ? true : false);
+
+                if(!Autorize.OK())
+                    ControlView.Warning(labelStatus);
+                else
+                    ControlView.Normal(labelStatus);
+                
+                labelStatus.Text = Autorize.StatusDescription();
+
+                //FormAutorize.Show();
             }
         }
         
@@ -258,6 +269,27 @@ namespace WhoIs
             public override Color MenuItemBorder => Color.FromArgb(56, 59, 65);
         }
 
+        // Внешний вид и поведение текстовой метки
+        public static class ControlView
+        {
+            public static void Normal(Label lbl)
+            {
+                lbl.ForeColor = Color.FromArgb(171, 171, 171);
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+            }
+            public static void Warning(Label lbl)
+            {
+                lbl.ForeColor = Color.FromArgb(230, 36, 55);
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(240, 46, 65); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(250, 56, 75); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
+            }
+        }
+    
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
         {
@@ -273,5 +305,6 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
+        
     }
 }

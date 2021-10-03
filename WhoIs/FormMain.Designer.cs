@@ -41,13 +41,23 @@ namespace WhoIs
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonClose = new System.Windows.Forms.Button();
             this.panelFormMain = new System.Windows.Forms.Panel();
-            this.labelTest = new System.Windows.Forms.Label();
+            this.panelMenuLeft = new System.Windows.Forms.Panel();
+            this.panelMenuAutorize = new System.Windows.Forms.Panel();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.labelPass = new System.Windows.Forms.Label();
+            this.textBoxPass = new System.Windows.Forms.TextBox();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.labelLoginDescription = new System.Windows.Forms.Label();
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
+            this.panelMenuLeft.SuspendLayout();
+            this.panelMenuAutorize.SuspendLayout();
             this.panelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,21 +156,44 @@ namespace WhoIs
             // panelFormMain
             // 
             this.panelFormMain.BackColor = System.Drawing.Color.Transparent;
-            this.panelFormMain.Controls.Add(this.labelTest);
+            this.panelFormMain.Controls.Add(this.panelMenuLeft);
+            this.panelFormMain.Controls.Add(this.labelStatus);
             this.panelFormMain.Controls.Add(this.button1);
             this.panelFormMain.Location = new System.Drawing.Point(0, 34);
             this.panelFormMain.Name = "panelFormMain";
             this.panelFormMain.Size = new System.Drawing.Size(690, 416);
             this.panelFormMain.TabIndex = 6;
             // 
-            // labelTest
+            // panelMenuLeft
             // 
-            this.labelTest.AutoSize = true;
-            this.labelTest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.labelTest.Location = new System.Drawing.Point(12, 389);
-            this.labelTest.Name = "labelTest";
-            this.labelTest.Size = new System.Drawing.Size(0, 13);
-            this.labelTest.TabIndex = 5;
+            this.panelMenuLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
+            this.panelMenuLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuLeft.Name = "panelMenuLeft";
+            this.panelMenuLeft.Size = new System.Drawing.Size(236, 378);
+            this.panelMenuLeft.TabIndex = 6;
+            // 
+            // panelMenuAutorize
+            // 
+            this.panelMenuAutorize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.panelMenuAutorize.Controls.Add(this.labelLoginDescription);
+            this.panelMenuAutorize.Controls.Add(this.buttonLogin);
+            this.panelMenuAutorize.Controls.Add(this.labelPass);
+            this.panelMenuAutorize.Controls.Add(this.textBoxPass);
+            this.panelMenuAutorize.Controls.Add(this.labelLogin);
+            this.panelMenuAutorize.Controls.Add(this.textBoxLogin);
+            this.panelMenuAutorize.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuAutorize.Name = "panelMenuAutorize";
+            this.panelMenuAutorize.Size = new System.Drawing.Size(236, 143);
+            this.panelMenuAutorize.TabIndex = 7;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(12, 389);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(0, 13);
+            this.labelStatus.TabIndex = 5;
             // 
             // labelHeader
             // 
@@ -211,6 +244,73 @@ namespace WhoIs
             this.panelLogoWIPE.Size = new System.Drawing.Size(38, 38);
             this.panelLogoWIPE.TabIndex = 8;
             // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.textBoxLogin.Location = new System.Drawing.Point(86, 20);
+            this.textBoxLogin.MaxLength = 32;
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(128, 20);
+            this.textBoxLogin.TabIndex = 0;
+            // 
+            // labelLogin
+            // 
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelLogin.Location = new System.Drawing.Point(23, 24);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(38, 13);
+            this.labelLogin.TabIndex = 1;
+            this.labelLogin.Text = "Логин";
+            // 
+            // labelPass
+            // 
+            this.labelPass.AutoSize = true;
+            this.labelPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelPass.Location = new System.Drawing.Point(23, 50);
+            this.labelPass.Name = "labelPass";
+            this.labelPass.Size = new System.Drawing.Size(45, 13);
+            this.labelPass.TabIndex = 3;
+            this.labelPass.Text = "Пароль";
+            // 
+            // textBoxPass
+            // 
+            this.textBoxPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.textBoxPass.Location = new System.Drawing.Point(86, 46);
+            this.textBoxPass.MaxLength = 100;
+            this.textBoxPass.Name = "textBoxPass";
+            this.textBoxPass.Size = new System.Drawing.Size(128, 20);
+            this.textBoxPass.TabIndex = 2;
+            this.textBoxPass.UseSystemPasswordChar = true;
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.buttonLogin.FlatAppearance.BorderSize = 0;
+            this.buttonLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(77)))), ((int)(((byte)(83)))));
+            this.buttonLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(67)))), ((int)(((byte)(73)))));
+            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonLogin.Location = new System.Drawing.Point(23, 75);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(191, 23);
+            this.buttonLogin.TabIndex = 4;
+            this.buttonLogin.Text = "Войти";
+            this.buttonLogin.UseVisualStyleBackColor = false;
+            // 
+            // labelLoginDescription
+            // 
+            this.labelLoginDescription.AutoSize = true;
+            this.labelLoginDescription.BackColor = System.Drawing.Color.Transparent;
+            this.labelLoginDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelLoginDescription.Location = new System.Drawing.Point(23, 110);
+            this.labelLoginDescription.Name = "labelLoginDescription";
+            this.labelLoginDescription.Size = new System.Drawing.Size(192, 13);
+            this.labelLoginDescription.TabIndex = 5;
+            this.labelLoginDescription.Text = "Логин должен совпадать с игровым";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,6 +335,9 @@ namespace WhoIs
             this.contextMenuStrip.ResumeLayout(false);
             this.panelFormMain.ResumeLayout(false);
             this.panelFormMain.PerformLayout();
+            this.panelMenuLeft.ResumeLayout(false);
+            this.panelMenuAutorize.ResumeLayout(false);
+            this.panelMenuAutorize.PerformLayout();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
@@ -254,8 +357,16 @@ namespace WhoIs
         private System.Windows.Forms.Label labelHeader;
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Panel panelLogoWIPE;
-        private System.Windows.Forms.Label labelTest;
+        private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Button buttonToTray;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemHelp;
+        private System.Windows.Forms.Panel panelMenuLeft;
+        private System.Windows.Forms.Panel panelMenuAutorize;
+        private System.Windows.Forms.Label labelPass;
+        private System.Windows.Forms.TextBox textBoxPass;
+        private System.Windows.Forms.Label labelLogin;
+        private System.Windows.Forms.TextBox textBoxLogin;
+        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Label labelLoginDescription;
     }
 }
