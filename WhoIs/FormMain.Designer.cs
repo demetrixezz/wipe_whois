@@ -39,21 +39,22 @@ namespace WhoIs
             this.ToolStripMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.panelFormMain = new System.Windows.Forms.Panel();
             this.panelMenuLeft = new System.Windows.Forms.Panel();
             this.panelMenuAutorize = new System.Windows.Forms.Panel();
+            this.panelLogo = new System.Windows.Forms.Panel();
+            this.labelLoginDescription = new System.Windows.Forms.Label();
+            this.buttonLogin = new System.Windows.Forms.Button();
+            this.labelPass = new System.Windows.Forms.Label();
+            this.textBoxPass = new System.Windows.Forms.TextBox();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
-            this.textBoxLogin = new System.Windows.Forms.TextBox();
-            this.labelLogin = new System.Windows.Forms.Label();
-            this.labelPass = new System.Windows.Forms.Label();
-            this.textBoxPass = new System.Windows.Forms.TextBox();
-            this.buttonLogin = new System.Windows.Forms.Button();
-            this.labelLoginDescription = new System.Windows.Forms.Label();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
             this.panelMenuLeft.SuspendLayout();
@@ -72,7 +73,8 @@ namespace WhoIs
             this.button1.Location = new System.Drawing.Point(495, 383);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(183, 21);
-            this.button1.TabIndex = 4;
+            this.button1.TabIndex = 0;
+            this.button1.TabStop = false;
             this.button1.Text = "Временно для работы со звуком";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -137,22 +139,6 @@ namespace WhoIs
             this.ToolStripMenuItemClose.Text = "LogOFF";
             this.ToolStripMenuItemClose.Click += new System.EventHandler(this.ToolStripMenuItemClose_Click);
             // 
-            // buttonClose
-            // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonClose.BackgroundImage")));
-            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonClose.FlatAppearance.BorderSize = 0;
-            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.OrangeRed;
-            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClose.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.buttonClose.Location = new System.Drawing.Point(658, 0);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(32, 32);
-            this.buttonClose.TabIndex = 5;
-            this.buttonClose.UseVisualStyleBackColor = true;
-            // 
             // panelFormMain
             // 
             this.panelFormMain.BackColor = System.Drawing.Color.Transparent;
@@ -162,11 +148,12 @@ namespace WhoIs
             this.panelFormMain.Location = new System.Drawing.Point(0, 34);
             this.panelFormMain.Name = "panelFormMain";
             this.panelFormMain.Size = new System.Drawing.Size(690, 416);
-            this.panelFormMain.TabIndex = 6;
+            this.panelFormMain.TabIndex = 8;
             // 
             // panelMenuLeft
             // 
             this.panelMenuLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.panelMenuLeft.Controls.Add(this.panelLogo);
             this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
             this.panelMenuLeft.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLeft.Name = "panelMenuLeft";
@@ -182,10 +169,87 @@ namespace WhoIs
             this.panelMenuAutorize.Controls.Add(this.textBoxPass);
             this.panelMenuAutorize.Controls.Add(this.labelLogin);
             this.panelMenuAutorize.Controls.Add(this.textBoxLogin);
-            this.panelMenuAutorize.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuAutorize.Location = new System.Drawing.Point(0, 37);
             this.panelMenuAutorize.Name = "panelMenuAutorize";
-            this.panelMenuAutorize.Size = new System.Drawing.Size(236, 143);
+            this.panelMenuAutorize.Size = new System.Drawing.Size(236, 130);
             this.panelMenuAutorize.TabIndex = 7;
+            // 
+            // panelLogo
+            // 
+            this.panelLogo.BackColor = System.Drawing.Color.Transparent;
+            this.panelLogo.BackgroundImage = global::WhoIs.Properties.Resources.WIPE_text;
+            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelLogo.Location = new System.Drawing.Point(21, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(195, 36);
+            this.panelLogo.TabIndex = 6;
+            // 
+            // labelLoginDescription
+            // 
+            this.labelLoginDescription.AutoSize = true;
+            this.labelLoginDescription.BackColor = System.Drawing.Color.Transparent;
+            this.labelLoginDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelLoginDescription.Location = new System.Drawing.Point(23, 105);
+            this.labelLoginDescription.Name = "labelLoginDescription";
+            this.labelLoginDescription.Size = new System.Drawing.Size(192, 13);
+            this.labelLoginDescription.TabIndex = 5;
+            this.labelLoginDescription.Text = "Логин должен совпадать с игровым";
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.buttonLogin.FlatAppearance.BorderSize = 0;
+            this.buttonLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(77)))), ((int)(((byte)(83)))));
+            this.buttonLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(67)))), ((int)(((byte)(73)))));
+            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonLogin.Location = new System.Drawing.Point(23, 70);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(191, 23);
+            this.buttonLogin.TabIndex = 4;
+            this.buttonLogin.Text = "Войти";
+            this.buttonLogin.UseVisualStyleBackColor = false;
+            // 
+            // labelPass
+            // 
+            this.labelPass.AutoSize = true;
+            this.labelPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelPass.Location = new System.Drawing.Point(23, 45);
+            this.labelPass.Name = "labelPass";
+            this.labelPass.Size = new System.Drawing.Size(45, 13);
+            this.labelPass.TabIndex = 3;
+            this.labelPass.Text = "Пароль";
+            // 
+            // textBoxPass
+            // 
+            this.textBoxPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.textBoxPass.Location = new System.Drawing.Point(86, 41);
+            this.textBoxPass.MaxLength = 100;
+            this.textBoxPass.Name = "textBoxPass";
+            this.textBoxPass.Size = new System.Drawing.Size(128, 20);
+            this.textBoxPass.TabIndex = 2;
+            this.textBoxPass.UseSystemPasswordChar = true;
+            // 
+            // labelLogin
+            // 
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelLogin.Location = new System.Drawing.Point(23, 19);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(38, 13);
+            this.labelLogin.TabIndex = 1;
+            this.labelLogin.Text = "Логин";
+            // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.textBoxLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.textBoxLogin.Location = new System.Drawing.Point(86, 15);
+            this.textBoxLogin.MaxLength = 32;
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(128, 20);
+            this.textBoxLogin.TabIndex = 0;
             // 
             // labelStatus
             // 
@@ -228,10 +292,11 @@ namespace WhoIs
             this.buttonToTray.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
             this.buttonToTray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonToTray.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.buttonToTray.Location = new System.Drawing.Point(620, 0);
+            this.buttonToTray.Location = new System.Drawing.Point(635, 4);
             this.buttonToTray.Name = "buttonToTray";
-            this.buttonToTray.Size = new System.Drawing.Size(32, 32);
-            this.buttonToTray.TabIndex = 9;
+            this.buttonToTray.Size = new System.Drawing.Size(24, 24);
+            this.buttonToTray.TabIndex = 0;
+            this.buttonToTray.TabStop = false;
             this.buttonToTray.UseVisualStyleBackColor = true;
             this.buttonToTray.Click += new System.EventHandler(this.ButtonToTray_Click);
             // 
@@ -244,72 +309,22 @@ namespace WhoIs
             this.panelLogoWIPE.Size = new System.Drawing.Size(38, 38);
             this.panelLogoWIPE.TabIndex = 8;
             // 
-            // textBoxLogin
+            // buttonClose
             // 
-            this.textBoxLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.textBoxLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.textBoxLogin.Location = new System.Drawing.Point(86, 20);
-            this.textBoxLogin.MaxLength = 32;
-            this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(128, 20);
-            this.textBoxLogin.TabIndex = 0;
-            // 
-            // labelLogin
-            // 
-            this.labelLogin.AutoSize = true;
-            this.labelLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.labelLogin.Location = new System.Drawing.Point(23, 24);
-            this.labelLogin.Name = "labelLogin";
-            this.labelLogin.Size = new System.Drawing.Size(38, 13);
-            this.labelLogin.TabIndex = 1;
-            this.labelLogin.Text = "Логин";
-            // 
-            // labelPass
-            // 
-            this.labelPass.AutoSize = true;
-            this.labelPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.labelPass.Location = new System.Drawing.Point(23, 50);
-            this.labelPass.Name = "labelPass";
-            this.labelPass.Size = new System.Drawing.Size(45, 13);
-            this.labelPass.TabIndex = 3;
-            this.labelPass.Text = "Пароль";
-            // 
-            // textBoxPass
-            // 
-            this.textBoxPass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.textBoxPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.textBoxPass.Location = new System.Drawing.Point(86, 46);
-            this.textBoxPass.MaxLength = 100;
-            this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.Size = new System.Drawing.Size(128, 20);
-            this.textBoxPass.TabIndex = 2;
-            this.textBoxPass.UseSystemPasswordChar = true;
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
-            this.buttonLogin.FlatAppearance.BorderSize = 0;
-            this.buttonLogin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(77)))), ((int)(((byte)(83)))));
-            this.buttonLogin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(67)))), ((int)(((byte)(73)))));
-            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonLogin.Location = new System.Drawing.Point(23, 75);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(191, 23);
-            this.buttonLogin.TabIndex = 4;
-            this.buttonLogin.Text = "Войти";
-            this.buttonLogin.UseVisualStyleBackColor = false;
-            // 
-            // labelLoginDescription
-            // 
-            this.labelLoginDescription.AutoSize = true;
-            this.labelLoginDescription.BackColor = System.Drawing.Color.Transparent;
-            this.labelLoginDescription.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.labelLoginDescription.Location = new System.Drawing.Point(23, 110);
-            this.labelLoginDescription.Name = "labelLoginDescription";
-            this.labelLoginDescription.Size = new System.Drawing.Size(192, 13);
-            this.labelLoginDescription.TabIndex = 5;
-            this.labelLoginDescription.Text = "Логин должен совпадать с игровым";
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonClose.BackgroundImage")));
+            this.buttonClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonClose.FlatAppearance.BorderSize = 0;
+            this.buttonClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.OrangeRed;
+            this.buttonClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.buttonClose.Location = new System.Drawing.Point(662, 4);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(24, 24);
+            this.buttonClose.TabIndex = 0;
+            this.buttonClose.TabStop = false;
+            this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -352,7 +367,6 @@ namespace WhoIs
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemViewLists;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAbout;
-        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panelFormMain;
         private System.Windows.Forms.Label labelHeader;
         private System.Windows.Forms.Panel panelHeader;
@@ -368,5 +382,7 @@ namespace WhoIs
         private System.Windows.Forms.TextBox textBoxLogin;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Label labelLoginDescription;
+        private System.Windows.Forms.Panel panelLogo;
+        private System.Windows.Forms.Button buttonClose;
     }
 }

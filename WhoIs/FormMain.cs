@@ -93,6 +93,9 @@ namespace WhoIs
             #endregion
             #endregion
 
+            // Панель авторизации - координаты за пределами формы
+            panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
+
             // Загружаем настройки программы из реестра
             SettingsLoad();
         }
@@ -104,7 +107,18 @@ namespace WhoIs
             this.InitWatcher();
 
             // Авторизируемся
-            Autorize.Run();
+            int auth = (int)Authorization.Run();
+            if(auth == 1)
+            {
+                panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
+                ControlView.Normal(labelStatus);
+            }
+            else
+            {
+                panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X, panelMenuAutorize.Location.Y);
+                ControlView.Warning(labelStatus);
+            }
+            labelStatus.Text = Authorization.StatusDescription();
         }
 
         // Инициализация вотчера ED-событий
@@ -173,19 +187,7 @@ namespace WhoIs
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
 
-                //if(Autorize.OK())
-
-                //Autorize.SetName(RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "Требуется авторизация!");
-                //Autorize = (this.Login != "" ? true : false);
-
-                if(!Autorize.OK())
-                    ControlView.Warning(labelStatus);
-                else
-                    ControlView.Normal(labelStatus);
-                
-                labelStatus.Text = Autorize.StatusDescription();
-
-                //FormAutorize.Show();
+                //RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "Требуется авторизация!";
             }
         }
         
@@ -305,6 +307,5 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
-        
     }
 }
