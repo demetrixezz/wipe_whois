@@ -71,7 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorization.cs" />
+    <Compile Include="Helpers\EasingEquations.cs" />
+    <Compile Include="Helpers\RegistryData.cs" />
     <Compile Include="DataManagers\BaseDataManager.cs" />
     <Compile Include="DataManagers\ScanDataManager.cs" />
     <Compile Include="EliteJournalReader\BioData.cs" />

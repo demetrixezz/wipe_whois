@@ -96,6 +96,27 @@ namespace WhoIs
             // Панель авторизации - координаты за пределами формы
             panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
 
+            // Устанавливаем реакции на мышку контролам панели авторизации
+            #region
+            new List<Control> { panelLogin, labelLogin, textBoxLogin }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Логин должен совпадать с игровым"; };
+            });
+            new List<Control> { panelPass, labelPass, textBoxPass }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Пароль для входа в программу"; };
+            });
+            new List<Control> { buttonLogin }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
+            });
+
+            new List<Control> { panelLogin, labelLogin, textBoxLogin, panelPass, labelPass, textBoxPass, buttonLogin }.ForEach(x =>
+            {
+                x.MouseLeave += (s, e) => { labelLoginDescription.Text = ""; };
+            });
+            #endregion
+
             // Загружаем настройки программы из реестра
             SettingsLoad();
         }
@@ -107,18 +128,25 @@ namespace WhoIs
             this.InitWatcher();
 
             // Авторизируемся
-            int auth = (int)Authorization.Run();
-            if(auth == 1)
-            {
-                panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
-                ControlView.Normal(labelStatus);
-            }
-            else
-            {
-                panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X, panelMenuAutorize.Location.Y);
-                ControlView.Warning(labelStatus);
-            }
-            labelStatus.Text = Authorization.StatusDescription();
+            Authorization();
+            //int auth = (int)RegistryData.Run();
+            textBoxLogin.Text = RegistryData.Login();
+            textBoxPass.Text = RegistryData.Password();
+            //if(auth == 1)
+            //{
+                //panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
+                //ControlView.Normal(labelStatus);
+            //}
+            //else
+            //{
+                //panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X, panelMenuAutorize.Location.Y);
+                //ControlView.Warning(labelStatus);
+                //if(auth==-3)
+                //{
+
+                //}
+            //}
+            //labelStatus.Text = RegistryData.StatusDescription();
         }
 
         // Инициализация вотчера ED-событий
@@ -173,8 +201,6 @@ namespace WhoIs
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
-                //if(Autorize.OK())
-                //    RegKey.SetValue("Login", Autorize.Login(), RegistryValueKind.String);
             }
         }
 
@@ -186,8 +212,6 @@ namespace WhoIs
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
-
-                //RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "Требуется авторизация!";
             }
         }
         
@@ -292,6 +316,59 @@ namespace WhoIs
             }
         }
     
+        // Клик по кнопке "Войти в программу"
+        private void ButtonLogin_Click(object sender, EventArgs e)
+        {
+            RegistryData.SaveRegistrationData(textBoxLogin.Text, textBoxPass.Text);
+            RegistryData.Run();
+            MessageBox.Show("Login: " + RegistryData.Login() + "\nPass: " + RegistryData.Password(), "ButtonLogin_Click");
+        }
+
+        // Авторизация в программе
+        private void Authorization()
+        {
+            SetButtonLoginState();
+            // Загружаем рагистрационные данные из реестра
+            RegistryData.LoadRegistrationData();
+            // Первый вход.
+            // Если нет логина в реестре -
+            if(RegistryData.Login()=="")
+            {
+                // Выводим панель заполнения формы регистрации
+                ShowPanel(panelMenuAutorize);
+                ControlView.Warning(labelStatus);
+            }
+            labelStatus.Text = RegistryData.StatusDescription();
+        }
+        
+        // Показывает панель
+        private void ShowPanel(Panel panel)
+        {
+            panel.Location = new Point(panelMenuLeft.Location.X, panel.Location.Y);
+        }
+        // Скрывает панель
+        private void HidePanel(Panel panel)
+        {
+            panel.Location = new Point(-panel.Width, panel.Location.Y);
+        }
+
+        // Состояние кнопки входа в зависимостиот состояния полей ввода логина и пароля
+        #region
+        private void SetButtonLoginState()
+        {
+            buttonLogin.Enabled = (textBoxLogin.Text.Length > 2 && textBoxPass.Text.Length > 3 ? true : false);
+        }
+        private void TextBoxLogin_TextChanged(object sender, EventArgs e)
+        {
+            SetButtonLoginState();
+        }
+        private void TextBoxPass_TextChanged(object sender, EventArgs e)
+        {
+            SetButtonLoginState();
+        }
+        #endregion
+
+
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
         {
@@ -307,5 +384,6 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
+
     }
 }
