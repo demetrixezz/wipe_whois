@@ -38,125 +38,83 @@ namespace WhoIs
                 status == AuthState.LoginInvalid ? "Не правильный логин" :
                 $"Авторизовано для \"{login}\"";
         }
+        
+        ///*<summary> Записывает в реестр авторизационные данные </summary>*/
+        public static void SaveRegistrationData(string name, string pass)
+        {
+            SetLogin(name);
+            SetPassword(pass);
+        }
 
+        ///*<summary> Устанавливает логин и записывает его в реестр </summary>*/
         public static void   SetLogin(string name)
         { 
             login = name;
             SaveLogin();
         }
-        public static void   SetPassword(string pass)   { password = pass; } 
-        
-        // Процесс авторизации
-        public static AuthState Run()
+        ///*<summary> Устанавливает пароль и записывает его в реестр </summary>*/
+        public static void   SetPassword(string pass)   
         {
-            MessageBox.Show("Login: " + Login() + "\nPass: " + Password(), "Run enter");
-            // Если при запуске нет логина в реестре -
-            // возвращаем "Не зарегистрирован в программе"
-            if(!LoadLogin() || !LoadPassword())
-            {
-                status = AuthState.NoReg;
-                MessageBox.Show(StatusDescription(), "!LoadLogin || !LoadPassword");
-            }
-            // Если есть логин и пароль в реестре - проверим их в базе данных
-            else
-            {
-                // Если нет логина в базе данных -
-                // возвращаем "Не зарегистрирован в базе данных"
-                if(!CheckLoginInDB())
-                {
-                    status = AuthState.NoDBLogin;
-                    MessageBox.Show(StatusDescription(), "!CheckLoginInDB");
-                }
-                // Если логин в базе данных зарегистрирован
-                else
-                {
-                    // Если введённый пароль не совпадает с базой данных -
-                    // возвращаем "Пароль в базе данных не совпадает"
-                    if(!CheckPasswordInDB())
-                    {
-                        status = AuthState.NoDBPass;
-                        MessageBox.Show(StatusDescription(), "!CheckPasswordInDB");
-                    }
-                    // Если логин есть в базе данных и пароль совпадает -
-                    // сохраняем логин в реестре и ставим флаг успешной авторизации
-                    else
-                    {
-                        SaveLogin();
-                        SavePassword();
-                        status = AuthState.Success;
-                        MessageBox.Show(StatusDescription(),"OK");
-                    }
-                }
-            }
-            MessageBox.Show("Login: " + Login() + "\nPass: " + Password() + "\nStatus" + StatusDescription(), "Run exit");
-            return status;
-        }
-        
-        // Записывает в реестр авторизационные данные
-        public static void SaveRegistrationData(string name, string pass)
-        {
-            login = name;
             password = pass;
-            SaveLogin();
             SavePassword();
         }
-        // Загружает из реестра авторизационные данные
+        ///*<summary> Загружает из реестра авторизационные данные </summary>*/
         public static void LoadRegistrationData()
         {
-            if(!LoadLogin() && !LoadPassword())
+            if(!LoadLogin() & !LoadPassword())
                 status = AuthState.NoReg;
         }
 
-        // Записывает логин в реестр
+        ///*<summary> Записывает логин в реестр </summary>*/
         private static void SaveLogin()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 RegKey.SetValue("Login", login, RegistryValueKind.String);
         }
-        // Загружает из реестра сохранённый логин
+        ///*<summary> Загружает из реестра сохранённый логин </summary>*/
         private static bool LoadLogin()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 login = RegKey.GetValue("Login") != null ? Convert.ToString(RegKey.GetValue("Login")) : "";
             return login != "";
         }
-        // Удаляет запись логина из реестра
+        ///*<summary> Удаляет запись логина из реестра </summary>*/
         public static void ClearLogin()
         {
             login = "";
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
-                RegKey.SetValue("Login", login, RegistryValueKind.String);
+                RegKey.DeleteValue("Login", false);
             status = AuthState.NoReg;
         }
-        // Проверяет наличие логина в базе данных
+        ///*<summary> Проверяет наличие логина в базе данных </summary>*/
         private static bool CheckLoginInDB()
         {
             return true;
         }
 
-        // Записывает пароль в реестр
+        ///*<summary> Записывает пароль в реестр </summary>*/
         private static void SavePassword()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 RegKey.SetValue("Password", password, RegistryValueKind.String);
         }
-        // Загружает из реестра сохранённый пароль
+        ///*<summary> Загружает из реестра сохранённый пароль </summary>*/
         private static bool LoadPassword()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 password = RegKey.GetValue("Password") != null ? Convert.ToString(RegKey.GetValue("Password")) : "";
             return password != "";
         }
-        // Удаляет запись пароля из реестра
+        ///*<summary> Удаляет запись пароля из реестра </summary>*/
         public static void ClearPassword()
         {
             password = "";
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
-                RegKey.SetValue("Password", password, RegistryValueKind.String);
+                RegKey.DeleteValue("Password", true);
             status = AuthState.NoReg;
         }
 
-        // Проверяет совпадение пароля с базой данных
+        ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/
         private static bool CheckPasswordInDB()
         {
             return false;

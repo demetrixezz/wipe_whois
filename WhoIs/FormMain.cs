@@ -94,7 +94,7 @@ namespace WhoIs
             #endregion
 
             // Панель авторизации - координаты за пределами формы
-            panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
+            panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X - panelMenuAutorize.Width, panelMenuLeft.Location.Y + 37);
 
             // Устанавливаем реакции на мышку контролам панели авторизации
             #region
@@ -129,24 +129,9 @@ namespace WhoIs
 
             // Авторизируемся
             Authorization();
-            //int auth = (int)RegistryData.Run();
+            
             textBoxLogin.Text = RegistryData.Login();
             textBoxPass.Text = RegistryData.Password();
-            //if(auth == 1)
-            //{
-                //panelMenuAutorize.Location = new Point(-panelMenuAutorize.Width, panelMenuAutorize.Location.Y);
-                //ControlView.Normal(labelStatus);
-            //}
-            //else
-            //{
-                //panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X, panelMenuAutorize.Location.Y);
-                //ControlView.Warning(labelStatus);
-                //if(auth==-3)
-                //{
-
-                //}
-            //}
-            //labelStatus.Text = RegistryData.StatusDescription();
         }
 
         // Инициализация вотчера ED-событий
@@ -320,36 +305,66 @@ namespace WhoIs
         private void ButtonLogin_Click(object sender, EventArgs e)
         {
             RegistryData.SaveRegistrationData(textBoxLogin.Text, textBoxPass.Text);
-            RegistryData.Run();
-            MessageBox.Show("Login: " + RegistryData.Login() + "\nPass: " + RegistryData.Password(), "ButtonLogin_Click");
+            Authorization();
         }
 
         // Авторизация в программе
         private void Authorization()
         {
-            SetButtonLoginState();
-            // Загружаем рагистрационные данные из реестра
+            // Загружаем рагистрационные данные из реестра и вписываем их в поля ввода
             RegistryData.LoadRegistrationData();
-            // Первый вход.
-            // Если нет логина в реестре -
-            if(RegistryData.Login()=="")
+            textBoxLogin.Text = RegistryData.Login();
+            textBoxPass.Text = RegistryData.Password();
+            SetButtonLoginState();
+            // Если нет логина или пароля в реестре -
+            if(RegistryData.Login()=="" || RegistryData.Password() == "" || RegistryData.Login() == null || RegistryData.Password() == null)
             {
                 // Выводим панель заполнения формы регистрации
-                ShowPanel(panelMenuAutorize);
+                if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                    ShowPanel(panelMenuAutorize, panelMenuLeft);
                 ControlView.Warning(labelStatus);
+                labelStatus.Text = "Требуется авторизация!";
             }
-            labelStatus.Text = RegistryData.StatusDescription();
+            else
+            {
+                if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
+                    HidePanel(panelMenuAutorize, panelMenuLeft);
+                ControlView.Normal(labelStatus);
+                labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\", пароль: {RegistryData.Password()}";
+            }
         }
-        
+
         // Показывает панель
-        private void ShowPanel(Panel panel)
+        private async void ShowPanel(Panel panel, Panel parent)
         {
-            panel.Location = new Point(panelMenuLeft.Location.X, panel.Location.Y);
+            while(panel.Location.X < parent.Location.X)
+            {
+                await Task.Delay(1);
+                int x = Math.Abs(panel.Location.X) / 4;
+                if(x == 0)
+                    x = 1;
+                panel.Location = new Point(panel.Location.X + x, panel.Location.Y);
+                labelStatus.Text = panel.Location.X.ToString();
+            }
+            if(panel.Location.X != parent.Location.X)
+                panel.Location = new Point(parent.Location.X, panel.Location.Y);
         }
         // Скрывает панель
-        private void HidePanel(Panel panel)
+        private async void HidePanel(Panel panel, Panel parent)
         {
-            panel.Location = new Point(-panel.Width, panel.Location.Y);
+            int x = 0;
+            while(panel.Location.X >= parent.Location.X - panel.Width)
+            {
+                await Task.Delay(1);
+                x = (panel.Width - Math.Abs(panel.Location.X)) / 4;
+                if(x == 0)
+                    x = 1;
+                panel.Location = new Point(panel.Location.X - x, panel.Location.Y);
+                labelStatus.Text = panel.Location.X.ToString();
+            }
+            if(panel.Location.X != parent.Location.X - panel.Width)
+                panel.Location = new Point(parent.Location.X - panel.Width, panel.Location.Y);
+            MessageBox.Show("OK");
         }
 
         // Состояние кнопки входа в зависимостиот состояния полей ввода логина и пароля
