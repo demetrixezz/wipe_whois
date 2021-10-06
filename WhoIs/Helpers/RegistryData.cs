@@ -13,31 +13,11 @@ namespace WhoIs
 
     public static class RegistryData
     {
-        public enum AuthState 
-            {   
-                NoReg=-3,       // Не зарегистрирован в программе
-                NoDBLogin=-2,   // Не зарегистрирован в базе данных
-                NoDBPass=-1,    // Пароль в базе данных не совпадает
-                LoginInvalid=0, // Не правильный логин
-                Success=1       // Успешная авторизация
-            };
-
-        private static AuthState status;
         private static string login;
         private static string password;
 
         public static string Login()                { return login;                     }
         public static string Password()             { return password;                  }
-        public static bool   OK()                   { return status==AuthState.Success; }
-        public static string StatusDescription()
-        {
-            return
-                status == AuthState.NoReg ? "Требуется авторизация!" :
-                status == AuthState.NoDBLogin ? $"{login} Не зарегистрирован в базе данных" :
-                status == AuthState.NoDBPass ? $"Пароль в базе данных для {login} не совпадает с указанным" :
-                status == AuthState.LoginInvalid ? "Не правильный логин" :
-                $"Авторизовано для \"{login}\"";
-        }
         
         ///*<summary> Записывает в реестр авторизационные данные </summary>*/
         public static void SaveRegistrationData(string name, string pass)
@@ -61,8 +41,8 @@ namespace WhoIs
         ///*<summary> Загружает из реестра авторизационные данные </summary>*/
         public static void LoadRegistrationData()
         {
-            if(!LoadLogin() & !LoadPassword())
-                status = AuthState.NoReg;
+            LoadLogin();
+            LoadPassword();
         }
 
         ///*<summary> Записывает логин в реестр </summary>*/
@@ -84,7 +64,6 @@ namespace WhoIs
             login = "";
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 RegKey.DeleteValue("Login", false);
-            status = AuthState.NoReg;
         }
         ///*<summary> Проверяет наличие логина в базе данных </summary>*/
         private static bool CheckLoginInDB()
@@ -111,7 +90,6 @@ namespace WhoIs
             password = "";
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 RegKey.DeleteValue("Password", true);
-            status = AuthState.NoReg;
         }
 
         ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/

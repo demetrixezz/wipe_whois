@@ -344,7 +344,6 @@ namespace WhoIs
                 if(x == 0)
                     x = 1;
                 panel.Location = new Point(panel.Location.X + x, panel.Location.Y);
-                labelStatus.Text = panel.Location.X.ToString();
             }
             if(panel.Location.X != parent.Location.X)
                 panel.Location = new Point(parent.Location.X, panel.Location.Y);
@@ -399,6 +398,5 @@ namespace WhoIs
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
         }
-
     }
 }
