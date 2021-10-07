@@ -41,7 +41,6 @@ namespace WhoIs
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFormMain = new System.Windows.Forms.Panel();
             this.panelMenuLeft = new System.Windows.Forms.Panel();
-            this.panelLogo = new System.Windows.Forms.Panel();
             this.panelMenuAutorize = new System.Windows.Forms.Panel();
             this.panelPass = new System.Windows.Forms.Panel();
             this.labelPass = new System.Windows.Forms.Label();
@@ -51,18 +50,28 @@ namespace WhoIs
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.labelLoginDescription = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.panelMenuInfoDB = new System.Windows.Forms.Panel();
+            this.pictureBoxBottomPanelMenuInfoDB = new System.Windows.Forms.PictureBox();
+            this.pictureBoxTopPanelMenuInfoDB = new System.Windows.Forms.PictureBox();
+            this.panelLogo = new System.Windows.Forms.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.labelMenuInfo = new System.Windows.Forms.Label();
+            this.buttonCheckRegistryData = new System.Windows.Forms.Button();
+            this.buttonInfoAdmin = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
             this.panelMenuLeft.SuspendLayout();
             this.panelMenuAutorize.SuspendLayout();
             this.panelPass.SuspendLayout();
             this.panelLogin.SuspendLayout();
+            this.panelMenuInfoDB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBottomPanelMenuInfoDB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).BeginInit();
             this.panelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -159,20 +168,11 @@ namespace WhoIs
             this.panelMenuLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
             this.panelMenuLeft.Controls.Add(this.panelLogo);
             this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
+            this.panelMenuLeft.Controls.Add(this.panelMenuInfoDB);
             this.panelMenuLeft.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLeft.Name = "panelMenuLeft";
             this.panelMenuLeft.Size = new System.Drawing.Size(236, 378);
             this.panelMenuLeft.TabIndex = 6;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.BackColor = System.Drawing.Color.Transparent;
-            this.panelLogo.BackgroundImage = global::WhoIs.Properties.Resources.WIPE_text;
-            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panelLogo.Location = new System.Drawing.Point(21, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(195, 36);
-            this.panelLogo.TabIndex = 6;
             // 
             // panelMenuAutorize
             // 
@@ -275,8 +275,56 @@ namespace WhoIs
             this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
             // 
+            // panelMenuInfoDB
+            // 
+            this.panelMenuInfoDB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.panelMenuInfoDB.Controls.Add(this.buttonInfoAdmin);
+            this.panelMenuInfoDB.Controls.Add(this.buttonCheckRegistryData);
+            this.panelMenuInfoDB.Controls.Add(this.labelMenuInfo);
+            this.panelMenuInfoDB.Controls.Add(this.pictureBoxBottomPanelMenuInfoDB);
+            this.panelMenuInfoDB.Controls.Add(this.pictureBoxTopPanelMenuInfoDB);
+            this.panelMenuInfoDB.Location = new System.Drawing.Point(0, 37);
+            this.panelMenuInfoDB.Name = "panelMenuInfoDB";
+            this.panelMenuInfoDB.Size = new System.Drawing.Size(236, 130);
+            this.panelMenuInfoDB.TabIndex = 8;
+            // 
+            // pictureBoxBottomPanelMenuInfoDB
+            // 
+            this.pictureBoxBottomPanelMenuInfoDB.BackgroundImage = global::WhoIs.Properties.Resources.Dividing_line;
+            this.pictureBoxBottomPanelMenuInfoDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxBottomPanelMenuInfoDB.ErrorImage = null;
+            this.pictureBoxBottomPanelMenuInfoDB.InitialImage = null;
+            this.pictureBoxBottomPanelMenuInfoDB.Location = new System.Drawing.Point(4, 107);
+            this.pictureBoxBottomPanelMenuInfoDB.Name = "pictureBoxBottomPanelMenuInfoDB";
+            this.pictureBoxBottomPanelMenuInfoDB.Size = new System.Drawing.Size(230, 22);
+            this.pictureBoxBottomPanelMenuInfoDB.TabIndex = 1;
+            this.pictureBoxBottomPanelMenuInfoDB.TabStop = false;
+            // 
+            // pictureBoxTopPanelMenuInfoDB
+            // 
+            this.pictureBoxTopPanelMenuInfoDB.BackgroundImage = global::WhoIs.Properties.Resources.Dividing_line;
+            this.pictureBoxTopPanelMenuInfoDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxTopPanelMenuInfoDB.ErrorImage = null;
+            this.pictureBoxTopPanelMenuInfoDB.InitialImage = null;
+            this.pictureBoxTopPanelMenuInfoDB.Location = new System.Drawing.Point(4, 3);
+            this.pictureBoxTopPanelMenuInfoDB.Name = "pictureBoxTopPanelMenuInfoDB";
+            this.pictureBoxTopPanelMenuInfoDB.Size = new System.Drawing.Size(230, 22);
+            this.pictureBoxTopPanelMenuInfoDB.TabIndex = 0;
+            this.pictureBoxTopPanelMenuInfoDB.TabStop = false;
+            // 
+            // panelLogo
+            // 
+            this.panelLogo.BackColor = System.Drawing.Color.Transparent;
+            this.panelLogo.BackgroundImage = global::WhoIs.Properties.Resources.WIPE_text;
+            this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panelLogo.Location = new System.Drawing.Point(21, 0);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(195, 36);
+            this.panelLogo.TabIndex = 6;
+            // 
             // labelStatus
             // 
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatus.AutoSize = true;
             this.labelStatus.Location = new System.Drawing.Point(12, 389);
             this.labelStatus.Name = "labelStatus";
@@ -350,6 +398,49 @@ namespace WhoIs
             this.buttonClose.TabStop = false;
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
+            // labelMenuInfo
+            // 
+            this.labelMenuInfo.AutoSize = true;
+            this.labelMenuInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.labelMenuInfo.Location = new System.Drawing.Point(11, 31);
+            this.labelMenuInfo.Name = "labelMenuInfo";
+            this.labelMenuInfo.Size = new System.Drawing.Size(130, 65);
+            this.labelMenuInfo.TabIndex = 2;
+            this.labelMenuInfo.Text = "Если данные верны, но \r\nника нет в базе данных:\r\nпопроси в дискорде \r\nаббатов или" +
+    " командира\r\nдобавить тебя в базу. \r\n";
+            // 
+            // buttonCheckRegistryData
+            // 
+            this.buttonCheckRegistryData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.buttonCheckRegistryData.FlatAppearance.BorderSize = 0;
+            this.buttonCheckRegistryData.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(77)))), ((int)(((byte)(83)))));
+            this.buttonCheckRegistryData.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(67)))), ((int)(((byte)(73)))));
+            this.buttonCheckRegistryData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCheckRegistryData.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonCheckRegistryData.Location = new System.Drawing.Point(152, 33);
+            this.buttonCheckRegistryData.Name = "buttonCheckRegistryData";
+            this.buttonCheckRegistryData.Size = new System.Drawing.Size(70, 30);
+            this.buttonCheckRegistryData.TabIndex = 4;
+            this.buttonCheckRegistryData.Text = "Проверить";
+            this.buttonCheckRegistryData.UseVisualStyleBackColor = false;
+            this.buttonCheckRegistryData.Click += new System.EventHandler(this.ButtonCheckRegistryData_Click);
+            // 
+            // buttonInfoAdmin
+            // 
+            this.buttonInfoAdmin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
+            this.buttonInfoAdmin.FlatAppearance.BorderSize = 0;
+            this.buttonInfoAdmin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(77)))), ((int)(((byte)(83)))));
+            this.buttonInfoAdmin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(67)))), ((int)(((byte)(73)))));
+            this.buttonInfoAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonInfoAdmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonInfoAdmin.Location = new System.Drawing.Point(152, 67);
+            this.buttonInfoAdmin.Name = "buttonInfoAdmin";
+            this.buttonInfoAdmin.Size = new System.Drawing.Size(70, 30);
+            this.buttonInfoAdmin.TabIndex = 5;
+            this.buttonInfoAdmin.Text = "Сообщить";
+            this.buttonInfoAdmin.UseVisualStyleBackColor = false;
+            this.buttonInfoAdmin.Click += new System.EventHandler(this.ButtonInfoAdmin_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,6 +472,10 @@ namespace WhoIs
             this.panelPass.PerformLayout();
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
+            this.panelMenuInfoDB.ResumeLayout(false);
+            this.panelMenuInfoDB.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBottomPanelMenuInfoDB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).EndInit();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
@@ -414,5 +509,11 @@ namespace WhoIs
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panelPass;
         private System.Windows.Forms.Panel panelLogin;
+        private System.Windows.Forms.Panel panelMenuInfoDB;
+        private System.Windows.Forms.PictureBox pictureBoxTopPanelMenuInfoDB;
+        private System.Windows.Forms.PictureBox pictureBoxBottomPanelMenuInfoDB;
+        private System.Windows.Forms.Label labelMenuInfo;
+        private System.Windows.Forms.Button buttonInfoAdmin;
+        private System.Windows.Forms.Button buttonCheckRegistryData;
     }
 }

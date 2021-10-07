@@ -32,7 +32,7 @@ namespace WhoIs
         public FormMain()
         {
             InitializeComponent();
-            // Проверка уже запущенного экземпляра программы и выход
+            // Проверка уже запущенного экземпляра программы и выход если это второй
             if(!InstanceChecker.TakeMemory())
             {
                 // интересно, как развернуть окно, если программа в трее?
@@ -93,10 +93,15 @@ namespace WhoIs
             #endregion
             #endregion
 
-            // Панель авторизации - координаты за пределами формы
+            // Панели авторизации и информации - координаты за пределами формы
+            #region
             panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X - panelMenuAutorize.Width, panelMenuLeft.Location.Y + 37);
+            panelMenuAutorize.Hide();
+            panelMenuInfoDB.Location = new Point(panelMenuLeft.Location.X - panelMenuInfoDB.Width, panelMenuLeft.Location.Y + 37);
+            panelMenuInfoDB.Hide();
+            #endregion
 
-            // Устанавливаем реакции на мышку контролам панели авторизации
+            // Устанавливаем реакции на мышку контролам панелей авторизации и информации
             #region
             new List<Control> { panelLogin, labelLogin, textBoxLogin }.ForEach(x =>
             {
@@ -106,11 +111,14 @@ namespace WhoIs
             {
                 x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Пароль для входа в программу"; };
             });
-            new List<Control> { buttonLogin }.ForEach(x =>
+            //new List<Control> { buttonLogin }.ForEach(x =>
+            //{
+            //    x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
+            //});
+            new List<Control> { buttonLogin, buttonInfoAdmin, buttonCheckRegistryData }.ForEach(x =>
             {
                 x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
             });
-
             new List<Control> { panelLogin, labelLogin, textBoxLogin, panelPass, labelPass, textBoxPass, buttonLogin }.ForEach(x =>
             {
                 x.MouseLeave += (s, e) => { labelLoginDescription.Text = ""; };
@@ -127,9 +135,8 @@ namespace WhoIs
             // Инициализация вотчера ED-событий
             this.InitWatcher();
 
-            // Авторизируемся
+            // Авторизация в программе и базе данных
             Authorization();
-            
             textBoxLogin.Text = RegistryData.Login();
             textBoxPass.Text = RegistryData.Password();
         }
@@ -308,6 +315,25 @@ namespace WhoIs
             Authorization();
         }
 
+        // Клик по кнопке "Проверить"
+        private void ButtonCheckRegistryData_Click(object sender, EventArgs e)
+        {
+            // Скрываем информационную панель базы данных
+            if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
+                HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+            // Показываем панель авторизации
+            if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+            ControlView.Warning(labelStatus);
+            labelStatus.Text = "Требуется авторизация!";
+        }
+
+        // Клик по кнопке "Сообщить"
+        private void ButtonInfoAdmin_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.com/channels/742092065705558046/763418573879246849");
+        }
+
         // Авторизация в программе
         private void Authorization()
         {
@@ -315,55 +341,88 @@ namespace WhoIs
             RegistryData.LoadRegistrationData();
             textBoxLogin.Text = RegistryData.Login();
             textBoxPass.Text = RegistryData.Password();
+            // Кнопка входа неактивна пока не введены данные в поля
             SetButtonLoginState();
             // Если нет логина или пароля в реестре -
             if(RegistryData.Login()=="" || RegistryData.Password() == "" || RegistryData.Login() == null || RegistryData.Password() == null)
             {
                 // Выводим панель заполнения формы регистрации
                 if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
-                    ShowPanel(panelMenuAutorize, panelMenuLeft);
+                    ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                 ControlView.Warning(labelStatus);
                 labelStatus.Text = "Требуется авторизация!";
             }
+            // Если в реестре есть логин и пароль -
+            // проверим их по базе данных
             else
             {
-                if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
-                    HidePanel(panelMenuAutorize, panelMenuLeft);
-                ControlView.Normal(labelStatus);
-                labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\", пароль: {RegistryData.Password()}";
+                // Если нет связи с базой
+                if(!RegistryData.CheckConnectionOnDB())
+                {
+                    // Выводим панель заполнения формы регистрации
+                    if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                        ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                    ControlView.Warning(labelStatus);
+                    labelStatus.Text = $"Нет связи с базой данных";
+                    return;
+                }
+                // Если логина или пароля нет в базе, или они не совпадают с базой
+                if(!RegistryData.CheckLoginInDB() || !RegistryData.CheckPasswordInDB())
+                {
+                    // Скрываем панель авторизации
+                    if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                    // Показываем информационную панель базы данных
+                    if(panelMenuInfoDB.Location.X < panelMenuLeft.Location.X)
+                        ShowPanel(panelMenuInfoDB, panelMenuLeft, 4);
+                    ControlView.Warning(labelStatus);
+                    labelStatus.Text = 
+                        !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
+                        $"Не правильный пароль для {RegistryData.Login()}";
+                }
+                // Если логин и пароль совпадают с базой данных -
+                // скрываем все панели и продолжаем работу с программой
+                else
+                {
+                    if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+                    if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                    ControlView.Normal(labelStatus);
+                    labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}";
+                }
             }
         }
 
         // Показывает панель
-        private async void ShowPanel(Panel panel, Panel parent)
+        private async void ShowPanel(Panel panel, Panel parent, int slowdown)
         {
+            if(panel.Location.X < parent.Location.X)
+                panel.Show();
             while(panel.Location.X < parent.Location.X)
             {
                 await Task.Delay(1);
-                int x = Math.Abs(panel.Location.X) / 4;
-                if(x == 0)
-                    x = 1;
-                panel.Location = new Point(panel.Location.X + x, panel.Location.Y);
+                panel.Location = new Point(panel.Location.X + 
+                    (Math.Abs(panel.Location.X) / slowdown > 0 ? 
+                     Math.Abs(panel.Location.X) / slowdown : 1), panel.Location.Y);
             }
             if(panel.Location.X != parent.Location.X)
                 panel.Location = new Point(parent.Location.X, panel.Location.Y);
         }
         // Скрывает панель
-        private async void HidePanel(Panel panel, Panel parent)
+        private async void HidePanel(Panel panel, Panel parent, int slowdown)
         {
-            int x = 0;
             while(panel.Location.X >= parent.Location.X - panel.Width)
             {
                 await Task.Delay(1);
-                x = (panel.Width - Math.Abs(panel.Location.X)) / 4;
-                if(x == 0)
-                    x = 1;
-                panel.Location = new Point(panel.Location.X - x, panel.Location.Y);
-                labelStatus.Text = panel.Location.X.ToString();
+                panel.Location = new Point(panel.Location.X -
+                    ((panel.Width - Math.Abs(panel.Location.X)) / slowdown > 0 ? 
+                     (panel.Width - Math.Abs(panel.Location.X)) / slowdown : 1), panel.Location.Y);
             }
             if(panel.Location.X != parent.Location.X - panel.Width)
                 panel.Location = new Point(parent.Location.X - panel.Width, panel.Location.Y);
-            MessageBox.Show("OK");
+            panel.Hide();
+            //MessageBox.Show("OK");
         }
 
         // Состояние кнопки входа в зависимостиот состояния полей ввода логина и пароля

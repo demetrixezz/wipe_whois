@@ -65,11 +65,6 @@ namespace WhoIs
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
                 RegKey.DeleteValue("Login", false);
         }
-        ///*<summary> Проверяет наличие логина в базе данных </summary>*/
-        private static bool CheckLoginInDB()
-        {
-            return true;
-        }
 
         ///*<summary> Записывает пароль в реестр </summary>*/
         private static void SavePassword()
@@ -92,10 +87,22 @@ namespace WhoIs
                 RegKey.DeleteValue("Password", true);
         }
 
-        ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/
-        private static bool CheckPasswordInDB()
+
+        ///*<summary> Проверяет связь с базой данных </summary>*/
+        public static bool CheckConnectionOnDB()
         {
-            return false;
+            return true;
+        }
+
+        ///*<summary> Проверяет наличие логина в базе данных </summary>*/
+        public static bool CheckLoginInDB()
+        {
+            return true;
+        }
+        ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/
+        public static bool CheckPasswordInDB()
+        {
+            return true;
         }
     }
 }
