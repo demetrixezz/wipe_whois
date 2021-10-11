@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WhoIs.DataManagers;
 
 namespace WhoIs
 {
@@ -97,12 +98,13 @@ namespace WhoIs
         ///*<summary> Проверяет наличие логина в базе данных </summary>*/
         public static bool CheckLoginInDB()
         {
-            return false;
+            return UsersDataManager.CheckUserLogin(login);
+            
         }
         ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/
         public static bool CheckPasswordInDB()
         {
-            return true;
+            return UsersDataManager.CheckUserLoginAndPass(login, password);
         }
     }
 }
