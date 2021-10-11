@@ -28,7 +28,7 @@ namespace WhoIs.DataManagers
 			var cmd = @"SELECT count(*) FROM Users u
 						where u.NickName = @Login";
 			
-			// выполнение звпроса
+			// выполнение запроса
 			var resultCount = Convert.ToInt32(SqlHelper.ExecuteScalar(connectionString, CommandType.Text, cmd, loginParam));
 			
 			// проверка результата

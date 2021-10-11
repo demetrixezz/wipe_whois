@@ -202,7 +202,7 @@ chechinskiy (Михаил)
 
 "Архиепископ"
 -----------------
-Wild Priest
+Wild Priest (псевдоним = W|ld Priest)
 
 
 */
