@@ -25,10 +25,11 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
+        bool   authorized;
 
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
-
+        edPlayer Player = null;
         public FormMain()
         {
             InitializeComponent();
@@ -136,9 +137,28 @@ namespace WhoIs
             this.InitWatcher();
 
             // Авторизация в программе и базе данных
-            Authorization();
-            textBoxLogin.Text = RegistryData.Login();
-            textBoxPass.Text = RegistryData.Password();
+            // Создаём экземпляр класса игрока
+            Player = new edPlayer();
+            authorized = Authorization();
+            if(authorized)
+            {
+                Player.CollectLogFilesAll(PathToLogs);
+                foreach(LogFile log_file in Player.GetListLogFiles())
+                {
+                    for(int i = 0; i < log_file.LinesCount(); i++)
+                    {
+                        string line=log_file.Line(i);
+                        if(line.Contains("LoadGame"))
+                        {
+                            string pilot=Player.PilotName(line);
+                            string squadron=Player.SquadronName(line);
+                            listBox1.Items.Add(pilot + " : " + Player.EventTime(line).ToString()+" "+squadron);
+                        }
+                    }
+                    
+                    
+                }
+            }
         }
 
         // Инициализация вотчера ED-событий
@@ -335,7 +355,7 @@ namespace WhoIs
         }
 
         // Авторизация в программе
-        private void Authorization()
+        private bool Authorization()
         {
             // Загружаем рагистрационные данные из реестра и вписываем их в поля ввода
             RegistryData.LoadRegistrationData();
@@ -351,6 +371,7 @@ namespace WhoIs
                     ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                 ControlView.Warning(labelStatus);
                 labelStatus.Text = "Требуется авторизация!";
+                return false;
             }
             // Если в реестре есть логин и пароль -
             // проверим их по базе данных
@@ -364,7 +385,7 @@ namespace WhoIs
                         ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                     ControlView.Warning(labelStatus);
                     labelStatus.Text = $"Нет связи с базой данных";
-                    return;
+                    return false;
                 }
                 // Если логина или пароля нет в базе, или они не совпадают с базой
                 if(!RegistryData.CheckLoginInDB() || !RegistryData.CheckPasswordInDB())
@@ -379,6 +400,7 @@ namespace WhoIs
                     labelStatus.Text = 
                         !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
                         $"Не правильный пароль для {RegistryData.Login()}";
+                    return false;
                 }
                 // Если логин и пароль совпадают с базой данных -
                 // скрываем все панели и продолжаем работу с программой
@@ -389,7 +411,8 @@ namespace WhoIs
                     if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
                         HidePanel(panelMenuAutorize, panelMenuLeft, 8);
                     ControlView.Normal(labelStatus);
-                    labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}";
+                    labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\"";
+                    return true;
                 }
             }
         }
@@ -440,7 +463,6 @@ namespace WhoIs
             SetButtonLoginState();
         }
         #endregion
-
 
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)

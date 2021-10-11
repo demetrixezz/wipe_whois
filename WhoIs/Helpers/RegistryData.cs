@@ -97,7 +97,7 @@ namespace WhoIs
         ///*<summary> Проверяет наличие логина в базе данных </summary>*/
         public static bool CheckLoginInDB()
         {
-            return true;
+            return false;
         }
         ///*<summary> Проверяет совпадение пароля с базой данных </summary>*/
         public static bool CheckPasswordInDB()

@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="edPlayer.cs" />
     <Compile Include="Helpers\EasingEquations.cs" />
     <Compile Include="Helpers\RegistryData.cs" />
     <Compile Include="DataManagers\BaseDataManager.cs" />
