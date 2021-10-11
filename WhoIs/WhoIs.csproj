@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="edPlayer.cs" />
+    <Compile Include="Helpers\EasingEquations.cs" />
+    <Compile Include="Helpers\RegistryData.cs" />
     <Compile Include="DataManagers\BaseDataManager.cs" />
     <Compile Include="DataManagers\ScanDataManager.cs" />
     <Compile Include="EliteJournalReader\BioData.cs" />
@@ -419,9 +422,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Dividing line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ViewLists.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CrossClose.png" />

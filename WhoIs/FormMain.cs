@@ -25,17 +25,15 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-        // Login - имя пилота = логин
-        string Login="";
-        bool Autorized=false;
+        bool   authorized;
 
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
-
+        edPlayer Player = null;
         public FormMain()
         {
             InitializeComponent();
-            // Проверка уже запущенного экземпляра программы и выход
+            // Проверка уже запущенного экземпляра программы и выход если это второй
             if(!InstanceChecker.TakeMemory())
             {
                 // интересно, как развернуть окно, если программа в трее?
@@ -62,7 +60,7 @@ namespace WhoIs
             });
             // Рисуем фон формы
             #region
-            Color clr1 = Color.FromArgb(47, 49, 54);
+            Color clr1 = Color.FromArgb(32, 34, 37);
             Color clr2 = Color.FromArgb(54, 57, 63);
             Color clr3 = Color.FromArgb(54, 57, 63);
             Color clr4 = Color.FromArgb(54, 57, 63);
@@ -96,6 +94,38 @@ namespace WhoIs
             #endregion
             #endregion
 
+            // Панели авторизации и информации - координаты за пределами формы
+            #region
+            panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X - panelMenuAutorize.Width, panelMenuLeft.Location.Y + 37);
+            panelMenuAutorize.Hide();
+            panelMenuInfoDB.Location = new Point(panelMenuLeft.Location.X - panelMenuInfoDB.Width, panelMenuLeft.Location.Y + 37);
+            panelMenuInfoDB.Hide();
+            #endregion
+
+            // Устанавливаем реакции на мышку контролам панелей авторизации и информации
+            #region
+            new List<Control> { panelLogin, labelLogin, textBoxLogin }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Логин должен совпадать с игровым"; };
+            });
+            new List<Control> { panelPass, labelPass, textBoxPass }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Пароль для входа в программу"; };
+            });
+            //new List<Control> { buttonLogin }.ForEach(x =>
+            //{
+            //    x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
+            //});
+            new List<Control> { buttonLogin, buttonInfoAdmin, buttonCheckRegistryData }.ForEach(x =>
+            {
+                x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
+            });
+            new List<Control> { panelLogin, labelLogin, textBoxLogin, panelPass, labelPass, textBoxPass, buttonLogin }.ForEach(x =>
+            {
+                x.MouseLeave += (s, e) => { labelLoginDescription.Text = ""; };
+            });
+            #endregion
+
             // Загружаем настройки программы из реестра
             SettingsLoad();
         }
@@ -105,6 +135,30 @@ namespace WhoIs
         {
             // Инициализация вотчера ED-событий
             this.InitWatcher();
+
+            // Авторизация в программе и базе данных
+            // Создаём экземпляр класса игрока
+            Player = new edPlayer();
+            authorized = Authorization();
+            if(authorized)
+            {
+                Player.CollectLogFilesAll(PathToLogs);
+                foreach(LogFile log_file in Player.GetListLogFiles())
+                {
+                    for(int i = 0; i < log_file.LinesCount(); i++)
+                    {
+                        string line=log_file.Line(i);
+                        if(line.Contains("LoadGame"))
+                        {
+                            string pilot=Player.PilotName(line);
+                            string squadron=Player.SquadronName(line);
+                            listBox1.Items.Add(pilot + " : " + Player.EventTime(line).ToString()+" "+squadron);
+                        }
+                    }
+                    
+                    
+                }
+            }
         }
 
         // Инициализация вотчера ED-событий
@@ -159,8 +213,6 @@ namespace WhoIs
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
-                if(Autorized)
-                    RegKey.SetValue("Login", Login, RegistryValueKind.String);
             }
         }
 
@@ -172,9 +224,6 @@ namespace WhoIs
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
-                this.Login = (RegKey.GetValue("Login") !=null ? Convert.ToString(RegKey.GetValue("Login")) : "");
-                this.Autorized = (this.Login != "" ? true : false);
-                labelTest.Text = "Login = \"" + Login + "\" autorized = "+ Autorized.ToString();
             }
         }
         
@@ -257,6 +306,163 @@ namespace WhoIs
             public override Color MenuItemSelected => Color.FromArgb(64, 67, 73);
             public override Color MenuItemBorder => Color.FromArgb(56, 59, 65);
         }
+
+        // Внешний вид и поведение текстовой метки
+        public static class ControlView
+        {
+            public static void Normal(Label lbl)
+            {
+                lbl.ForeColor = Color.FromArgb(171, 171, 171);
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+            }
+            public static void Warning(Label lbl)
+            {
+                lbl.ForeColor = Color.FromArgb(230, 36, 55);
+                lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
+                lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(240, 46, 65); };
+                lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(250, 56, 75); };
+                lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
+            }
+        }
+    
+        // Клик по кнопке "Войти в программу"
+        private void ButtonLogin_Click(object sender, EventArgs e)
+        {
+            RegistryData.SaveRegistrationData(textBoxLogin.Text, textBoxPass.Text);
+            Authorization();
+        }
+
+        // Клик по кнопке "Проверить"
+        private void ButtonCheckRegistryData_Click(object sender, EventArgs e)
+        {
+            // Скрываем информационную панель базы данных
+            if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
+                HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+            // Показываем панель авторизации
+            if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+            ControlView.Warning(labelStatus);
+            labelStatus.Text = "Требуется авторизация!";
+        }
+
+        // Клик по кнопке "Сообщить"
+        private void ButtonInfoAdmin_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.com/channels/742092065705558046/763418573879246849");
+        }
+
+        // Авторизация в программе
+        private bool Authorization()
+        {
+            // Загружаем рагистрационные данные из реестра и вписываем их в поля ввода
+            RegistryData.LoadRegistrationData();
+            textBoxLogin.Text = RegistryData.Login();
+            textBoxPass.Text = RegistryData.Password();
+            // Кнопка входа неактивна пока не введены данные в поля
+            SetButtonLoginState();
+            // Если нет логина или пароля в реестре -
+            if(RegistryData.Login()=="" || RegistryData.Password() == "" || RegistryData.Login() == null || RegistryData.Password() == null)
+            {
+                // Выводим панель заполнения формы регистрации
+                if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                    ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                ControlView.Warning(labelStatus);
+                labelStatus.Text = "Требуется авторизация!";
+                return false;
+            }
+            // Если в реестре есть логин и пароль -
+            // проверим их по базе данных
+            else
+            {
+                // Если нет связи с базой
+                if(!RegistryData.CheckConnectionOnDB())
+                {
+                    // Выводим панель заполнения формы регистрации
+                    if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
+                        ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                    ControlView.Warning(labelStatus);
+                    labelStatus.Text = $"Нет связи с базой данных";
+                    return false;
+                }
+                // Если логина или пароля нет в базе, или они не совпадают с базой
+                if(!RegistryData.CheckLoginInDB() || !RegistryData.CheckPasswordInDB())
+                {
+                    // Скрываем панель авторизации
+                    if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                    // Показываем информационную панель базы данных
+                    if(panelMenuInfoDB.Location.X < panelMenuLeft.Location.X)
+                        ShowPanel(panelMenuInfoDB, panelMenuLeft, 4);
+                    ControlView.Warning(labelStatus);
+                    labelStatus.Text = 
+                        !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
+                        $"Не правильный пароль для {RegistryData.Login()}";
+                    return false;
+                }
+                // Если логин и пароль совпадают с базой данных -
+                // скрываем все панели и продолжаем работу с программой
+                else
+                {
+                    if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+                    if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
+                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                    ControlView.Normal(labelStatus);
+                    labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\"";
+                    return true;
+                }
+            }
+        }
+
+        // Показывает панель
+        private async void ShowPanel(Panel panel, Panel parent, int slowdown)
+        {
+            if(panel.Location.X < parent.Location.X)
+                panel.Show();
+            while(panel.Location.X < parent.Location.X)
+            {
+                await Task.Delay(1);
+                panel.Location = new Point(panel.Location.X + 
+                    (Math.Abs(panel.Location.X) / slowdown > 0 ? 
+                     Math.Abs(panel.Location.X) / slowdown : 1), panel.Location.Y);
+            }
+            if(panel.Location.X != parent.Location.X)
+                panel.Location = new Point(parent.Location.X, panel.Location.Y);
+        }
+        // Скрывает панель
+        private async void HidePanel(Panel panel, Panel parent, int slowdown)
+        {
+            while(panel.Location.X >= parent.Location.X - panel.Width)
+            {
+                await Task.Delay(1);
+                panel.Location = new Point(panel.Location.X -
+                    ((panel.Width - Math.Abs(panel.Location.X)) / slowdown > 0 ? 
+                     (panel.Width - Math.Abs(panel.Location.X)) / slowdown : 1), panel.Location.Y);
+            }
+            if(panel.Location.X != parent.Location.X - panel.Width)
+                panel.Location = new Point(parent.Location.X - panel.Width, panel.Location.Y);
+            panel.Hide();
+            //MessageBox.Show("OK");
+        }
+
+        // Состояние кнопки входа в зависимостиот состояния полей ввода логина и пароля
+        #region
+        private void SetButtonLoginState()
+        {
+            buttonLogin.Enabled = (textBoxLogin.Text.Length > 2 && textBoxPass.Text.Length > 3 ? true : false);
+        }
+        private void TextBoxLogin_TextChanged(object sender, EventArgs e)
+        {
+            SetButtonLoginState();
+        }
+        private void TextBoxPass_TextChanged(object sender, EventArgs e)
+        {
+            SetButtonLoginState();
+        }
+        #endregion
 
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
