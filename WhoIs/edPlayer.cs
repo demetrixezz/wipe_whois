@@ -165,8 +165,12 @@ namespace WhoIs
             this.log_files_list.Sort(); 
             this.CreateNewPilot(name); 
         }
-        
-        // Создаёт новый объект "Пилот"
+
+        /// <summary>
+        /// Создаёт новый объект "Пилот"
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool CreateNewPilot(string name)
         {
             PilotData pilot=new PilotData(name);
@@ -175,6 +179,7 @@ namespace WhoIs
             this.AddNewPilot(pilot);
             return true;
         }
+
         protected void AddNewPilot(PilotData pilot)
         {
             if(!this.pilots_list.Contains(pilot))
@@ -190,7 +195,11 @@ namespace WhoIs
         }
         public List<LogFile> GetListLogFiles() { return this.log_files_list; }
 
-        // Создаёт список всех лог-файлов игры за всё время (Альфа не учитывается)
+        /// <summary>
+        /// Создаёт список всех лог-файлов игры за всё время (Альфа не учитывается)
+        /// </summary>
+        /// <param name="path_to_logs"></param>
+        /// <returns></returns>
         public bool CollectLogFilesAll(string path_to_logs)
         {
             //список всех файлов с расширением log
@@ -203,14 +212,22 @@ namespace WhoIs
             return this.log_files_list.Count>0;
         }
 
-        // Возвращает из строки имя пилота
+        /// <summary>
+        /// Возвращает из строки имя пилота
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public string PilotName(string line)
         {
             int beg = line.IndexOf("Commander")+12;
             int end = line.IndexOf(",", beg);
             return line.Substring(beg, end - beg - 1);
         }
-        // Возвращает из строки время события
+        /// <summary>
+        /// Возвращает из строки время события
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public DateTime EventTime(string line)
         {
             int beg = line.IndexOf("timestamp")+12;
@@ -218,7 +235,11 @@ namespace WhoIs
             string time = line.Substring(beg, end - beg);
             return DateTime.Parse(time,null,DateTimeStyles.AdjustToUniversal);
         }
-        // Возвращает из строки имя эскадры
+        /// <summary>
+        /// Возвращает из строки имя эскадры
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public string SquadronName(string line)
         {
             int beg = line.IndexOf("SquadronName")+15;
