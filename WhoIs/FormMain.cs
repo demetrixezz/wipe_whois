@@ -25,7 +25,10 @@ namespace WhoIs
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
+        // Флаг успешной авторизации
         bool   authorized;
+        // Флаг полного считывания истории журналов
+        bool   journal_done;
 
         // Создаём экземпляр вотчера событий
         JournalWatcher edWatcher = null;
@@ -140,10 +143,7 @@ namespace WhoIs
             // Создаём экземпляр класса игрока
             Player = new edPlayer();
             authorized = Authorization();
-            if(authorized)
-            {
-                Player.History(PathToLogs);
-            }
+
         }
 
         // Инициализация вотчера ED-событий
@@ -356,6 +356,7 @@ namespace WhoIs
                     ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                 ControlView.Warning(labelStatus);
                 labelStatus.Text = "Требуется авторизация!";
+                this.authorized = false;
                 return false;
             }
             // Если в реестре есть логин и пароль -
@@ -370,6 +371,7 @@ namespace WhoIs
                         ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                     ControlView.Warning(labelStatus);
                     labelStatus.Text = $"Нет связи с базой данных";
+                    this.authorized = false;
                     return false;
                 }
                 // Если логина или пароля нет в базе, или они не совпадают с базой
@@ -385,6 +387,7 @@ namespace WhoIs
                     labelStatus.Text = 
                         !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
                         $"Не правильный пароль для {RegistryData.Login()}";
+                    this.authorized = false;
                     return false;
                 }
                 // Если логин и пароль совпадают с базой данных -
@@ -397,6 +400,8 @@ namespace WhoIs
                         HidePanel(panelMenuAutorize, panelMenuLeft, 8);
                     ControlView.Normal(labelStatus);
                     labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\"";
+                    this.authorized = true;
+                    Player.History(PathToLogs);
                     return true;
                 }
             }

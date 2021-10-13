@@ -210,6 +210,7 @@ namespace WhoIs
         private List<PilotData>     pilots_list = new List<PilotData>(10);
         private List<LogFile>       log_files_list = new List<LogFile>();
         private List<JournalEvent>  events_list = new List<JournalEvent>();
+        private bool                history_completed;
         // Конструкторы
         public edPlayer() 
         { 
@@ -223,6 +224,9 @@ namespace WhoIs
             this.CreateNewPilot(name); 
         }
 
+        
+        public bool IsHistoryCompleted() { return this.history_completed; }
+        
         /// <summary>
         /// Создаёт новый объект "Пилот"
         /// </summary>
@@ -307,13 +311,26 @@ namespace WhoIs
         /// <returns></returns>
         public int PilotsCount() { return this.pilots_list.Count; }
 
+        /// <summary>
+        /// Обрабатывает файлы журналов и собирает интересные события игрока
+        /// </summary>
+        /// <param name="path_to_logs"></param>
+        public async void History(string path_to_logs)
+        {
+            MessageBox.Show("Запускаю чтение истории");
+            await Task.Run(()=> { return this.CollectHistory(path_to_logs); });
+        }
         
-        public void History(string path_to_logs)
+        protected bool CollectHistory(string path_to_logs)
         {
             if(this.CollectLogFilesAll(path_to_logs))
             {
-
+                this.history_completed = true;
+                MessageBox.Show("История прочитана");
+                return true;
             }
+            this.history_completed = false;
+            return false;
         }
         
         /// <summary>

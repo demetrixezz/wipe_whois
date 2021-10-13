@@ -181,8 +181,8 @@ namespace WhoIs
             // 
             this.panelMenuLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
             this.panelMenuLeft.Controls.Add(this.panelLogo);
-            this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
             this.panelMenuLeft.Controls.Add(this.panelMenuInfoDB);
+            this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
             this.panelMenuLeft.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLeft.Name = "panelMenuLeft";
             this.panelMenuLeft.Size = new System.Drawing.Size(236, 378);
@@ -205,7 +205,7 @@ namespace WhoIs
             this.panelMenuAutorize.Controls.Add(this.panelLogin);
             this.panelMenuAutorize.Controls.Add(this.labelLoginDescription);
             this.panelMenuAutorize.Controls.Add(this.buttonLogin);
-            this.panelMenuAutorize.Location = new System.Drawing.Point(0, 37);
+            this.panelMenuAutorize.Location = new System.Drawing.Point(230, 37);
             this.panelMenuAutorize.Name = "panelMenuAutorize";
             this.panelMenuAutorize.Size = new System.Drawing.Size(236, 130);
             this.panelMenuAutorize.TabIndex = 7;
@@ -307,7 +307,7 @@ namespace WhoIs
             this.panelMenuInfoDB.Controls.Add(this.labelMenuInfo);
             this.panelMenuInfoDB.Controls.Add(this.pictureBoxBottomPanelMenuInfoDB);
             this.panelMenuInfoDB.Controls.Add(this.pictureBoxTopPanelMenuInfoDB);
-            this.panelMenuInfoDB.Location = new System.Drawing.Point(0, 37);
+            this.panelMenuInfoDB.Location = new System.Drawing.Point(230, 37);
             this.panelMenuInfoDB.Name = "panelMenuInfoDB";
             this.panelMenuInfoDB.Size = new System.Drawing.Size(236, 130);
             this.panelMenuInfoDB.TabIndex = 8;
