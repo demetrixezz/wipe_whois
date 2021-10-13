@@ -62,12 +62,14 @@ namespace WhoIs
         private DateTime    time_last;
         // Конструкторы
         public              PilotData()
-        { 
+        {
+            this.squadrons_list = new List<SquadronData>();
             this.squadrons_list.Sort();   
             this.name = ""; 
         }
         public              PilotData(string name)
         { 
+            this.squadrons_list = new List<SquadronData>();
             this.squadrons_list.Sort(); 
             this.Name(name); 
         }
@@ -166,7 +168,6 @@ namespace WhoIs
         JOURNAL_EVENT_GAME_ENTRY_WRONG_NAME,    // Вход в игру под другим именем
     };
 
-
     public class JournalEvent
     {
         private ENUM_JOURNAL_EVENT  jevent;
@@ -201,7 +202,6 @@ namespace WhoIs
         }
     }
 
-
     /// <summary>
     /// Класс "Игрок" описывает игрока - имена его пилотов, присутствие в эскадрах
     /// </summary>
@@ -210,23 +210,20 @@ namespace WhoIs
         private List<PilotData>     pilots_list = new List<PilotData>(10);
         private List<LogFile>       log_files_list = new List<LogFile>();
         private List<JournalEvent>  events_list = new List<JournalEvent>();
-        private bool                history_completed;
+        public bool                 HistoryCompleted;
         // Конструкторы
         public edPlayer() 
         { 
             this.pilots_list.Sort(); 
             this.log_files_list.Sort(); 
         }
-        public edPlayer(string name) 
-        { 
-            this.pilots_list.Sort(); 
-            this.log_files_list.Sort(); 
-            this.CreateNewPilot(name); 
-        }
+        //public edPlayer(string name) 
+        //{ 
+        //    this.pilots_list.Sort(); 
+        //    this.log_files_list.Sort(); 
+        //    this.CreateNewPilot(name); 
+        //}
 
-        
-        public bool IsHistoryCompleted() { return this.history_completed; }
-        
         /// <summary>
         /// Создаёт новый объект "Пилот"
         /// </summary>
@@ -234,7 +231,7 @@ namespace WhoIs
         /// <returns></returns>
         public bool CreateNewPilot(string name)
         {
-            PilotData pilot=new PilotData(name);
+            PilotData pilot = new PilotData(name);
             if(pilot is null)
                 return false;
             this.AddNewPilot(pilot);
@@ -315,22 +312,24 @@ namespace WhoIs
         /// Обрабатывает файлы журналов и собирает интересные события игрока
         /// </summary>
         /// <param name="path_to_logs"></param>
-        public async void History(string path_to_logs)
+        async public void History(string path_to_logs)
         {
             MessageBox.Show("Запускаю чтение истории");
-            await Task.Run(()=> { return this.CollectHistory(path_to_logs); });
+            await Task.Run(()=> 
+            { 
+                CollectHistory(path_to_logs);
+                HistoryCompleted = true;
+            });
         }
         
-        protected bool CollectHistory(string path_to_logs)
+        protected void CollectHistory(string path_to_logs)
         {
             if(this.CollectLogFilesAll(path_to_logs))
             {
-                this.history_completed = true;
                 MessageBox.Show("История прочитана");
-                return true;
+                return;
             }
-            this.history_completed = false;
-            return false;
+            this.HistoryCompleted = false;
         }
         
         /// <summary>

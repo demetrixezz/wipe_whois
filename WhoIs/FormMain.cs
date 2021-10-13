@@ -26,7 +26,7 @@ namespace WhoIs
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
         // Флаг успешной авторизации
-        bool   authorized;
+        bool   Authorized;
         // Флаг полного считывания истории журналов
         bool   journal_done;
 
@@ -131,6 +131,8 @@ namespace WhoIs
 
             // Загружаем настройки программы из реестра
             SettingsLoad();
+            // Создаём экземпляр класса игрока
+            this.Player = new edPlayer();
         }
         
         // Загрузка формы
@@ -138,14 +140,25 @@ namespace WhoIs
         {
             // Инициализация вотчера ED-событий
             this.InitWatcher();
-
             // Авторизация в программе и базе данных
-            // Создаём экземпляр класса игрока
-            Player = new edPlayer();
-            authorized = Authorization();
-
+            this.Authorized = Authorization();
+            WaitHistoryDone();
         }
 
+        /// <summary>
+        /// Ожидание сигнала о завершении чтения и сохранения лог-файлов в список
+        /// </summary>
+        async public void WaitHistoryDone()
+        {
+            await Task.Run(async ()=>
+            {
+                while(!Player.HistoryCompleted)
+                    await Task.Delay(500);
+            });
+            // Тут вместо мессаги вызвать обработку логов
+            MessageBox.Show("Историю прочитали, надо обработать");
+        }
+        
         // Инициализация вотчера ED-событий 
         private void InitWatcher()
         {
@@ -356,7 +369,7 @@ namespace WhoIs
                     ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                 ControlView.Warning(labelStatus);
                 labelStatus.Text = "Требуется авторизация!";
-                this.authorized = false;
+                this.Authorized = false;
                 return false;
             }
             // Если в реестре есть логин и пароль -
@@ -371,7 +384,7 @@ namespace WhoIs
                         ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
                     ControlView.Warning(labelStatus);
                     labelStatus.Text = $"Нет связи с базой данных";
-                    this.authorized = false;
+                    this.Authorized = false;
                     return false;
                 }
                 // Если логина или пароля нет в базе, или они не совпадают с базой
@@ -387,7 +400,7 @@ namespace WhoIs
                     labelStatus.Text = 
                         !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
                         $"Не правильный пароль для {RegistryData.Login()}";
-                    this.authorized = false;
+                    this.Authorized = false;
                     return false;
                 }
                 // Если логин и пароль совпадают с базой данных -
@@ -400,8 +413,9 @@ namespace WhoIs
                         HidePanel(panelMenuAutorize, panelMenuLeft, 8);
                     ControlView.Normal(labelStatus);
                     labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\"";
-                    this.authorized = true;
-                    Player.History(PathToLogs);
+                    this.Authorized = true;
+                    this.Player.CreateNewPilot(RegistryData.Login());
+                    this.Player.History(PathToLogs);
                     return true;
                 }
             }
@@ -438,7 +452,7 @@ namespace WhoIs
             //MessageBox.Show("OK");
         }
 
-        // Состояние кнопки входа в зависимостиот состояния полей ввода логина и пароля
+        // Состояние кнопки входа в зависимости от состояния полей ввода логина и пароля
         #region
         private void SetButtonLoginState()
         {
