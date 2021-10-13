@@ -59,7 +59,7 @@ namespace WhoIs.DataManagers
 
 			//проверяем надо ли ему восстанавливать пароль
 			var needPassResetCmd = @"SELECT [NeedPassReset] FROM Users u
-									where u.NickName = @Login; AND u.[Password] is null";
+									where u.NickName = @Login;";
 
 			bool needPassReset = Convert.ToBoolean(SqlHelper.ExecuteScalar(connectionString, CommandType.Text, needPassResetCmd, loginParam));
 
