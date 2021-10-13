@@ -142,22 +142,7 @@ namespace WhoIs
             authorized = Authorization();
             if(authorized)
             {
-                Player.CollectLogFilesAll(PathToLogs);
-                foreach(LogFile log_file in Player.GetListLogFiles())
-                {
-                    for(int i = 0; i < log_file.LinesCount(); i++)
-                    {
-                        string line=log_file.Line(i);
-                        if(line.Contains("LoadGame"))
-                        {
-                            string pilot=Player.PilotName(line);
-                            string squadron=Player.SquadronName(line);
-                            listBox1.Items.Add(pilot + " : " + Player.EventTime(line).ToString()+" "+squadron);
-                        }
-                    }
-                    
-                    
-                }
+                Player.History(PathToLogs);
             }
         }
 
