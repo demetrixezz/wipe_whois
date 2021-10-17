@@ -30,9 +30,9 @@ namespace WhoIs
         // Флаг полного считывания истории журналов
         bool   journal_done;
 
-        // Создаём экземпляр вотчера событий
+        // Объявляем экземпляры вотчера событий и игрока
         JournalWatcher edWatcher = null;
-        edPlayer Player = null;
+        edPlayer       Player = null;
         public FormMain()
         {
             InitializeComponent();
@@ -142,7 +142,7 @@ namespace WhoIs
             this.InitWatcher();
             // Авторизация в программе и базе данных
             this.Authorized = Authorization();
-            WaitHistoryDone();
+            this.WaitHistoryDone();
         }
 
         /// <summary>
@@ -157,6 +157,11 @@ namespace WhoIs
             });
             // Тут вместо мессаги вызвать обработку логов
             MessageBox.Show("Историю прочитали, надо обработать");
+            List<JournalEvent> list = Player.EventsList();
+            foreach(JournalEvent evn in list)
+            {
+                listBox1.Items.Add(evn.Description()+" File: "+evn.FileName());
+            }
         }
         
         // Инициализация вотчера ED-событий 
@@ -308,21 +313,23 @@ namespace WhoIs
         // Внешний вид и поведение текстовой метки
         public static class ControlView
         {
-            public static void Normal(Label lbl)
+            public static void Normal(Label lbl, string text="")
             {
                 lbl.ForeColor = Color.FromArgb(171, 171, 171);
                 lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
                 lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(201, 201, 201); };
                 lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
                 lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
+                lbl.Text = text != "" ? text : lbl.Text;
             }
-            public static void Warning(Label lbl)
+            public static void Warning(Label lbl, string text = "")
             {
                 lbl.ForeColor = Color.FromArgb(230, 36, 55);
                 lbl.MouseLeave += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
                 lbl.MouseEnter += (s, a) => { lbl.ForeColor = Color.FromArgb(240, 46, 65); };
                 lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(250, 56, 75); };
                 lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(230, 36, 55); };
+                lbl.Text = text != "" ? text : lbl.Text;
             }
         }
     
@@ -342,8 +349,7 @@ namespace WhoIs
             // Показываем панель авторизации
             if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
                 ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
-            ControlView.Warning(labelStatus);
-            labelStatus.Text = "Требуется авторизация!";
+            ControlView.Warning(labelStatus, "Требуется авторизация!");
         }
 
         // Клик по кнопке "Сообщить"
@@ -367,8 +373,7 @@ namespace WhoIs
                 // Выводим панель заполнения формы регистрации
                 if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
                     ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
-                ControlView.Warning(labelStatus);
-                labelStatus.Text = "Требуется авторизация!";
+                ControlView.Warning(labelStatus, "Требуется авторизация!");
                 this.Authorized = false;
                 return false;
             }
@@ -382,8 +387,7 @@ namespace WhoIs
                     // Выводим панель заполнения формы регистрации
                     if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
                         ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
-                    ControlView.Warning(labelStatus);
-                    labelStatus.Text = $"Нет связи с базой данных";
+                    ControlView.Warning(labelStatus, "Нет связи с базой данных");
                     this.Authorized = false;
                     return false;
                 }
@@ -411,10 +415,10 @@ namespace WhoIs
                         HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
                     if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
                         HidePanel(panelMenuAutorize, panelMenuLeft, 8);
-                    ControlView.Normal(labelStatus);
-                    labelStatus.Text = $"Авторизовано для \"{RegistryData.Login()}\"";
+                    ControlView.Normal(labelStatus, $"Авторизовано для \"{RegistryData.Login()}\"");
                     this.Authorized = true;
-                    this.Player.CreateNewPilot(RegistryData.Login());
+                    //this.Player.CreateNewPilot(RegistryData.Login());
+                    this.Player.PilotCurrent = RegistryData.Login();
                     this.Player.History(PathToLogs);
                     return true;
                 }
