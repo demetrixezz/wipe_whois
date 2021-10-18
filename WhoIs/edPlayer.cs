@@ -396,7 +396,7 @@ namespace WhoIs
         {
             if(this.CollectLogFilesAll(path_to_logs))
             {
-                MessageBox.Show("История прочитана");
+                //MessageBox.Show("История прочитана");
                 SearchPlayerEvents();
                 return;
             }
@@ -587,7 +587,7 @@ namespace WhoIs
                 }
             }
 
-            MessageBox.Show("Собрано "+log_files_list.Count+" файлов");
+            //MessageBox.Show("Собрано "+log_files_list.Count+" файлов");
         }
 
         /// <summary>

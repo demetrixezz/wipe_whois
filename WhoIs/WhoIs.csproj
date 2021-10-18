@@ -77,6 +77,12 @@
   <ItemGroup>
     <Compile Include="DataManagers\UsersDataManager.cs" />
     <Compile Include="edPlayer.cs" />
+    <Compile Include="FormData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormData.Designer.cs">
+      <DependentUpon>FormData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\EasingEquations.cs" />
     <Compile Include="Helpers\HashDataHelper.cs" />
     <Compile Include="Helpers\RegistryData.cs" />
@@ -382,6 +388,9 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Voices\VoiceActor.cs" />
+    <EmbeddedResource Include="FormData.resx">
+      <DependentUpon>FormData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

@@ -80,7 +80,6 @@ namespace WhoIs
             buttonToTray.MouseEnter += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayOver;
             buttonToTray.MouseDown += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTrayDown;
             buttonToTray.MouseLeave += (s, e) => buttonToTray.BackgroundImage = Properties.Resources.ToTray;
-            #endregion
             // Обработка событий мышки для всех текстовых меток панели главной формы (panelFormMain)
             foreach(Label lbl in panelFormMain.Controls.OfType<Label>())
             {
@@ -89,6 +88,8 @@ namespace WhoIs
                 lbl.MouseDown += (s, a) => { lbl.ForeColor = Color.FromArgb(221, 221, 221); };
                 lbl.MouseUp += (s, a) => { lbl.ForeColor = Color.FromArgb(171, 171, 171); };
             }
+            #endregion
+
             // Цвет контекстного меню и определение нового рендера
             #region
             contextMenuStrip.BackColor = Color.FromArgb(54, 57, 63);
@@ -158,7 +159,7 @@ namespace WhoIs
             List<JournalEvent> list = Player.EventsList();
             foreach(JournalEvent evn in list)
             {
-                listBox1.Items.Add(evn.Description()+" File: "+evn.FileName());
+                listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
             }
         }
         
@@ -297,6 +298,7 @@ namespace WhoIs
             Paint += OnPaintEventHandler;
             Invalidate();
         }
+
         // Новый рендерер контекстного меню
         class CMSRenderer : ToolStripProfessionalRenderer
         {
@@ -470,6 +472,19 @@ namespace WhoIs
             SetButtonLoginState();
         }
         #endregion
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            if(!Application.OpenForms.OfType<FormData>().Any())
+                new FormData().Show();
+        }
+
+        // Щелчок по списку меню "Просмотреть списки"
+        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
+        {
+            if(!Application.OpenForms.OfType<FormData>().Any())
+                new FormData().Show();
+        }
 
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
