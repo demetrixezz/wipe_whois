@@ -155,8 +155,6 @@ namespace WhoIs
                 while(!Player.HistoryCompleted)
                     await Task.Delay(500);
             });
-            // Тут вместо мессаги вызвать обработку логов
-            MessageBox.Show("Историю прочитали, надо обработать");
             List<JournalEvent> list = Player.EventsList();
             foreach(JournalEvent evn in list)
             {
