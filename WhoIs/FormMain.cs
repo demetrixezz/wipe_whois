@@ -418,6 +418,7 @@ namespace WhoIs
                     //this.Player.CreateNewPilot(RegistryData.Login());
                     this.Player.PilotCurrent = RegistryData.Login();
                     this.Player.History(PathToLogs);
+                    this.Player.IsAdmin = RegistryData.CheckIsAdmin();
                     return true;
                 }
             }

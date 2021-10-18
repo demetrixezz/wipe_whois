@@ -152,5 +152,10 @@ namespace WhoIs
         {
             return UsersDataManager.CheckUserLoginAndPass(login, password);
         }
+
+        public static bool CheckIsAdmin()
+        {
+            return true;
+        }
     }
 }

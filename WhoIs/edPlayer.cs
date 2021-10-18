@@ -266,6 +266,7 @@ namespace WhoIs
         private List<LogFile>       log_files_list = new List<LogFile>();
         private List<JournalEvent>  events_list = new List<JournalEvent>();
         public bool                 HistoryCompleted;
+        public bool                 IsAdmin = false;
         // Конструкторы
         public edPlayer() 
         { 
