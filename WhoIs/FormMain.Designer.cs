@@ -114,7 +114,7 @@ namespace WhoIs
             this.ToolStripMenuItemClose});
             this.contextMenuStrip.Name = "contextMenuStrip";
             this.contextMenuStrip.ShowImageMargin = false;
-            this.contextMenuStrip.Size = new System.Drawing.Size(166, 120);
+            this.contextMenuStrip.Size = new System.Drawing.Size(166, 98);
             // 
             // ToolStripMenuItemViewLists
             // 

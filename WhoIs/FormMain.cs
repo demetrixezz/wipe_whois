@@ -156,6 +156,7 @@ namespace WhoIs
                 while(!Player.HistoryCompleted)
                     await Task.Delay(500);
             });
+            journal_done = true;
             List<JournalEvent> list = Player.EventsList();
             foreach(JournalEvent evn in list)
             {
@@ -473,14 +474,14 @@ namespace WhoIs
         }
         #endregion
 
-        private void Button2_Click(object sender, EventArgs e)
+        // Щелчок по списку меню "Просмотреть списки"
+        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
         {
             if(!Application.OpenForms.OfType<FormData>().Any())
                 new FormData().Show();
         }
 
-        // Щелчок по списку меню "Просмотреть списки"
-        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             if(!Application.OpenForms.OfType<FormData>().Any())
                 new FormData().Show();
