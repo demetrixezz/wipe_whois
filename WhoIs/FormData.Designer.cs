@@ -37,8 +37,8 @@ namespace WhoIs
             this.labelStatusFormData = new System.Windows.Forms.Label();
             this.panelControlsFormData = new System.Windows.Forms.Panel();
             this.panelMenuFormData = new System.Windows.Forms.Panel();
-            this.buttonSquadrons = new WhoIs.ButtonRounded();
             this.buttonPilots = new WhoIs.ButtonRounded();
+            this.buttonSquadrons = new WhoIs.ButtonRounded();
             this.panelFormDataHead.SuspendLayout();
             this.panelFormData.SuspendLayout();
             this.panelMenuFormData.SuspendLayout();
@@ -121,24 +121,6 @@ namespace WhoIs
             this.panelMenuFormData.Size = new System.Drawing.Size(210, 468);
             this.panelMenuFormData.TabIndex = 0;
             // 
-            // buttonSquadrons
-            // 
-            this.buttonSquadrons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonSquadrons.FlatAppearance.BorderSize = 0;
-            this.buttonSquadrons.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonSquadrons.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonSquadrons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSquadrons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonSquadrons.Location = new System.Drawing.Point(6, 6);
-            this.buttonSquadrons.Name = "buttonSquadrons";
-            this.buttonSquadrons.Size = new System.Drawing.Size(98, 80);
-            this.buttonSquadrons.TabIndex = 0;
-            this.buttonSquadrons.TabStop = false;
-            this.buttonSquadrons.Text = "Эскадры";
-            this.buttonSquadrons.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.buttonSquadrons.UseVisualStyleBackColor = false;
-            this.buttonSquadrons.Click += new System.EventHandler(this.ButtonSquadrons_Click);
-            // 
             // buttonPilots
             // 
             this.buttonPilots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
@@ -149,13 +131,35 @@ namespace WhoIs
             this.buttonPilots.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.buttonPilots.Location = new System.Drawing.Point(108, 6);
             this.buttonPilots.Name = "buttonPilots";
+            this.buttonPilots.RoundedHeight = 12;
+            this.buttonPilots.RoundedWidth = 12;
             this.buttonPilots.Size = new System.Drawing.Size(98, 80);
-            this.buttonPilots.TabIndex = 0;
+            this.buttonPilots.TabIndex = 2;
             this.buttonPilots.TabStop = false;
             this.buttonPilots.Text = "Пилоты";
             this.buttonPilots.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonPilots.UseVisualStyleBackColor = false;
             this.buttonPilots.Click += new System.EventHandler(this.ButtonPilots_Click);
+            // 
+            // buttonSquadrons
+            // 
+            this.buttonSquadrons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonSquadrons.FlatAppearance.BorderSize = 0;
+            this.buttonSquadrons.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonSquadrons.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonSquadrons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSquadrons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonSquadrons.Location = new System.Drawing.Point(6, 6);
+            this.buttonSquadrons.Name = "buttonSquadrons";
+            this.buttonSquadrons.RoundedHeight = 12;
+            this.buttonSquadrons.RoundedWidth = 12;
+            this.buttonSquadrons.Size = new System.Drawing.Size(98, 80);
+            this.buttonSquadrons.TabIndex = 1;
+            this.buttonSquadrons.TabStop = false;
+            this.buttonSquadrons.Text = "Эскадры";
+            this.buttonSquadrons.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonSquadrons.UseVisualStyleBackColor = false;
+            this.buttonSquadrons.Click += new System.EventHandler(this.ButtonSquadrons_Click);
             // 
             // FormData
             // 

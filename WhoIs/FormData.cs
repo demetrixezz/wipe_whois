@@ -127,9 +127,11 @@ namespace WhoIs
             private DataGridView gridView = new DataGridView();
             private Label label = new Label();
             ENUM_DB_DATA_TYPE data_type;
-            
+            private bool wait_for_slide;
+
             public PanelDataGridView(int coord_x, int coord_y, int width, int height, int grid_location_shift_y, ENUM_DB_DATA_TYPE db_data_type)
             {
+                wait_for_slide = false;
                 this.data_type = db_data_type;
                 this.Controls.Add(this.gridView);
                 this.Controls.Add(this.label);
@@ -252,7 +254,6 @@ namespace WhoIs
             /// <returns></returns>
             public ENUM_DB_DATA_TYPE GetDataGridViewDataType() { return this.data_type; }
 
-
             /// <summary>
             /// Показывает панель
             /// </summary>
@@ -261,46 +262,41 @@ namespace WhoIs
             /// <param name="slowdown"></param>
             public async void SlideIn(int slowdown)
             {
-                if(this.Location.X >= this.Parent.Width)
-                    this.Show();
-                while(this.Location.X > 0)
+                this.Show();
+                while(!this.wait_for_slide && this.Location.X > 0)
                 {
+                    this.wait_for_slide = true;
                     await Task.Delay(1);
                     this.Location = new Point(this.Location.X -
                         (Math.Abs(this.Location.X) / slowdown > 0 ?
                          Math.Abs(this.Location.X) / slowdown : 1), this.Location.Y);
+                    this.wait_for_slide = false;
                 }
                 if(this.Location.X != 0)
                     this.Location = new Point(0, this.Location.Y);
             }
 
             /// <summary>
-            /// Скрывает указанную по типу таблицы панель
+            /// Скрывает панель
             /// </summary>
             /// <param name="grid_db_data_type"></param>
             /// <param name="panel_parent"></param>
             /// <param name="slowdown"></param>
             public async void SlideOut(int slowdown)
             {
-                while(this.Location.X < this.Parent.Width)
+                while(!this.wait_for_slide && this.Location.X < this.Parent.Width)
                 {
+                    this.wait_for_slide = true;
                     await Task.Delay(1);
                     this.Location = new Point(this.Location.X +
                         ((this.Parent.Width - Math.Abs(this.Location.X)) / slowdown > 0 ?
                          (this.Parent.Width - Math.Abs(this.Location.X)) / slowdown : 1), this.Location.Y);
+                    this.wait_for_slide = false;
                 }
                 if(this.Location.X != this.Parent.Width)
                     this.Location = new Point(this.Parent.Width, this.Location.Y);
                 this.Hide();
             }
-
-
-
-
-
-
-
-
         }
 
         /// <summary>
@@ -311,6 +307,14 @@ namespace WhoIs
             private readonly int total = Enum.GetNames(typeof(ENUM_DB_DATA_TYPE)).Length;
             private List<PanelDataGridView> list = new List<PanelDataGridView>();
             
+            /// <summary>
+            /// Конструктор
+            /// </summary>
+            /// <param name="panel_parent"></param>
+            /// <param name="coord_x"></param>
+            /// <param name="coord_y"></param>
+            /// <param name="width"></param>
+            /// <param name="height"></param>
             public PanelDataGridViewCollection(Panel panel_parent, int coord_x, int coord_y, int width, int height)
             {
                 for(int i = 0; i < total; i++)
@@ -367,7 +371,7 @@ namespace WhoIs
             public ENUM_DB_DATA_TYPE PanelDBDataType(int index) { return DBDataType(index); }
         }
         
-        
+        // Объявляем объект-коллекцию панелей с данными БД в DataGridView
         PanelDataGridViewCollection DBPanels = null;
         public FormData()
         {
