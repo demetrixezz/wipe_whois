@@ -124,7 +124,7 @@ namespace WhoIs
             this.ToolStripMenuItemViewLists.Size = new System.Drawing.Size(165, 22);
             this.ToolStripMenuItemViewLists.Text = "Просмотреть списки";
             this.ToolStripMenuItemViewLists.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.ToolStripMenuItemViewLists.Click += new System.EventHandler(this.ToolStripMenuItemViewLists_Click_1);
+            this.ToolStripMenuItemViewLists.Click += new System.EventHandler(this.ToolStripMenuItemViewLists_Click);
             // 
             // ToolStripMenuItemHelp
             // 

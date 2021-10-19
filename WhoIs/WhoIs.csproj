@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonRounded.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataManagers\UsersDataManager.cs" />
     <Compile Include="edPlayer.cs" />
     <Compile Include="FormData.cs">

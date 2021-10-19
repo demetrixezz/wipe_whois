@@ -27,8 +27,6 @@ namespace WhoIs
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
         // Флаг успешной авторизации
         bool   Authorized;
-        // Флаг полного считывания истории журналов
-        bool   journal_done;
 
         // Объявляем экземпляры вотчера событий и игрока
         JournalWatcher edWatcher = null;
@@ -116,10 +114,6 @@ namespace WhoIs
             {
                 x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Пароль для входа в программу"; };
             });
-            //new List<Control> { buttonLogin }.ForEach(x =>
-            //{
-            //    x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
-            //});
             new List<Control> { buttonLogin, buttonInfoAdmin, buttonCheckRegistryData }.ForEach(x =>
             {
                 x.MouseEnter += (s, e) => { labelLoginDescription.Text = "Данные будут проверены на сервере"; };
@@ -156,7 +150,7 @@ namespace WhoIs
                 while(!Player.HistoryCompleted)
                     await Task.Delay(500);
             });
-            journal_done = true;
+            Player.HistoryCompleted = true;
             List<JournalEvent> list = Player.EventsList();
             foreach(JournalEvent evn in list)
             {
@@ -257,18 +251,22 @@ namespace WhoIs
         // Контекстное меню программы в трее - пункт меню "Просмотреть списки"
         private void ToolStripMenuItemViewLists_Click(object sender, EventArgs e)
         {
-
+            if(!Application.OpenForms.OfType<FormData>().Any())
+                new FormData().Show();
         }
+
         // Контекстное меню программы в трее - пункт меню "Справка"
         private void ToolStripMenuItemHelp_Click(object sender, EventArgs e)
         {
             
         }
+
         // Контекстное меню программы в трее - пункт меню "О программе"
         private void ToolStripMenuItemAbout_Click(object sender, EventArgs e)
         {
 
         }
+
         // Контекстное меню программы в трее - пункт меню "Закрыть"
         private void ToolStripMenuItemClose_Click(object sender, EventArgs e)
         {
@@ -455,7 +453,6 @@ namespace WhoIs
             if(panel.Location.X != parent.Location.X - panel.Width)
                 panel.Location = new Point(parent.Location.X - panel.Width, panel.Location.Y);
             panel.Hide();
-            //MessageBox.Show("OK");
         }
 
         // Состояние кнопки входа в зависимости от состояния полей ввода логина и пароля
@@ -474,12 +471,6 @@ namespace WhoIs
         }
         #endregion
 
-        // Щелчок по списку меню "Просмотреть списки"
-        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
-        {
-            if(!Application.OpenForms.OfType<FormData>().Any())
-                new FormData().Show();
-        }
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -501,6 +492,11 @@ namespace WhoIs
             using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
                 new SoundPlayer(gz).Play(); 
+        }
+
+        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
