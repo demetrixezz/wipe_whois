@@ -124,6 +124,8 @@ namespace WhoIs
             // buttonPilots
             // 
             this.buttonPilots.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonPilots.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonPilots.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
             this.buttonPilots.FlatAppearance.BorderSize = 0;
             this.buttonPilots.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
             this.buttonPilots.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
@@ -144,6 +146,8 @@ namespace WhoIs
             // buttonSquadrons
             // 
             this.buttonSquadrons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonSquadrons.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonSquadrons.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
             this.buttonSquadrons.FlatAppearance.BorderSize = 0;
             this.buttonSquadrons.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
             this.buttonSquadrons.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
@@ -169,10 +173,13 @@ namespace WhoIs
             this.ClientSize = new System.Drawing.Size(900, 540);
             this.Controls.Add(this.panelFormDataHead);
             this.Controls.Add(this.panelFormData);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormData";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormData";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormData_FormClosed);
+            this.Load += new System.EventHandler(this.FormData_Load);
             this.panelFormDataHead.ResumeLayout(false);
             this.panelFormDataHead.PerformLayout();
             this.panelFormData.ResumeLayout(false);

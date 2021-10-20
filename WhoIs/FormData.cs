@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -495,6 +496,37 @@ namespace WhoIs
         {
             foreach(PanelDataGridView panel in DBPanels.GetPanelsList())
                 panel.SlideOut(8);
+        }
+
+        // Загрузка формы
+        private void FormData_Load(object sender, EventArgs e)
+        {
+            this.SettingsLoad();
+        }
+        // Закрытие формы
+        private void FormData_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.SettingsSave();
+        }
+
+        // Запись параметров формы в реестр
+        void SettingsSave()
+        {
+            using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
+            {
+                RegKey.SetValue("FormDataLocationX", Location.X, RegistryValueKind.DWord);
+                RegKey.SetValue("FormDataLocationY", Location.Y, RegistryValueKind.DWord);
+            }
+        }
+        // Загрузка параметров формы из реестра
+        void SettingsLoad()
+        {
+            using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
+            {
+                int x = Convert.ToInt32(RegKey.GetValue("FormDataLocationX", 100));
+                int y = Convert.ToInt32(RegKey.GetValue("FormDataLocationY", 100));
+                this.Location = new Point(x, y);
+            }
         }
     }
 }

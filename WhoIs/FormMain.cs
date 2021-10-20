@@ -129,8 +129,12 @@ namespace WhoIs
             // Создаём экземпляр класса игрока
             this.Player = new edPlayer();
         }
-        
-        // Загрузка формы
+
+        /// <summary>
+        /// Загрузка формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
             // Инициализация вотчера ED-событий
@@ -154,11 +158,13 @@ namespace WhoIs
             List<JournalEvent> list = Player.EventsList();
             foreach(JournalEvent evn in list)
             {
-                listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
+                //listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
             }
         }
-        
-        // Инициализация вотчера ED-событий 
+
+        /// <summary>
+        /// Инициализация вотчера ED-событий 
+        /// </summary>
         private void InitWatcher()
         {
             // указываем вотчеру на папку с логами и подписываемся на его события
@@ -191,7 +197,11 @@ namespace WhoIs
 
         }
 
-        // Обработчик закрытия программы
+        /// <summary>
+        /// Обработчик закрытия программы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             //выключаем читалку логов и записываем параметры в реестр
@@ -201,7 +211,9 @@ namespace WhoIs
             InstanceChecker.ReleaseMemory();
         }
 
-        // Запись параметров программы в реестр
+        /// <summary>
+        /// Запись параметров программы в реестр
+        /// </summary>
         void SettingsSave()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
@@ -213,7 +225,9 @@ namespace WhoIs
             }
         }
 
-        // Загрузка параметров предыдущего запуска программы
+        /// <summary>
+        /// Загрузка параметров предыдущего запуска программы
+        /// </summary>
         void SettingsLoad()
         {
             using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
@@ -223,8 +237,12 @@ namespace WhoIs
                 this.Location = new Point(x, y);
             }
         }
-        
-        // Сворачивание в трей
+
+        /// <summary>
+        /// Сворачивание в трей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonToTray_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -240,7 +258,11 @@ namespace WhoIs
             }
         }
 
-        // Двойной клик по значку в трее (разворачиваем из трея)
+        /// <summary>
+        /// Двойной клик по значку в трее (разворачиваем из трея)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
@@ -344,10 +366,10 @@ namespace WhoIs
         {
             // Скрываем информационную панель базы данных
             if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
-                HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+                HidePanel(panelMenuInfoDB, 8);
             // Показываем панель авторизации
             if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
-                ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                ShowPanel(panelMenuAutorize, 4);
             ControlView.Warning(labelStatus, "Требуется авторизация!");
         }
 
@@ -369,11 +391,25 @@ namespace WhoIs
             // Если нет логина или пароля в реестре -
             if(RegistryData.Login()=="" || RegistryData.Password() == "" || RegistryData.Login() == null || RegistryData.Password() == null)
             {
+                // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
+                buttonMenuLeftAdministrations.Enabled = false;
+                buttonMenuLeftViewDatas.Enabled = false;
+                SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
                 // Выводим панель заполнения формы регистрации
                 if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
-                    ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                    ShowPanel(panelMenuAutorize, 4);
                 ControlView.Warning(labelStatus, "Требуется авторизация!");
                 this.Authorized = false;
+                if(textBoxLogin.Text == "")
+                {
+                    textBoxLogin.Focus();
+                    textBoxLogin.SelectionStart = textBoxLogin.Text.Length;
+                }
+                else if(textBoxPass.Text == "")
+                {
+                    textBoxPass.Focus();
+                    textBoxPass.SelectionStart = textBoxPass.Text.Length;
+                }
                 return false;
             }
             // Если в реестре есть логин и пароль -
@@ -383,9 +419,13 @@ namespace WhoIs
                 // Если нет связи с базой
                 if(!RegistryData.CheckConnectionOnDB())
                 {
+                    // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
+                    buttonMenuLeftAdministrations.Enabled = false;
+                    buttonMenuLeftViewDatas.Enabled = false;
+                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
                     // Выводим панель заполнения формы регистрации
                     if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
-                        ShowPanel(panelMenuAutorize, panelMenuLeft, 4);
+                        ShowPanel(panelMenuAutorize, 4);
                     ControlView.Warning(labelStatus, "Нет связи с базой данных");
                     this.Authorized = false;
                     return false;
@@ -393,12 +433,16 @@ namespace WhoIs
                 // Если логина или пароля нет в базе, или они не совпадают с базой
                 if(!RegistryData.CheckLoginInDB() || !RegistryData.CheckPasswordInDB())
                 {
+                    // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
+                    buttonMenuLeftAdministrations.Enabled = false;
+                    buttonMenuLeftViewDatas.Enabled = false;
+                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
                     // Скрываем панель авторизации
                     if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
-                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                        HidePanel(panelMenuAutorize, 8);
                     // Показываем информационную панель базы данных
                     if(panelMenuInfoDB.Location.X < panelMenuLeft.Location.X)
-                        ShowPanel(panelMenuInfoDB, panelMenuLeft, 4);
+                        ShowPanel(panelMenuInfoDB, 4);
                     ControlView.Warning(labelStatus);
                     labelStatus.Text = 
                         !RegistryData.CheckLoginInDB() ? $"Пилот {RegistryData.Login()} отсутствует в базе данных" :
@@ -411,47 +455,121 @@ namespace WhoIs
                 else
                 {
                     if(panelMenuInfoDB.Location.X >= panelMenuLeft.Location.X)
-                        HidePanel(panelMenuInfoDB, panelMenuLeft, 8);
+                        HidePanel(panelMenuInfoDB, 8);
                     if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
-                        HidePanel(panelMenuAutorize, panelMenuLeft, 8);
+                        HidePanel(panelMenuAutorize, 8);
                     ControlView.Normal(labelStatus, $"Авторизовано для \"{RegistryData.Login()}\"");
                     this.Authorized = true;
-                    //this.Player.CreateNewPilot(RegistryData.Login());
                     this.Player.PilotCurrent = RegistryData.Login();
                     this.Player.History(PathToLogs);
                     this.Player.IsAdmin = RegistryData.CheckIsAdmin();
+                    // Делаем активными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вверх
+                    buttonMenuLeftAdministrations.Enabled = Player.IsAdmin ? true : false;
+                    buttonMenuLeftViewDatas.Enabled = true;
+                    SlidePanel(panelMenuLeftPanelButtons, 8, 0, ENUM_SLIDE_MODE.SLIDE_MODE_UP);
                     return true;
                 }
             }
         }
 
-        // Показывает панель
-        private async void ShowPanel(Panel panel, Panel parent, int slowdown)
+        /// <summary>
+        /// Перечисление направлений смещения панелей
+        /// </summary>
+        enum ENUM_SLIDE_MODE
         {
-            if(panel.Location.X < parent.Location.X)
+            SLIDE_MODE_UP,
+            SLIDE_MODE_DOWN,
+            SLIDE_MODE_LEFT,
+            SLIDE_MODE_RIGHT,
+        }
+
+        /// <summary>
+        /// Смещает панель в указанное положение в заданном направлении
+        /// </summary>
+        /// <param name="panel"></param>
+        /// <param name="slowdown"></param>
+        /// <param name="destination"></param>
+        /// <param name="slide_mode"></param>
+        private async void SlidePanel(Panel panel, int slowdown, int destination, ENUM_SLIDE_MODE slide_mode)
+        {
+            switch(slide_mode)
+            {
+                case ENUM_SLIDE_MODE.SLIDE_MODE_UP:
+                while(panel.Location.Y > destination)
+                {
+                    await Task.Delay(1);
+                    panel.Location = new Point(panel.Location.X, panel.Location.Y -
+                        (Math.Abs(panel.Location.Y - destination) / slowdown > 0 ?
+                         Math.Abs(panel.Location.Y - destination) / slowdown : 1));
+                }
+                if(panel.Location.Y != destination)
+                    panel.Location = new Point(panel.Location.X, destination);
+                break;
+                case ENUM_SLIDE_MODE.SLIDE_MODE_DOWN:
+                while(panel.Location.Y < destination)
+                {
+                    await Task.Delay(1);
+                    panel.Location = new Point(panel.Location.X, panel.Location.Y +
+                        (Math.Abs(destination - panel.Location.Y) / slowdown > 0 ?
+                         Math.Abs(destination - panel.Location.Y) / slowdown : 1));
+                }
+                if(panel.Location.Y != destination)
+                    panel.Location = new Point(panel.Location.X, destination);
+                break;
+                case ENUM_SLIDE_MODE.SLIDE_MODE_LEFT:
+                while(panel.Location.X >= destination)
+                {
+                    await Task.Delay(1);
+                    panel.Location = new Point(panel.Location.X -
+                        ((destination - Math.Abs(panel.Location.X)) / slowdown > 0 ?
+                         (destination - Math.Abs(panel.Location.X)) / slowdown : 1), panel.Location.Y);
+                }
+                if(panel.Location.X != destination)
+                    panel.Location = new Point(destination, panel.Location.Y);
+                break;
+                case ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT:
+                while(panel.Location.X < destination)
+                {
+                    await Task.Delay(1);
+                    panel.Location = new Point(panel.Location.X +
+                        (destination - Math.Abs(panel.Location.X) / slowdown > 0 ?
+                         destination - Math.Abs(panel.Location.X) / slowdown : 1), panel.Location.Y);
+                }
+                if(panel.Location.X != destination)
+                    panel.Location = new Point(destination, panel.Location.Y);
+                break;
+                default:
+                break;
+            }
+        }
+
+        // Показывает панель
+        private async void ShowPanel(Panel panel, int slowdown)
+        {
+            if(panel.Location.X < panel.Parent.Location.X)
                 panel.Show();
-            while(panel.Location.X < parent.Location.X)
+            while(panel.Location.X < panel.Parent.Location.X)
             {
                 await Task.Delay(1);
                 panel.Location = new Point(panel.Location.X + 
                     (Math.Abs(panel.Location.X) / slowdown > 0 ? 
                      Math.Abs(panel.Location.X) / slowdown : 1), panel.Location.Y);
             }
-            if(panel.Location.X != parent.Location.X)
-                panel.Location = new Point(parent.Location.X, panel.Location.Y);
+            if(panel.Location.X != panel.Parent.Location.X)
+                panel.Location = new Point(panel.Parent.Location.X, panel.Location.Y);
         }
         // Скрывает панель
-        private async void HidePanel(Panel panel, Panel parent, int slowdown)
+        private async void HidePanel(Panel panel, int slowdown)
         {
-            while(panel.Location.X >= parent.Location.X - panel.Width)
+            while(panel.Location.X >= panel.Parent.Location.X - panel.Width)
             {
                 await Task.Delay(1);
                 panel.Location = new Point(panel.Location.X -
                     ((panel.Width - Math.Abs(panel.Location.X)) / slowdown > 0 ? 
                      (panel.Width - Math.Abs(panel.Location.X)) / slowdown : 1), panel.Location.Y);
             }
-            if(panel.Location.X != parent.Location.X - panel.Width)
-                panel.Location = new Point(parent.Location.X - panel.Width, panel.Location.Y);
+            if(panel.Location.X != panel.Parent.Location.X - panel.Width)
+                panel.Location = new Point(panel.Parent.Location.X - panel.Width, panel.Location.Y);
             panel.Hide();
         }
 
@@ -471,8 +589,12 @@ namespace WhoIs
         }
         #endregion
 
-
-        private void Button2_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Щелчок по кнопке "Данные"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonMenuLeftViewDatas_Click(object sender, EventArgs e)
         {
             if(!Application.OpenForms.OfType<FormData>().Any())
                 new FormData().Show();

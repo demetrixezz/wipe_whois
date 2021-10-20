@@ -29,7 +29,12 @@ namespace WhoIs
                           ControlStyles.UserPaint, true);
             this.DoubleBuffered = true;
             this.Size = new Size(100, 30);
+            this.FlatStyle = FlatStyle.Flat;
             this.BackColor = Color.FromArgb(102, 102, 102);
+            this.FlatAppearance.BorderColor = Color.FromArgb(106, 106, 106);
+            this.FlatAppearance.BorderSize = 0;
+            this.FlatAppearance.MouseOverBackColor = Color.FromArgb(112, 112, 112);
+            this.FlatAppearance.MouseDownBackColor = Color.FromArgb(122, 122, 122);
             this.ForeColor = Color.White;
             this.sf.Alignment = StringAlignment.Center;
             this.sf.LineAlignment = StringAlignment.Center;
