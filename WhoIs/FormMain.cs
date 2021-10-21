@@ -17,6 +17,12 @@ using EliteJournalReader;
 using EliteJournalReader.Events;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
+using CSCore;
+using CSCore.SoundIn;
+using CSCore.CoreAudioAPI;
+using CSCore.Streams;
+using CSCore.Streams.Effects;
+using CSCore.SoundOut;
 
 namespace WhoIs
 {
@@ -96,12 +102,14 @@ namespace WhoIs
             #endregion
             #endregion
 
-            // Панели авторизации и информации - координаты за пределами формы
+            // Панели авторизации, информации и настроек - координаты за пределами формы
             #region
             panelMenuAutorize.Location = new Point(panelMenuLeft.Location.X - panelMenuAutorize.Width, panelMenuLeft.Location.Y + 37);
             panelMenuAutorize.Hide();
             panelMenuInfoDB.Location = new Point(panelMenuLeft.Location.X - panelMenuInfoDB.Width, panelMenuLeft.Location.Y + 37);
             panelMenuInfoDB.Hide();
+            panelMenuLeftPanelButtonSettings.Location = new Point(-panelMenuLeftPanelButtonSettings.Width, panelMenuLeftPanelButtonSettings.Location.Y);
+            panelMenuLeftPanelButtonSettings.Hide();
             #endregion
 
             // Устанавливаем реакции на мышку контролам панелей авторизации и информации
@@ -379,6 +387,19 @@ namespace WhoIs
             Process.Start("https://discord.com/channels/742092065705558046/763418573879246849");
         }
 
+        /// <summary>
+        /// Клик по кнопке "Настройки" левого меню формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonMenuLeftSettings_Click(object sender, EventArgs e)
+        {
+            if(panelMenuLeftPanelButtonSettings.Location.X < 0)
+                SlidePanel(panelMenuLeftPanelButtonSettings, 4, 0, ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT, ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE);
+            else
+                SlidePanel(panelMenuLeftPanelButtonSettings, 8, -panelMenuLeftPanelButtonSettings.Width, ENUM_SLIDE_MODE.SLIDE_MODE_LEFT, ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER);
+        }
+
         // Авторизация в программе
         private bool Authorization()
         {
@@ -394,7 +415,7 @@ namespace WhoIs
                 // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
                 buttonMenuLeftAdministrations.Enabled = false;
                 buttonMenuLeftViewDatas.Enabled = false;
-                SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
+                SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN,ENUM_VISIBLE_CONTROL.VISIBLE_CONTROL_DISABLE);
                 // Выводим панель заполнения формы регистрации
                 if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
                     ShowPanel(panelMenuAutorize, 4);
@@ -422,7 +443,7 @@ namespace WhoIs
                     // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
                     buttonMenuLeftAdministrations.Enabled = false;
                     buttonMenuLeftViewDatas.Enabled = false;
-                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
+                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN,ENUM_VISIBLE_CONTROL.VISIBLE_CONTROL_DISABLE);
                     // Выводим панель заполнения формы регистрации
                     if(panelMenuAutorize.Location.X < panelMenuLeft.Location.X)
                         ShowPanel(panelMenuAutorize, 4);
@@ -436,7 +457,7 @@ namespace WhoIs
                     // Делаем неактивными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вниз
                     buttonMenuLeftAdministrations.Enabled = false;
                     buttonMenuLeftViewDatas.Enabled = false;
-                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN);
+                    SlidePanel(panelMenuLeftPanelButtons, 8, panelMenuAutorize.Location.Y + panelMenuAutorize.Height, ENUM_SLIDE_MODE.SLIDE_MODE_DOWN,ENUM_VISIBLE_CONTROL.VISIBLE_CONTROL_DISABLE);
                     // Скрываем панель авторизации
                     if(panelMenuAutorize.Location.X >= panelMenuLeft.Location.X)
                         HidePanel(panelMenuAutorize, 8);
@@ -466,7 +487,7 @@ namespace WhoIs
                     // Делаем активными кнопки администрирования и просмотра данных ДБ и смещаем панель с кнопками вверх
                     buttonMenuLeftAdministrations.Enabled = Player.IsAdmin ? true : false;
                     buttonMenuLeftViewDatas.Enabled = true;
-                    SlidePanel(panelMenuLeftPanelButtons, 8, 0, ENUM_SLIDE_MODE.SLIDE_MODE_UP);
+                    SlidePanel(panelMenuLeftPanelButtons, 8, 0, ENUM_SLIDE_MODE.SLIDE_MODE_UP,ENUM_VISIBLE_CONTROL.VISIBLE_CONTROL_DISABLE);
                     return true;
                 }
             }
@@ -484,17 +505,33 @@ namespace WhoIs
         }
 
         /// <summary>
+        /// Перечисление флагов, указывающих на момент скрытия/отображения панели
+        /// </summary>
+        enum ENUM_VISIBLE_CONTROL
+        {
+            VISIBLE_CONTROL_DISABLE,
+            VISIBLE_BEFORE,
+            VISIBLE_AFTER,
+            UNVISIBLE_BEFORE,
+            UNVISIBLE_AFTER,
+        }
+
+        /// <summary>
         /// Смещает панель в указанное положение в заданном направлении
         /// </summary>
         /// <param name="panel"></param>
         /// <param name="slowdown"></param>
         /// <param name="destination"></param>
         /// <param name="slide_mode"></param>
-        private async void SlidePanel(Panel panel, int slowdown, int destination, ENUM_SLIDE_MODE slide_mode)
+        private async void SlidePanel(Panel panel, int slowdown, int destination, ENUM_SLIDE_MODE slide_mode, ENUM_VISIBLE_CONTROL visible_control)
         {
             switch(slide_mode)
             {
                 case ENUM_SLIDE_MODE.SLIDE_MODE_UP:
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_BEFORE)
+                    panel.Hide();
                 while(panel.Location.Y > destination)
                 {
                     await Task.Delay(1);
@@ -504,8 +541,17 @@ namespace WhoIs
                 }
                 if(panel.Location.Y != destination)
                     panel.Location = new Point(panel.Location.X, destination);
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_AFTER)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER)
+                    panel.Hide();
                 break;
+                
                 case ENUM_SLIDE_MODE.SLIDE_MODE_DOWN:
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_BEFORE)
+                    panel.Hide();
                 while(panel.Location.Y < destination)
                 {
                     await Task.Delay(1);
@@ -515,29 +561,57 @@ namespace WhoIs
                 }
                 if(panel.Location.Y != destination)
                     panel.Location = new Point(panel.Location.X, destination);
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_AFTER)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER)
+                    panel.Hide();
                 break;
+
                 case ENUM_SLIDE_MODE.SLIDE_MODE_LEFT:
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_BEFORE)
+                    panel.Hide();
                 while(panel.Location.X >= destination)
                 {
+                    //MessageBox.Show(
+                    //    "panel.Location.X = " + panel.Location.X.ToString() +
+                    //    "\ndestination = " + destination.ToString() +
+                    //    "\nValue = " + (Math.Abs(panel.Location.X - destination) / slowdown).ToString()
+                    //    );
                     await Task.Delay(1);
                     panel.Location = new Point(panel.Location.X -
-                        ((destination - Math.Abs(panel.Location.X)) / slowdown > 0 ?
-                         (destination - Math.Abs(panel.Location.X)) / slowdown : 1), panel.Location.Y);
+                        ((Math.Abs(panel.Location.X - destination)) / slowdown > 0 ?
+                         (Math.Abs(panel.Location.X - destination)) / slowdown : 1), panel.Location.Y);
                 }
                 if(panel.Location.X != destination)
                     panel.Location = new Point(destination, panel.Location.Y);
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_AFTER)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER)
+                    panel.Hide();
                 break;
+
                 case ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT:
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_BEFORE)
+                    panel.Hide();
                 while(panel.Location.X < destination)
                 {
                     await Task.Delay(1);
                     panel.Location = new Point(panel.Location.X +
-                        (destination - Math.Abs(panel.Location.X) / slowdown > 0 ?
-                         destination - Math.Abs(panel.Location.X) / slowdown : 1), panel.Location.Y);
+                        (Math.Abs(destination - panel.Location.X) / slowdown > 0 ?
+                         Math.Abs(destination - panel.Location.X) / slowdown : 1), panel.Location.Y);
                 }
                 if(panel.Location.X != destination)
                     panel.Location = new Point(destination, panel.Location.Y);
+                if(visible_control == ENUM_VISIBLE_CONTROL.VISIBLE_AFTER)
+                    panel.Show();
+                if(visible_control == ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER)
+                    panel.Hide();
                 break;
+
                 default:
                 break;
             }
@@ -558,6 +632,7 @@ namespace WhoIs
             if(panel.Location.X != panel.Parent.Location.X)
                 panel.Location = new Point(panel.Parent.Location.X, panel.Location.Y);
         }
+
         // Скрывает панель
         private async void HidePanel(Panel panel, int slowdown)
         {
@@ -613,12 +688,10 @@ namespace WhoIs
 
             using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
             using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
-                new SoundPlayer(gz).Play(); 
-        }
+                new SoundPlayer(gz).Play();
 
-        private void ToolStripMenuItemViewLists_Click_1(object sender, EventArgs e)
-        {
 
         }
+
     }
 }
