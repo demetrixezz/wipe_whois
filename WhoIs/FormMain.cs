@@ -23,6 +23,7 @@ using CSCore.CoreAudioAPI;
 using CSCore.Streams;
 using CSCore.Streams.Effects;
 using CSCore.SoundOut;
+using CSCore.Codecs.WAV;
 
 namespace WhoIs
 {
@@ -34,9 +35,11 @@ namespace WhoIs
         // Флаг успешной авторизации
         bool   Authorized;
 
-        // Объявляем экземпляры вотчера событий и игрока
-        JournalWatcher edWatcher = null;
-        edPlayer       Player = null;
+        // Объявляем экземпляры вотчера событий, игрока и голосового ассистента
+        JournalWatcher          edWatcher = null;
+        edPlayer                Player = null;
+        VoiceActorsCollection   VoiceActors = null;
+        
         public FormMain()
         {
             InitializeComponent();
@@ -132,6 +135,9 @@ namespace WhoIs
             });
             #endregion
 
+            // Создаём коллекцию стандартных голосовых ассистентов
+            VoiceActors = new VoiceActorsCollection();
+            
             // Загружаем настройки программы из реестра
             SettingsLoad();
             // Создаём экземпляр класса игрока
@@ -150,24 +156,6 @@ namespace WhoIs
             // Авторизация в программе и базе данных
             this.Authorized = Authorization();
             this.WaitHistoryDone();
-        }
-
-        /// <summary>
-        /// Ожидание сигнала о завершении чтения и сохранения лог-файлов в список
-        /// </summary>
-        async public void WaitHistoryDone()
-        {
-            await Task.Run(async ()=>
-            {
-                while(!Player.HistoryCompleted)
-                    await Task.Delay(500);
-            });
-            Player.HistoryCompleted = true;
-            List<JournalEvent> list = Player.EventsList();
-            foreach(JournalEvent evn in list)
-            {
-                //listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
-            }
         }
 
         /// <summary>
@@ -196,8 +184,30 @@ namespace WhoIs
             this.edWatcher.StartWatching();
         }
 
+
+        /// <summary>
+        /// Ожидание сигнала о завершении чтения и сохранения лог-файлов в список
+        /// </summary>
+        async public void WaitHistoryDone()
+        {
+            await Task.Run(async ()=>
+            {
+                while(!Player.HistoryCompleted)
+                    await Task.Delay(500);
+            });
+            Player.HistoryCompleted = true;
+            List<JournalEvent> list = Player.EventsList();
+            foreach(JournalEvent evn in list)
+            {
+                //listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
+            }
+        }
+
         // Метод обработки пилотов-игроков
-        private void CheckPilot(string pilotName) { }
+        private void CheckPilot(string pilotName) 
+        {
+            
+        }
 
         // Обработчик изменения лог-файла - факт произошедшего абстрактного события
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
@@ -678,20 +688,7 @@ namespace WhoIs
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
         {
-            //string name = "Intro";
-            //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";
-            //label1.Text = path + name;
-            //using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
-            //using(FileStream fileOut = File.Create($@"{path}.gz"))
-            //using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
-            //    fileIn.CopyTo(gz);
-
-            using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
-            using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
-                new SoundPlayer(gz).Play();
-
 
         }
-
     }
 }

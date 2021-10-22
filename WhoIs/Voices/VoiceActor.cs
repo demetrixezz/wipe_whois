@@ -4,30 +4,89 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Media;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WhoIs
 {
-    class VoiceActor
+    public class VoiceActorsCollection
     {
-        private string actorName;
-        private string actorFolder;
+        private List<VoiceActor> list_actors = null;
+        public VoiceActorsCollection()
+        {
+            this.list_actors = new List<VoiceActor>();
+            this.list_actors.Sort();
+            VoiceActor actorAlena = new VoiceActor("Алёна");
+            VoiceActor actorFilipp= new VoiceActor("Филипп");
+            this.list_actors.Add(actorAlena);
+            this.list_actors.Add(actorFilipp);
+            actorAlena.ID(this.list_actors.IndexOf(actorAlena));
+            actorFilipp.ID(this.list_actors.IndexOf(actorFilipp));
+        }
+    }
+
+    public struct ActorNames
+    {
+        public string  Display;
+        public string  Folder;
+        public string  File;
+    }
+
+    public class VoiceActor
+    {
+        public  ActorNames  Name;
+        public  bool        Used;
+        private int         identifier;
+        private string      programm_path;
 
         // Конструкторы
         public VoiceActor()
         {
-            actorName = "";
-            actorFolder = "";
+            this.Name.Display = "";
+            this.Name.Folder = "";
+            this.Name.File = "";
+            this.Used = false;
+            this.identifier = -1;
+            this.programm_path = Application.StartupPath;
         }
         public VoiceActor(string actor_name)
         {
-            this.actorName = actor_name;
+            this.Name.Display = actor_name;
+            this.Name.Folder = "";
+            this.Name.File = "";
+            this.Used = false;
+            this.identifier = -1;
+            this.programm_path = Application.StartupPath;
+        }
+        public VoiceActor(string actor_name, string folder_name, string file_name)
+        {
+            this.Name.Display = actor_name;
+            this.Name.Folder = folder_name;
+            this.Name.File = file_name;
+            this.Used = false;
+            this.identifier = -1;
+            this.programm_path = Application.StartupPath;
         }
 
-        // Устанавливает/возвращает имя
-        public void SetName(string name) { this.actorName = name; }
-        public string GetName() { return this.actorName; }
+        public void ID(int id)  { this.identifier = id;     }
+        public int  ID()        { return this.identifier;   }
+
+        private void Create(string file_name, string sound_event)
+        {
+            //string name = "Intro";
+            //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";
+            //using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
+            //using(FileStream fileOut = File.Create($@"{path}.gz"))
+            //using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
+            //    fileIn.CopyTo(gz);
+            string path = $@"{programm_path}\{this.Name.Folder}\{sound_event}\{file_name}";
+            using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
+            using(FileStream fileOut = File.Create($@"{path}.gz"))
+            using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
+                fileIn.CopyTo(gz);
+        }
 
         // Проигрывает одиночный звуковой файл
         protected void Play(string file_name) 
