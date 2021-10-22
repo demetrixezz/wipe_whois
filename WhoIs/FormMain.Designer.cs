@@ -431,7 +431,7 @@ namespace WhoIs
             this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedWidth = 12;
             this.buttonPanelMenuLeftPanelButtonSettingsActors.Size = new System.Drawing.Size(216, 41);
             this.buttonPanelMenuLeftPanelButtonSettingsActors.TabIndex = 1;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Голос ассистента";
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Выбор ассистента";
             this.buttonPanelMenuLeftPanelButtonSettingsActors.UseVisualStyleBackColor = false;
             // 
             // buttonMenuLeftAdministrations

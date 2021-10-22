@@ -18,20 +18,22 @@ namespace WhoIs
         {
             this.list_actors = new List<VoiceActor>();
             this.list_actors.Sort();
-            VoiceActor actorAlena = new VoiceActor("Алёна");
-            VoiceActor actorFilipp= new VoiceActor("Филипп");
+            VoiceActor actorAlena = new VoiceActor("Алёна", "Alena");
+            VoiceActor actorFilipp= new VoiceActor("Филипп", "Filipp");
             this.list_actors.Add(actorAlena);
             this.list_actors.Add(actorFilipp);
             actorAlena.ID(this.list_actors.IndexOf(actorAlena));
             actorFilipp.ID(this.list_actors.IndexOf(actorFilipp));
         }
     }
-
+    
+    /// <summary>
+    /// Структура имён ассистента
+    /// </summary>
     public struct ActorNames
     {
-        public string  Display;
-        public string  Folder;
-        public string  File;
+        public string  Display; // Отображаемое имя (рус)
+        public string  Program; // Программное имя (англ)
     }
 
     public class VoiceActor
@@ -45,26 +47,23 @@ namespace WhoIs
         public VoiceActor()
         {
             this.Name.Display = "";
-            this.Name.Folder = "";
-            this.Name.File = "";
+            this.Name.Program = "";
             this.Used = false;
             this.identifier = -1;
             this.programm_path = Application.StartupPath;
         }
-        public VoiceActor(string actor_name)
+        public VoiceActor(string actor_name, string actor_program_name)
         {
             this.Name.Display = actor_name;
-            this.Name.Folder = "";
-            this.Name.File = "";
+            this.Name.Program = actor_program_name;
             this.Used = false;
             this.identifier = -1;
             this.programm_path = Application.StartupPath;
         }
-        public VoiceActor(string actor_name, string folder_name, string file_name)
+        public VoiceActor(string actor_name, string folder_name, string actor_program_name)
         {
             this.Name.Display = actor_name;
-            this.Name.Folder = folder_name;
-            this.Name.File = file_name;
+            this.Name.Program = actor_program_name;
             this.Used = false;
             this.identifier = -1;
             this.programm_path = Application.StartupPath;
@@ -73,27 +72,39 @@ namespace WhoIs
         public void ID(int id)  { this.identifier = id;     }
         public int  ID()        { return this.identifier;   }
 
-        private void Create(string file_name, string sound_event)
+        /// <summary>
+        /// Создаёт сжатый gz-файл из wav-файла и записывает его в ресурсы
+        /// </summary>
+        /// <param name="file_path"></param>
+        /// <param name="game_event"></param>
+        private void CreateRecourceSound(string file_path, string event_name)
         {
-            //string name = "Intro";
-            //string path=$@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\OneDrive\Рабочий стол\Для Whois\{name}";
-            //using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
-            //using(FileStream fileOut = File.Create($@"{path}.gz"))
-            //using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
-            //    fileIn.CopyTo(gz);
-            string path = $@"{programm_path}\{this.Name.Folder}\{sound_event}\{file_name}";
-            using(FileStream fileIn = File.OpenRead($@"{path}.wav"))
-            using(FileStream fileOut = File.Create($@"{path}.gz"))
+            string gzName = GetResourceFileName(event_name, this);
+            using(FileStream fileIn = File.OpenRead($@"{file_path}.wav"))
+            using(FileStream fileOut = File.Create($@"{file_path}.gz"))
             using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
                 fileIn.CopyTo(gz);
         }
 
         // Проигрывает одиночный звуковой файл
-        protected void Play(string file_name) 
+        protected void Play(string event_name, VoiceActor actor) 
         {
+        //using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
+        //using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
+        //    new SoundPlayer(gz).Play();
+        
+            var obj = Properties.Resources.ResourceManager.GetObject(GetResourceFileName(event_name, actor));
         using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
         using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
             new SoundPlayer(gz).Play();
+        }
+        
+        //value = Properties.Resources.ResourceManager.GetObject(GetResourceFileName(event_name, actor));
+        protected string GetResourceFileName(string event_name, VoiceActor actor)
+        {
+            string fileNameFormat = "{0}_{1}.gz";
+            string fileName = string.Format(fileNameFormat, this.Name.Program, event_name);
+            return fileName;
         }
     }
 }
