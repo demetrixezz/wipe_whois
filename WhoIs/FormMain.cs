@@ -29,13 +29,13 @@ namespace WhoIs
 {
     public partial class FormMain : FormBase
     {
+        // Флаг успешной авторизации
+        bool   Authorized;
         // PathToLogs - путь к папке логов программы
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
-        // Флаг успешной авторизации
-        bool   Authorized;
 
-        // Объявляем экземпляры вотчера событий, игрока и голосового ассистента
+        // Экземпляры вотчера событий, игрока и голосового ассистента
         JournalWatcher          edWatcher = null;
         edPlayer                Player = null;
         VoiceActorsCollection   VoiceActors = null;
@@ -113,6 +113,8 @@ namespace WhoIs
             panelMenuInfoDB.Hide();
             panelMenuLeftPanelButtonSettings.Location = new Point(-panelMenuLeftPanelButtonSettings.Width, panelMenuLeftPanelButtonSettings.Location.Y);
             panelMenuLeftPanelButtonSettings.Hide();
+            panelChoiceVoiceActor.Location = new Point(panelDataRight.Width, panelChoiceVoiceActor.Location.Y);
+            panelChoiceVoiceActor.Hide();
             #endregion
 
             // Устанавливаем реакции на мышку контролам панелей авторизации и информации
@@ -135,9 +137,10 @@ namespace WhoIs
             });
             #endregion
 
+            label2.Text = "";
+
             // Создаём коллекцию стандартных голосовых ассистентов
             VoiceActors = new VoiceActorsCollection();
-            
             // Загружаем настройки программы из реестра
             SettingsLoad();
             // Создаём экземпляр класса игрока
@@ -180,11 +183,16 @@ namespace WhoIs
                         this.CheckPilot(e.Interdictor);
                 }
             });
+            this.edWatcher.GetEvent<CommanderEvent>()?.AddHandler((s, e) => {
+                edEventCommander evn = new edEventCommander(e, VoiceActors.CurrentUsedActor());
+                label2.Text = $"Name: { evn.Name } \nFID: { evn.FID }";
+            });
+
             // стартуем вотчер ED-событий
             this.edWatcher.StartWatching();
         }
 
-
+        
         /// <summary>
         /// Ожидание сигнала о завершении чтения и сохранения лог-файлов в список
         /// </summary>
@@ -196,8 +204,8 @@ namespace WhoIs
                     await Task.Delay(500);
             });
             Player.HistoryCompleted = true;
-            List<JournalEvent> list = Player.EventsList();
-            foreach(JournalEvent evn in list)
+            List<JournalHistoryEvent> list = Player.EventsList();
+            foreach(JournalHistoryEvent evn in list)
             {
                 //listBox1.Items.Add(evn.Description()/*+" File: "+evn.FileName()*/);
             }
@@ -410,6 +418,14 @@ namespace WhoIs
                 SlidePanel(panelMenuLeftPanelButtonSettings, 8, -panelMenuLeftPanelButtonSettings.Width, ENUM_SLIDE_MODE.SLIDE_MODE_LEFT, ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER);
         }
 
+        private void ButtonPanelMenuLeftPanelButtonSettingsActors_Click(object sender, EventArgs e)
+        {
+            if(panelChoiceVoiceActor.Location.X > 0)
+                SlidePanel(panelChoiceVoiceActor, 4, 0, ENUM_SLIDE_MODE.SLIDE_MODE_LEFT, ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE);
+            else
+                SlidePanel(panelChoiceVoiceActor, 8, panelDataRight.Width, ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT, ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER);
+        }
+
         // Авторизация в программе
         private bool Authorization()
         {
@@ -584,11 +600,6 @@ namespace WhoIs
                     panel.Hide();
                 while(panel.Location.X >= destination)
                 {
-                    //MessageBox.Show(
-                    //    "panel.Location.X = " + panel.Location.X.ToString() +
-                    //    "\ndestination = " + destination.ToString() +
-                    //    "\nValue = " + (Math.Abs(panel.Location.X - destination) / slowdown).ToString()
-                    //    );
                     await Task.Delay(1);
                     panel.Location = new Point(panel.Location.X -
                         ((Math.Abs(panel.Location.X - destination)) / slowdown > 0 ?
@@ -688,7 +699,30 @@ namespace WhoIs
         // Для упаковки звуков
         private void button1_Click(object sender, EventArgs e)
         {
+            string text="";
+            foreach(VoiceActor actor in VoiceActors.List())
+            {
+                text += actor.Name.Display + " " + actor.Name.Program + "\n";
+            }
+            MessageBox.Show(text + "\n");
+       }
 
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            //string fileContent = string.Empty;
+            //string filePath = string.Empty;
+            //using(OpenFileDialog ofd = new OpenFileDialog())
+            //{
+            //    ofd.InitialDirectory = @"C:\Users\artme\OneDrive\Рабочий стол\Для Whois\Звуки";
+            //    ofd.Filter = "wav-файлы (*.wav)|*.wav|Все файлы (*.*)|*.*";
+            //    ofd.FilterIndex = 1;
+            //    ofd.RestoreDirectory = true;
+            //    if(ofd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        filePath = ofd.FileName;
+            //        MessageBox.Show(filePath);
+            //    }
+            //}
         }
     }
 }

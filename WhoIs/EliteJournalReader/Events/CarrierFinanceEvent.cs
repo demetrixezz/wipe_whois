@@ -24,7 +24,6 @@ namespace EliteJournalReader.Events
             public long ReserveBalance { get; set; }
             public long AvailableBalance { get; set; }
             public double ReservePercent { get; set; }
-
         }
     }
 }

@@ -75,10 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonRounded.cs">
+    <Compile Include="Controls\ButtonRounded.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataManagers\UsersDataManager.cs" />
+    <Compile Include="edEvent.cs" />
     <Compile Include="edPlayer.cs" />
     <Compile Include="FormData.cs">
       <SubType>Form</SubType>
@@ -459,6 +460,7 @@
     <None Include="Resources\ToTray.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\textlogo.png" />
     <Content Include="WIPE_logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

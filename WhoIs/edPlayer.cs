@@ -179,8 +179,17 @@ namespace WhoIs
         }
         private int ContentFilling()
         {
-            string[] lines = File.ReadAllLines(this.path_name);
-            foreach(string line in lines) { this.lines.Add(line); }
+            using(var stream = File.Open(this.path_name, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using(var reader = new StreamReader(stream))
+            {
+                while(!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    this.lines.Add(line);
+                }
+            }
+            //string[] lines = File.ReadAllLines(this.path_name);
+            //foreach(string line in lines) { this.lines.Add(line); }
             return this.lines.Count;
         }
         public List<string> GetListContent(){ return this.lines;    }
@@ -192,9 +201,9 @@ namespace WhoIs
     }
 
     /// <summary>
-    /// Перечисление "интересных" событий журнала для отслеживания
+    /// Перечисление "интересных" исторических событий журналов игрока для отслеживания
     /// </summary>
-    public enum ENUM_JOURNAL_EVENT
+    public enum ENUM_JOURNAL_HISTORY_EVENT
     {
         JOURNAL_EVENT_CREATE_NEW_PILOT,         // Создание нового пилота
         JOURNAL_EVENT_RENAME_PILOT,             // Переименование пилота
@@ -209,17 +218,17 @@ namespace WhoIs
     };
 
     /// <summary>
-    /// Класс события журнала (событие в одной строке файла)
+    /// Класс исторического события журнала (событие в одной строке файла)
     /// </summary>
-    public class JournalEvent
+    public class JournalHistoryEvent
     {
-        private ENUM_JOURNAL_EVENT  jevent;
-        private DateTime            time;
-        private string              subject;
-        private string              file_name;
-        private string              pilot;
-        public JournalEvent() { }
-        public JournalEvent(ENUM_JOURNAL_EVENT journal_event, string time_event, string subject)
+        private ENUM_JOURNAL_HISTORY_EVENT  jevent;
+        private DateTime                    time;
+        private string                      subject;
+        private string                      file_name;
+        private string                      pilot;
+        public JournalHistoryEvent() { }
+        public JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT journal_event, string time_event, string subject)
         {
             this.jevent = journal_event;
             this.time = DateTime.Parse(time_event, null, DateTimeStyles.AdjustToUniversal);
@@ -235,20 +244,20 @@ namespace WhoIs
         public string   Subject()               { return this.subject;                  }
         public string   Description()           { return this.EventDescription(jevent); }
         
-        private string EventDescription(ENUM_JOURNAL_EVENT jevent)
+        private string EventDescription(ENUM_JOURNAL_HISTORY_EVENT jevent)
         {
             switch(jevent)
             {
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_CREATE_NEW_PILOT  : return $"{this.TimeAsString()} Создание пилота {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_RENAME_PILOT      : return $"{this.TimeAsString()} Переименование в {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_APPLIED  : return $"{this.TimeAsString()} {this.Pilot()} Запрос в эскадру {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_JOINED   : return $"{this.TimeAsString()} {this.Pilot()} Присоединение к эскадре {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_LEFT     : return $"{this.TimeAsString()} {this.Pilot()} Выход из эскадры {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_MODE_PRIVATE : return $"{this.TimeAsString()} {this.Pilot()} Приватная группа \"{this.Subject()}\"";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_MODE_SOLO    : return $"{this.TimeAsString()} {this.Pilot()} Режим Соло";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_RESET        : return $"{this.TimeAsString()} Сброс игры {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_LOAD         : return $"{this.TimeAsString()} Загрузка игры {this.Subject()}";
-                case ENUM_JOURNAL_EVENT.JOURNAL_EVENT_DEBUG             : return $"{this.TimeAsString()} СобытиеX {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_CREATE_NEW_PILOT  : return $"{this.TimeAsString()} Создание пилота {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_RENAME_PILOT      : return $"{this.TimeAsString()} Переименование в {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_APPLIED  : return $"{this.TimeAsString()} {this.Pilot()} Запрос в эскадру {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_JOINED   : return $"{this.TimeAsString()} {this.Pilot()} Присоединение к эскадре {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_LEFT     : return $"{this.TimeAsString()} {this.Pilot()} Выход из эскадры {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_MODE_PRIVATE : return $"{this.TimeAsString()} {this.Pilot()} Приватная группа \"{this.Subject()}\"";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_MODE_SOLO    : return $"{this.TimeAsString()} {this.Pilot()} Режим Соло";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_RESET        : return $"{this.TimeAsString()} Сброс игры {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_LOAD         : return $"{this.TimeAsString()} Загрузка игры {this.Subject()}";
+                case ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_DEBUG             : return $"{this.TimeAsString()} СобытиеX {this.Subject()}";
                 default:
                 break;
             }
@@ -266,7 +275,7 @@ namespace WhoIs
         public bool                 IsAdmin = false;
         private List<PilotData>     pilots_list = new List<PilotData>(10);
         private List<LogFile>       log_files_list = new List<LogFile>();
-        private List<JournalEvent>  events_list = new List<JournalEvent>();
+        private List<JournalHistoryEvent>  events_list = new List<JournalHistoryEvent>();
         // Конструкторы
         public edPlayer() 
         { 
@@ -309,7 +318,6 @@ namespace WhoIs
             if(pilot is null)
                 return "";
             return pilot.Squadron(squadron_index);
-            return "";
         }
 
         /// <summary>
@@ -372,7 +380,7 @@ namespace WhoIs
         /// Возвращает список интересных событий игрока
         /// </summary>
         /// <returns></returns>
-        public List<JournalEvent> EventsList() { return this.events_list; }
+        public List<JournalHistoryEvent> EventsList() { return this.events_list; }
 
         /// <summary>
         /// Асинхронный метод. Обрабатывает файлы журналов и собирает интересные события игрока
@@ -408,7 +416,6 @@ namespace WhoIs
         /// </summary>
         protected void SearchPlayerEvents()
         {
-            int count=0;
             foreach(LogFile logfile in this.log_files_list)
             {
                 string CurrentPilot = "";
@@ -427,7 +434,7 @@ namespace WhoIs
                         if(pilot != null)
                         {
                             CurrentPilot = pilot.Name;
-                            JournalEvent evn = new JournalEvent(ENUM_JOURNAL_EVENT.JOURNAL_EVENT_CREATE_NEW_PILOT, time_event.ToString(), CurrentPilot);
+                            JournalHistoryEvent evn = new JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_CREATE_NEW_PILOT, time_event.ToString(), CurrentPilot);
                             evn.Pilot(CurrentPilot);
                             evn.FileName(logfile.FileName());
                             this.events_list.Add(evn);
@@ -448,7 +455,7 @@ namespace WhoIs
                                 CurrentPilot = pilot.Name;
                                 if(time_event > pilot.TimeLast())
                                     pilot.TimeLast(time_event.ToString());
-                                JournalEvent evn = new JournalEvent(ENUM_JOURNAL_EVENT.JOURNAL_EVENT_RENAME_PILOT,time_event.ToString(),CurrentPilot);
+                                JournalHistoryEvent evn = new JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_RENAME_PILOT,time_event.ToString(),CurrentPilot);
                                 if(evn != null)
                                 {
                                     evn.Pilot(CurrentPilot);
@@ -466,12 +473,12 @@ namespace WhoIs
                             string game_mode = this.GameMode(line);
                             if(game_mode != "Open")
                             {
-                                ENUM_JOURNAL_EVENT mode = game_mode == "Solo" ? ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_MODE_SOLO : ENUM_JOURNAL_EVENT.JOURNAL_EVENT_GAME_MODE_PRIVATE;
+                                ENUM_JOURNAL_HISTORY_EVENT mode = game_mode == "Solo" ? ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_MODE_SOLO : ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_GAME_MODE_PRIVATE;
                                 DateTime time_ban = game_mode == "Group" ? DateTime.Parse("2021-03-24T00:00:00") : DateTime.Parse("2021-09-19T00:00:00");
                                 string group_name = game_mode == "Group" ? this.Group(line) : "";
                                 if(time_event > time_ban)
                                 {
-                                    JournalEvent evn = new JournalEvent(mode,time_event.ToString(),group_name);
+                                    JournalHistoryEvent evn = new JournalHistoryEvent(mode,time_event.ToString(),group_name);
                                     if(evn != null)
                                     {
                                         evn.Pilot(CurrentPilot);
@@ -491,7 +498,7 @@ namespace WhoIs
                         {
                             if(time_event > pilot.TimeLast())
                                 pilot.TimeLast(time_event.ToString());
-                            JournalEvent evn = new JournalEvent(ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_APPLIED,time_event.ToString(),this.SquadronName(line));
+                            JournalHistoryEvent evn = new JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_APPLIED,time_event.ToString(),this.SquadronName(line));
                             if(evn != null)
                             {
                                 evn.Pilot(CurrentPilot);
@@ -511,7 +518,7 @@ namespace WhoIs
                             pilot.AddNewSquadron(CurrentSquadron, time_event.ToString());
                             if(time_event > pilot.TimeLast())
                                 pilot.TimeLast(time_event.ToString());
-                            JournalEvent evn = new JournalEvent(ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_JOINED,time_event.ToString(),CurrentSquadron);
+                            JournalHistoryEvent evn = new JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_JOINED,time_event.ToString(),CurrentSquadron);
                             if(evn != null)
                             {
                                 evn.Pilot(CurrentPilot);
@@ -531,7 +538,7 @@ namespace WhoIs
                         {
                             if(time_event > pilot.TimeLast())
                                 pilot.TimeLast(time_event.ToString());
-                            JournalEvent evn = new JournalEvent(ENUM_JOURNAL_EVENT.JOURNAL_EVENT_SQUADRON_LEFT,time_event.ToString(),this.SquadronName(line));
+                            JournalHistoryEvent evn = new JournalHistoryEvent(ENUM_JOURNAL_HISTORY_EVENT.JOURNAL_EVENT_SQUADRON_LEFT,time_event.ToString(),this.SquadronName(line));
                             if(evn != null)
                             {
                                 evn.Pilot(CurrentPilot);

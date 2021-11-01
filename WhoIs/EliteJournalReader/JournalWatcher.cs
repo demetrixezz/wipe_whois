@@ -18,6 +18,12 @@ namespace EliteJournalReader
     /// File watcher and parser for the new journal feed to be introduced in Elite:Dangerous 2.2.
     /// It reads the file as it comes in and parses it on a line by line basis.
     /// All events are fired as .NET events to be consumed by other classes.
+    /// 
+    /// Наблюдатель за файлами и анализатор для новой ленты журнала, 
+    /// который будет представлен в Elite: Dangerous 2.2. 
+    /// Читает файл по мере его поступления и анализирует его построчно. 
+    /// Все события запускаются как события .NET для использования другими классами.
+    /// 
     /// </summary>
     public class JournalWatcher : FileSystemWatcher
     {
@@ -26,12 +32,12 @@ namespace EliteJournalReader
         public event EventHandler<MessageReceivedEventArgs> MessageReceived;
         
         /// <summary>
-        ///     The default filter
+        ///     Фильтр по умолчанию
         /// </summary>
         private const string DefaultFilter = @"Journal*.*.log";
 
         /// <summary>
-        ///     The latest log file
+        ///     Последний лог-файл
         /// </summary>
         public string LatestJournalFile { get; private set; }
 
@@ -70,8 +76,7 @@ namespace EliteJournalReader
         public bool IsLive { get; protected set; }
 
         /// <summary>
-        /// Use reflection to generate a list of event handlers. This allows for a dynamic list of handler classes, one for each type
-        /// of event.
+        /// Use reflection to generate a list of event handlers. This allows for a dynamic list of handler classes, one for each type of event.
         /// </summary>
         static JournalWatcher()
         {
