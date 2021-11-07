@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -268,17 +269,16 @@ namespace WhoIs
     public class VoiceActorsCollection
     {
         private List<VoiceActor> list_actors = null;
-        public VoiceActorsCollection()
+        private Panel PanelParent = null;
+        public VoiceActorsCollection(Panel panelParent)
         {
             this.list_actors = new List<VoiceActor>();
             this.list_actors.Sort();
-            VoiceActor actorAlena = new VoiceActor("Алёна", "Alena");
-            VoiceActor actorFilipp= new VoiceActor("Филипп", "Filipp");
-            this.list_actors.Add(actorAlena);
-            this.list_actors.Add(actorFilipp);
-            actorAlena.ID(this.list_actors.IndexOf(actorAlena));
-            actorFilipp.ID(this.list_actors.IndexOf(actorFilipp));
+            this.PanelParent = panelParent;
+            this.AddNewActor(this.list_actors.Count, "Алёна", "Alena");
+            this.AddNewActor(this.list_actors.Count, "Филипп", "Filipp");
             this.list_actors.ElementAt(0).Used = true;
+            //MessageBox.Show("Count=" + list_actors.Count.ToString(), "VoiceActorsCollection");
         }
 
         /// <summary>
@@ -301,8 +301,10 @@ namespace WhoIs
             foreach(VoiceActor vactor in this.list_actors)
                 if(vactor.Name.Display == actor.Name.Display || vactor.Name.Program == actor.Name.Program)
                     return false;
-            actor.ID(this.Count());
+            actor.ID = this.list_actors.Count;
+            actor.PrevID(this.list_actors.Count - 1);
             this.list_actors.Add(actor);
+            //MessageBox.Show("Count=" + list_actors.Count.ToString(), "AddNewActor");
             return true;
         }
         /// <summary>
@@ -311,16 +313,19 @@ namespace WhoIs
         /// <param name="actor_name"></param>
         /// <param name="actor_program_name"></param>
         /// <returns></returns>
-        public bool AddNewActor(string actor_name, string actor_program_name)
+        public bool AddNewActor(int actorID, string actor_name, string actor_program_name)
         {
-            VoiceActor actor = new VoiceActor(actor_name, actor_program_name);
+            VoiceActor actor = new VoiceActor(actorID, actor_name, actor_program_name, this.PanelParent);
             foreach(VoiceActor vactor in this.list_actors)
                 if(vactor.Name.Display == actor_name || vactor.Name.Program == actor_program_name)
                     return false;
-            actor.ID(this.Count());
+            actor.ID = actorID;
+            actor.PrevID(actorID - 1);
             this.list_actors.Add(actor);
+            //MessageBox.Show("Count=" + list_actors.Count.ToString() + "actor.ID="+ actor.ID.ToString(), "AddNewActor");
             return true;
         }
+
         /// <summary>
         /// Возвращает объект ассистента по индексу
         /// Если индекс меньше нуля - возвращает первого ассистента
@@ -383,40 +388,239 @@ namespace WhoIs
     public class VoiceActor
     {
         public  ActorNames  Name;
-        public  bool        Used;
-        private int         identifier;
-        private string      programm_path;
-
-        // Конструкторы
+        public  bool        Used = false;
+        public  int         ID = -1;
+        private int         id_prev = -1;
+        private string      sounds_data_path = "";
+        private Panel       PanelParent = null;
+        private SplitContainer Panel = null;
+        private Label       Header = null;
+        private Button      ButtonListen = null;
+        private RadioButton ButtonSetActor = null;
+        
+        /// <summary>
+        /// Конструктор без параметров.
+        /// После создания объекта требуется установить отображаемое и программное имя,
+        /// флаг использования, идентификаторы этого и предыдущего ассистента,
+        /// а также дополнить путь к папке хранения звуковых файлов, и указать родительскую панель.
+        /// </summary>
         public VoiceActor()
         {
             this.Name.Display = "";
             this.Name.Program = "";
             this.Used = false;
-            this.identifier = -1;
-            this.programm_path = Application.StartupPath;
+            this.ID = -1;
+            this.id_prev = -1;
+            this.sounds_data_path = Application.StartupPath + "\\Sounds\\";
         }
-        public VoiceActor(string actor_name, string actor_program_name)
+        /// <summary>
+        /// Параметрический конструктор. 
+        /// После создания объекта требуется установить флаг использования, идентификаторы этого и предыдущего ассистента.
+        /// </summary>
+        /// <param name="actor_name"></param>
+        /// <param name="actor_program_name"></param>
+        /// <param name="panelParent"></param>
+        public VoiceActor(string actor_name, string actor_program_name, Panel panelParent)
         {
             this.Name.Display = actor_name;
             this.Name.Program = actor_program_name;
             this.Used = false;
-            this.identifier = -1;
-            this.programm_path = Application.StartupPath;
+            this.ID = -1;
+            this.id_prev = -1;
+            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.PanelParent = panelParent;
         }
-        public VoiceActor(string actor_name, string folder_name, string actor_program_name)
+        /// <summary>
+        /// Параметрический конструктор.
+        /// После создания объекта требуется установить флаг использования, идентификаторы этого и предыдущего ассистента.
+        /// </summary>
+        /// <param name="actor_name"></param>
+        /// <param name="folder_name"></param>
+        /// <param name="actor_program_name"></param>
+        /// <param name="panelParent"></param>
+        public VoiceActor(string actor_name, string folder_name, string actor_program_name, Panel panelParent)
         {
             this.Name.Display = actor_name;
             this.Name.Program = actor_program_name;
             this.Used = false;
-            this.identifier = -1;
-            this.programm_path = Application.StartupPath;
+            this.ID = -1;
+            this.id_prev = -1;
+            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.PanelParent = panelParent;
+        }
+        /// <summary>
+        /// Параметрический конструктор.
+        /// Все параметры и свойства задаются автоматически.
+        /// </summary>
+        /// <param name="actorID"></param>
+        /// <param name="actor_name"></param>
+        /// <param name="actor_program_name"></param>
+        /// <param name="panelParent"></param>
+        public VoiceActor(int actorID, string actor_name, string actor_program_name, Panel panelParent)
+        {
+            this.Name.Display = actor_name;
+            this.Name.Program = actor_program_name;
+            this.Used = false;
+            this.ID = actorID;
+            this.id_prev = actorID - 1;
+            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.PanelParent = panelParent;
+            this.CreateControlPanel();
+        }
+        /// <summary>
+        /// Создаёт панель управления
+        /// </summary>
+        /// <returns></returns>
+        public bool CreateControlPanel()
+        {
+            if(PanelParent == null)
+                return false;
+            this.Panel = new SplitContainer();
+            this.InitControlPanel();
+            this.Header = new Label();
+            this.InitHeader();
+            this.ButtonListen = new Button();
+            this.InitButtonListen();
+            this.ButtonSetActor = new RadioButton();
+            this.InitButtonSetActor();
+
+            this.Panel.Show();
+            this.Header.Show();
+            this.ButtonListen.Show();
+            this.ButtonSetActor.Show();
+            return true;
+        }
+        /// <summary>
+        /// Инициализация свойств панели управления
+        /// </summary>
+        private void InitControlPanel()
+        {
+            if(this.Panel == null)
+                return;
+            this.PanelParent.Controls.Add(this.Panel);
+            this.Panel.Width = this.Panel.Parent.Width - 18;
+            this.Panel.Height = 59;
+            this.Panel.IsSplitterFixed = true;
+            this.Panel.SplitterDistance = 217;
+            this.Panel.SplitterWidth = 3;
+            this.Panel.Location = new Point(10, (8 + this.ID * this.Panel.Height) + (this.ID == 0 ? 0 : 4));
+            this.Panel.BackColor = Color.FromArgb(47, 49, 54);
+            this.Panel.BorderStyle = BorderStyle.FixedSingle;
+            this.Panel.ForeColor = Color.FromArgb(171, 171, 171);
+            this.Panel.Panel1.BackColor = Color.FromArgb(47, 49, 54);
+            this.Panel.Panel1.ForeColor = Color.FromArgb(171, 171, 171);
+            this.Panel.Panel2.BackColor = Color.FromArgb(47, 49, 54);
+            this.Panel.Panel2.ForeColor = Color.FromArgb(171, 171, 171);
+
+            MessageBox.Show(this.Description() + ": ID = " + this.ID + ": X = " + Panel.Location.X.ToString() + ", Y = " + Panel.Location.Y.ToString());
+        }
+        /// <summary>
+        /// Инициализация свойств заголовка панели управления (имя ассистента)
+        /// </summary>
+        private void InitHeader()
+        {
+            if(this.Header == null)
+                return;
+            this.Panel.Panel1.Controls.Add(this.Header);
+            this.Header.Text = this.Description();
+            this.Header.Location = new Point(5, 5);
+            this.Header.Width = 113;
+            this.Header.Height = 13;
+            this.Header.AutoSize = true;
+            this.Header.BackColor = Color.FromArgb(47, 49, 54);
+            this.Header.ForeColor = Color.FromArgb(171, 171, 171);
+            this.Header.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold);
+        }
+        /// <summary>
+        /// Инициализация свойств кнопки "Прослушать" голос ассистента
+        /// </summary>
+        private void InitButtonListen()
+        {
+            if(this.ButtonListen == null)
+                return;
+            this.Panel.Panel1.Controls.Add(this.ButtonListen);
+            this.ButtonListen.BackColor = Color.FromArgb(57, 59, 64);
+            this.ButtonListen.ForeColor = Color.FromArgb(171, 171, 171);
+            this.ButtonListen.Location = new Point(5, 24);
+            this.ButtonListen.Width = 100;
+            this.ButtonListen.Height = 26;
+            this.ButtonListen.Text = "Прослушать";
+            this.ButtonListen.TextAlign = ContentAlignment.MiddleCenter;
+            this.ButtonListen.FlatStyle = FlatStyle.Flat;
+            this.ButtonListen.FlatAppearance.BorderColor = Color.FromArgb(57, 59, 64);
+            this.ButtonListen.FlatAppearance.BorderSize = 0;
+            this.ButtonListen.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 79, 94);
+            this.ButtonListen.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 69, 74);
+
+            this.ButtonListen.Click += (s, e) =>
+            {
+                MessageBox.Show("Путь к папке звуков:\n" + this.sounds_data_path);
+            };
+        }
+        /// <summary>
+        /// Инициализация свойств кнопки "Установить" ассистента
+        /// </summary>
+        private void InitButtonSetActor()
+        {
+            if(this.ButtonSetActor == null)
+                return;
+            this.Panel.Panel1.Controls.Add(this.ButtonSetActor);
+            this.ButtonSetActor.Appearance = Appearance.Button;
+            this.ButtonSetActor.BackColor = Color.FromArgb(57, 59, 64);
+            this.ButtonSetActor.ForeColor = Color.FromArgb(171, 171, 171);
+            this.ButtonSetActor.Location = new Point(110, 24);
+            this.ButtonSetActor.Width = 100;
+            this.ButtonSetActor.Height = 26;
+            this.ButtonSetActor.Text = "Установить";
+            this.ButtonSetActor.TextAlign = ContentAlignment.MiddleCenter;
+            this.ButtonSetActor.FlatStyle = FlatStyle.Flat;
+            this.ButtonSetActor.FlatAppearance.BorderColor = Color.FromArgb(57, 59, 64);
+            this.ButtonSetActor.FlatAppearance.BorderSize = 0;
+            this.ButtonSetActor.FlatAppearance.CheckedBackColor = Color.FromArgb(57, 109, 64);
+            this.ButtonSetActor.FlatAppearance.MouseDownBackColor = (!this.ButtonSetActor.Checked ? Color.FromArgb(77, 79, 94) : Color.FromArgb(77, 129, 84));
+            this.ButtonSetActor.FlatAppearance.MouseOverBackColor = (!this.ButtonSetActor.Checked ? Color.FromArgb(67, 69, 74) : Color.FromArgb(67, 119, 74));
+            this.ButtonSetActor.AutoCheck = false;
+
+            /// <summary>
+            /// Обработчик клика по кнопке
+            /// </summary>
+            this.ButtonSetActor.Click += (s, e) =>
+            {
+                this.ButtonSetActor.Checked = !this.ButtonSetActor.Checked;
+                if(this.ButtonSetActor.Checked)
+                    this.SetON();
+                else
+                    this.SetOFF();
+            };
+
+        }
+        /// <summary>
+        /// Установка состояния ассистента "Установлен" и свойств кнопки в этом состоянии
+        /// </summary>
+        public void SetON()
+        {
+            this.ButtonSetActor.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 129, 84);
+            this.ButtonSetActor.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 119, 74);
+            this.ButtonSetActor.Text = "Установлен";
+            this.Used = true;
+        }
+        /// <summary>
+        /// Установка состояния ассистента "Установить" и свойств кнопки в этом состоянии
+        /// </summary>
+        public void SetOFF()
+        {
+            this.ButtonSetActor.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 79, 94);
+            this.ButtonSetActor.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 69, 74);
+            this.ButtonSetActor.Text = "Установить";
+            this.Used = false;
         }
 
-        public void ID(int id)      { this.identifier = id;                     }
-        public int  ID()            { return this.identifier;                   }
-        public string Description() { return $"Ассистент: {this.Name.Display}"; }
-
+        public void PrevID(int id)  { this.id_prev = id;                                }
+        public int  PrevID()        { return this.id_prev;                              }
+        public string Description() { return $"Ассистент: {this.Name.Display}";         }
+        public int  PanelTop()      { return this.Panel.Location.Y;                     }
+        public int  PanelBottom()   { return this.Panel.Location.Y + this.Panel.Height; }
+        
         /// <summary>
         /// Создаёт сжатый gz-файл из wav-файла и записывает его в ресурсы
         /// </summary>
@@ -426,7 +630,7 @@ namespace WhoIs
         {
             string gzName = GetResourceFileName(event_name);
             using(FileStream fileIn = File.OpenRead($@"{file_path}.wav"))
-            using(FileStream fileOut = File.Create($@"{this.programm_path}\{this.GetResourceFileName(event_name)}.gz"))
+            using(FileStream fileOut = File.Create($@"{this.sounds_data_path}\{this.GetResourceFileName(event_name)}.gz"))
             using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
                 fileIn.CopyTo(gz);
         }

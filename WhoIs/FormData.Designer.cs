@@ -106,7 +106,7 @@ namespace WhoIs
             // 
             // panelControlsFormData
             // 
-            this.panelControlsFormData.Location = new System.Drawing.Point(211, 0);
+            this.panelControlsFormData.Location = new System.Drawing.Point(210, 0);
             this.panelControlsFormData.Name = "panelControlsFormData";
             this.panelControlsFormData.Size = new System.Drawing.Size(688, 468);
             this.panelControlsFormData.TabIndex = 1;
@@ -116,9 +116,9 @@ namespace WhoIs
             this.panelMenuFormData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
             this.panelMenuFormData.Controls.Add(this.buttonPilots);
             this.panelMenuFormData.Controls.Add(this.buttonSquadrons);
-            this.panelMenuFormData.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuFormData.Location = new System.Drawing.Point(2, 0);
             this.panelMenuFormData.Name = "panelMenuFormData";
-            this.panelMenuFormData.Size = new System.Drawing.Size(210, 468);
+            this.panelMenuFormData.Size = new System.Drawing.Size(207, 468);
             this.panelMenuFormData.TabIndex = 0;
             // 
             // buttonPilots
@@ -131,7 +131,7 @@ namespace WhoIs
             this.buttonPilots.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
             this.buttonPilots.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPilots.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonPilots.Location = new System.Drawing.Point(108, 6);
+            this.buttonPilots.Location = new System.Drawing.Point(106, 6);
             this.buttonPilots.Name = "buttonPilots";
             this.buttonPilots.RoundedHeight = 12;
             this.buttonPilots.RoundedWidth = 12;
@@ -153,7 +153,7 @@ namespace WhoIs
             this.buttonSquadrons.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
             this.buttonSquadrons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSquadrons.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonSquadrons.Location = new System.Drawing.Point(6, 6);
+            this.buttonSquadrons.Location = new System.Drawing.Point(4, 6);
             this.buttonSquadrons.Name = "buttonSquadrons";
             this.buttonSquadrons.RoundedHeight = 12;
             this.buttonSquadrons.RoundedWidth = 12;

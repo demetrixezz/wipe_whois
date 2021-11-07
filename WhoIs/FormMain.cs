@@ -140,7 +140,7 @@ namespace WhoIs
             label2.Text = "";
 
             // Создаём коллекцию стандартных голосовых ассистентов
-            VoiceActors = new VoiceActorsCollection();
+            VoiceActors = new VoiceActorsCollection(panelChoiceVoiceActor);
             // Загружаем настройки программы из реестра
             SettingsLoad();
             // Создаём экземпляр класса игрока
@@ -937,12 +937,6 @@ namespace WhoIs
             }
         }
 
-        // Метод обработки пилотов-игроков
-        private void CheckPilot(string pilotName) 
-        {
-            
-        }
-
         // Обработчик изменения лог-файла - факт произошедшего абстрактного события
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
@@ -1066,6 +1060,7 @@ namespace WhoIs
 
                 lgb.InterpolationColors = cblend;
                 e.Graphics.FillRectangle(lgb, ClientRectangle);
+                e.Graphics.DrawRectangle(new Pen(color1, 2), 1, 1, this.Width - 2, this.Height - 2);
             }
             Paint -= OnPaintEventHandler;
             Paint += OnPaintEventHandler;
@@ -1082,7 +1077,7 @@ namespace WhoIs
             public override Color MenuItemSelected => Color.FromArgb(64, 67, 73);
             public override Color MenuItemBorder => Color.FromArgb(56, 59, 65);
         }
-
+        
         // Внешний вид и поведение текстовой метки
         public static class ControlView
         {
@@ -1138,17 +1133,17 @@ namespace WhoIs
         /// <param name="e"></param>
         private void ButtonMenuLeftSettings_Click(object sender, EventArgs e)
         {
-            if(panelMenuLeftPanelButtonSettings.Location.X < 0)
+            if(panelMenuLeftPanelButtonSettings.Location.X <= -panelMenuLeftPanelButtonSettings.Width)
                 SlidePanel(panelMenuLeftPanelButtonSettings, 4, 0, ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT, ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE);
-            else
+            else if(panelMenuLeftPanelButtonSettings.Location.X >= 0)
                 SlidePanel(panelMenuLeftPanelButtonSettings, 8, -panelMenuLeftPanelButtonSettings.Width, ENUM_SLIDE_MODE.SLIDE_MODE_LEFT, ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER);
         }
 
         private void ButtonPanelMenuLeftPanelButtonSettingsActors_Click(object sender, EventArgs e)
         {
-            if(panelChoiceVoiceActor.Location.X > 0)
+            if(panelChoiceVoiceActor.Location.X >= panelDataRight.Width)
                 SlidePanel(panelChoiceVoiceActor, 4, 0, ENUM_SLIDE_MODE.SLIDE_MODE_LEFT, ENUM_VISIBLE_CONTROL.VISIBLE_BEFORE);
-            else
+            else if(panelChoiceVoiceActor.Location.X <= 0)
                 SlidePanel(panelChoiceVoiceActor, 8, panelDataRight.Width, ENUM_SLIDE_MODE.SLIDE_MODE_RIGHT, ENUM_VISIBLE_CONTROL.UNVISIBLE_AFTER);
         }
 
@@ -1428,8 +1423,14 @@ namespace WhoIs
             string text="";
             foreach(VoiceActor actor in VoiceActors.List())
             {
-                text += actor.Name.Display + " " + actor.Name.Program + "\n";
+                text += actor.Name.Display + " " + actor.Name.Program +
+                        " ID: " + actor.ID.ToString() + 
+                        ", PrevID: " + actor.PrevID().ToString() + 
+                        //", Top: " + actor.PanelTop().ToString() +
+                        //", Bottom: " + actor.PanelBottom().ToString() +
+                        "\n";
             }
+            text += "\n=====\n" + VoiceActors.CurrentUsedActor().Name.Display;
             MessageBox.Show(text + "\n");
        }
 

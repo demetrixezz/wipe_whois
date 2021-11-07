@@ -389,8 +389,7 @@ namespace WhoIs
         async public void History(string path_to_logs)
         {
             //MessageBox.Show($"Запускаю чтение истории для {PilotCurrent}");
-            await Task.Run(()=> 
-            { 
+            await Task.Run(()=> { 
                 CollectHistory(path_to_logs);
                 HistoryCompleted = true;
             });
