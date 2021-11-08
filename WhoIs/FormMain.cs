@@ -35,7 +35,7 @@ namespace WhoIs
         string path;
         string PathToLogs => path ?? (path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\Saved Games\Frontier Developments\Elite Dangerous\");
 
-        // Экземпляры вотчера событий, игрока и голосового ассистента
+        // Экземпляры вотчера событий, игрока и коллекции голосовых ассистентов
         JournalWatcher          edWatcher = null;
         edPlayer                Player = null;
         VoiceActorsCollection   VoiceActors = null;

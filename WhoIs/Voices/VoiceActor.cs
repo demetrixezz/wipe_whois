@@ -14,256 +14,256 @@ using EliteJournalReader;
 
 namespace WhoIs
 {
-    public enum ENUM_VOICE_EVENT_DATA_INDEXES
+    public enum ENUM_ED_EVENT_DATA_INDEXES
     {
-        VOICE_EVENT_AFMUREPAIRS,
-        VOICE_EVENT_APPLIED_TO_SQUADRON,
-        VOICE_EVENT_APPROACH_BODY,
-        VOICE_EVENT_APPROACH_SETTLEMENT,
-        VOICE_EVENT_ASTEROID_CRACKED,
-        VOICE_EVENT_BACKPACK_MATERIALS,
-        VOICE_EVENT_BOOK_DROPSHIP,
-        VOICE_EVENT_BOOK_TAXI,
-        VOICE_EVENT_BOUNTY,
-        VOICE_EVENT_BUY_AMMO,
-        VOICE_EVENT_BUY_DRONES,
-        VOICE_EVENT_BUY_EXPLORATION_DATA,
-        VOICE_EVENT_BUY_MICRO_RESOURCES,
-        VOICE_EVENT_BUY_SUIT,
-        VOICE_EVENT_BUY_TRADE_DATA,
-        VOICE_EVENT_BUY_WEAPON,
-        VOICE_EVENT_CANCEL_DROPSHIP,
-        VOICE_EVENT_CANCEL_TAXI,
-        VOICE_EVENT_CAP_SHIP_BOND,
-        VOICE_EVENT_CARGO_DEPOT,
-        VOICE_EVENT_CARGO,
-        VOICE_EVENT_CARGO_TRANSFER,
-        VOICE_EVENT_CARRIER_BANK_TRANSFER,
-        VOICE_EVENT_CARRIER_BUY,
-        VOICE_EVENT_CARRIER_CANCEL_DECOMMISSION,
-        VOICE_EVENT_CARRIER_CREW_SERVICES,
-        VOICE_EVENT_CARRIER_DECOMMISSION,
-        VOICE_EVENT_CARRIER_DEPOSIT_FUEL,
-        VOICE_EVENT_CARRIER_DOCKING_PERMISSION,
-        VOICE_EVENT_CARRIER_FINANCE,
-        VOICE_EVENT_CARRIER_JUMP_CANCELLED,
-        VOICE_EVENT_CARRIER_JUMP,
-        VOICE_EVENT_CARRIER_JUMP_REQUEST,
-        VOICE_EVENT_CARRIER_MODULE_PACK,
-        VOICE_EVENT_CARRIER_NAME_CHANGED,
-        VOICE_EVENT_CARRIER_SHIP_PACK,
-        VOICE_EVENT_CARRIER_STATS,
-        VOICE_EVENT_CARRIER_TRADE_ORDER,
-        VOICE_EVENT_CHANGE_CREW_ROLE,
-        VOICE_EVENT_CLEAR_SAVED_GAME,
-        VOICE_EVENT_COCKPIT_BREACHED,
-        VOICE_EVENT_CODEX_ENTRY,
-        VOICE_EVENT_COLLECT_CARGO,
-        VOICE_EVENT_COLLECT_ITEMS,
-        VOICE_EVENT_COMMANDER,
-        VOICE_EVENT_COMMIT_CRIME,
-        VOICE_EVENT_COMMUNITY_GOAL_DISCARD,
-        VOICE_EVENT_COMMUNITY_GOAL,
-        VOICE_EVENT_COMMUNITY_GOAL_JOIN,
-        VOICE_EVENT_COMMUNITY_GOAL_REWARD,
-        VOICE_EVENT_CONTINUED,
-        VOICE_EVENT_CREATE_SUIT_LOADOUT,
-        VOICE_EVENT_CREW_ASSIGN,
-        VOICE_EVENT_CREW_FIRE,
-        VOICE_EVENT_CREW_HIRE,
-        VOICE_EVENT_CREW_LAUNCH_FIGHTER,
-        VOICE_EVENT_CREW_MEMBER_JOINS,
-        VOICE_EVENT_CREW_MEMBER_QUITS,
-        VOICE_EVENT_CREW_MEMBER_ROLE_CHANGE,
-        VOICE_EVENT_CRIME_VICTIM,
-        VOICE_EVENT_DATALINK_SCAN,
-        VOICE_EVENT_DATALINK_VOUCHER,
-        VOICE_EVENT_DATA_SCANNED,
-        VOICE_EVENT_DELETE_SUIT_LOADOUT,
-        VOICE_EVENT_DIED,
-        VOICE_EVENT_DISBANDED_SQUADRON,
-        VOICE_EVENT_DISCOVERY_SCAN,
-        VOICE_EVENT_DISEMBARK,
-        VOICE_EVENT_DOCKED,
-        VOICE_EVENT_DOCK_FIGHTER,
-        VOICE_EVENT_DOCKING_CANCELLED,
-        VOICE_EVENT_DOCKING_DENIED,
-        VOICE_EVENT_DOCKING_GRANTED,
-        VOICE_EVENT_DOCKING_REQUESTED,
-        VOICE_EVENT_DOCKING_TIMEOUT,
-        VOICE_EVENT_DOCK_SRV,
-        VOICE_EVENT_DROP_ITEMS,
-        VOICE_EVENT_DROP_SHIP_DEPLOY,
-        VOICE_EVENT_EJECT_CARGO,
-        VOICE_EVENT_EMBARK,
-        VOICE_EVENT_END_CREW_SESSION,
-        VOICE_EVENT_ENGINEER_CONTRIBUTION,
-        VOICE_EVENT_ENGINEER_CRAFT,
-        VOICE_EVENT_ENGINEER_LEGACY_CONVERT,
-        VOICE_EVENT_ENGINEER_PROGRESS,
-        VOICE_EVENT_ESCAPE_INTERDICTION,
-        VOICE_EVENT_FACTION_KILL_BOND,
-        VOICE_EVENT_FETCH_REMOTE_MODULE,
-        VOICE_EVENT_FIGHTER_DESTROYED,
-        VOICE_EVENT_FIGHTER_REBUILT,
-        VOICE_EVENT_FILEHEADER,
-        VOICE_EVENT_FRIENDS,
-        VOICE_EVENT_FSD_JUMP,
-        VOICE_EVENT_FSD_TARGET,
-        VOICE_EVENT_FSS_ALL_BODIES_FOUND,
-        VOICE_EVENT_FSS_DISCOVERY_SCAN,
-        VOICE_EVENT_FSS_SIGNAL_DISCOVERED,
-        VOICE_EVENT_FUEL_SCOOP,
-        VOICE_EVENT_HEAT_DAMAGE,
-        VOICE_EVENT_HEAT_WARNING,
-        VOICE_EVENT_HULL_DAMAGE,
-        VOICE_EVENT_INTERDICTED,
-        VOICE_EVENT_INTERDICTION,
-        VOICE_EVENT_INVITED_TO_SQUADRON,
-        VOICE_EVENT_MAGIC_MAU_IS_LIVE_EVENT,
-        VOICE_EVENT_JET_CONE_BOOST,
-        VOICE_EVENT_JET_CONE_DAMAGE,
-        VOICE_EVENT_JOIN_A_CREW,
-        VOICE_EVENT_JOINED_SQUADRON,
-        VOICE_EVENT_KICK_CREW_MEMBER,
-        VOICE_EVENT_KICKED_FROM_SQUADRON,
-        VOICE_EVENT_LAUNCH_DRONE,
-        VOICE_EVENT_LAUNCH_FIGHTER,
-        VOICE_EVENT_LAUNCH_SRV,
-        VOICE_EVENT_LEAVE_BODY,
-        VOICE_EVENT_LEFT_SQUADRON,
-        VOICE_EVENT_LIFTOFF,
-        VOICE_EVENT_LOAD_GAME,
-        VOICE_EVENT_LOADOUT_EQUIP_MODULE,
-        VOICE_EVENT_LOADOUT,
-        VOICE_EVENT_LOADOUT_REMOVE_MODULE,
-        VOICE_EVENT_LOCATION,
-        VOICE_EVENT_MARKET_BUY,
-        VOICE_EVENT_MARKET,
-        VOICE_EVENT_MARKET_REFINED,
-        VOICE_EVENT_MARKET_SELL,
-        VOICE_EVENT_MASS_MODULE_STORE,
-        VOICE_EVENT_MATERIAL_COLLECTED,
-        VOICE_EVENT_MATERIAL_DISCARDED,
-        VOICE_EVENT_MATERIAL_DISCOVERED,
-        VOICE_EVENT_MATERIALS,
-        VOICE_EVENT_MATERIAL_TRADE,
-        VOICE_EVENT_MINING_REFINED,
-        VOICE_EVENT_MISSION_ABANDONED,
-        VOICE_EVENT_MISSION_ACCEPTED,
-        VOICE_EVENT_MISSION_COMPLETED,
-        VOICE_EVENT_MISSION_FAILED,
-        VOICE_EVENT_MISSION_REDIRECTED,
-        VOICE_EVENT_MISSIONS,
-        VOICE_EVENT_MODULE_BUY,
-        VOICE_EVENT_MODULE_INFO,
-        VOICE_EVENT_MODULE_RETRIEVE,
-        VOICE_EVENT_MODULE_SELL,
-        VOICE_EVENT_MODULE_SELL_REMOTE,
-        VOICE_EVENT_MODULES_INFO,
-        VOICE_EVENT_MODULE_STORE,
-        VOICE_EVENT_MODULE_SWAP,
-        VOICE_EVENT_MULTI_SELL_EXPLORATION_DATA,
-        VOICE_EVENT_MUSIC,
-        VOICE_EVENT_NAV_BEACON_SCAN,
-        VOICE_EVENT_NAV_ROUTE,
-        VOICE_EVENT_NEW_COMMANDER,
-        VOICE_EVENT_NPC_CREW_PAID_WAGE,
-        VOICE_EVENT_NPC_CREW_RANK,
-        VOICE_EVENT_OUTFITTING,
-        VOICE_EVENT_PASSENGERS,
-        VOICE_EVENT_PAY_BOUNTIES,
-        VOICE_EVENT_PAY_FINES,
-        VOICE_EVENT_PAY_LEGACY_FINES,
-        VOICE_EVENT_POWERPLAY_COLLECT,
-        VOICE_EVENT_POWERPLAY_DEFECT,
-        VOICE_EVENT_POWERPLAY_DELIVER,
-        VOICE_EVENT_POWERPLAY,
-        VOICE_EVENT_POWERPLAY_FAST_TRACK,
-        VOICE_EVENT_POWERPLAY_JOIN,
-        VOICE_EVENT_POWERPLAY_LEAVE,
-        VOICE_EVENT_POWERPLAY_SALARY,
-        VOICE_EVENT_POWERPLAY_VOTE,
-        VOICE_EVENT_POWERPLAY_VOUCHER,
-        VOICE_EVENT_PROGRESS,
-        VOICE_EVENT_PROMOTION,
-        VOICE_EVENT_PROSPECTED_ASTEROID,
-        VOICE_EVENT_PVP_KILL,
-        VOICE_EVENT_QUIT_A_CREW,
-        VOICE_EVENT_RANK,
-        VOICE_EVENT_REBOOT_REPAIR,
-        VOICE_EVENT_RECEIVE_TEXT,
-        VOICE_EVENT_REDEEM_VOUCHER,
-        VOICE_EVENT_REFUEL_ALL,
-        VOICE_EVENT_REFUEL_PARTIAL,
-        VOICE_EVENT_RENAME_SUIT_LOADOUT,
-        VOICE_EVENT_REPAIR_ALL,
-        VOICE_EVENT_REPAIR_DRONE,
-        VOICE_EVENT_REPAIR,
-        VOICE_EVENT_REPUTATION,
-        VOICE_EVENT_RESERVOIR_REPLENISHED,
-        VOICE_EVENT_RESTOCK_VEHICLE,
-        VOICE_EVENT_RESURRECT,
-        VOICE_EVENT_ROUTE,
-        VOICE_EVENT_SAA_SCAN_COMPLETE,
-        VOICE_EVENT_SAA_SIGNALS_FOUND,
-        VOICE_EVENT_SCAN,
-        VOICE_EVENT_SCANNED,
-        VOICE_EVENT_SCAN_ORGANIC,
-        VOICE_EVENT_SCIENTIFIC_RESEARCH,
-        VOICE_EVENT_SCREENSHOT,
-        VOICE_EVENT_SEARCH_AND_RESCUE,
-        VOICE_EVENT_SELF_DESTRUCT,
-        VOICE_EVENT_SELL_DRONES,
-        VOICE_EVENT_SELL_EXPLORATION_DATA,
-        VOICE_EVENT_SELL_MICRO_RESOURCES,
-        VOICE_EVENT_SELL_ORGANIC_DATA,
-        VOICE_EVENT_SELL_SHIP_ON_REBUY,
-        VOICE_EVENT_SELL_SUIT,
-        VOICE_EVENT_SELL_WEAPON,
-        VOICE_EVENT_SEND_TEXT,
-        VOICE_EVENT_SET_USER_SHIP_NAME,
-        VOICE_EVENT_SHARED_BOOKMARK_TO_SQUADRON,
-        VOICE_EVENT_SHIELD_STATE,
-        VOICE_EVENT_SHIP_LOCKER,
-        VOICE_EVENT_SHIP_LOCKER_MATERIALS,
-        VOICE_EVENT_SHIP_TARGETED,
-        VOICE_EVENT_SHIPYARD_BUY,
-        VOICE_EVENT_SHIPYARD,
-        VOICE_EVENT_SHIPYARD_NEW,
-        VOICE_EVENT_SHIPYARD_SELL,
-        VOICE_EVENT_SHIPYARD_SWAP,
-        VOICE_EVENT_SHIPYARD_TRANSFER,
-        VOICE_EVENT_SHUTDOWN,
-        VOICE_EVENT_SQUADRON_CREATED,
-        VOICE_EVENT_SQUADRON_DEMOTION,
-        VOICE_EVENT_SQUADRON_PROMOTION,
-        VOICE_EVENT_SQUADRON_STARTUP,
-        VOICE_EVENT_SRV_DESTROYED,
-        VOICE_EVENT_START_JUMP,
-        VOICE_EVENT_STATISTICS,
-        VOICE_EVENT_STORED_MODULES,
-        VOICE_EVENT_STORED_SHIPS,
-        VOICE_EVENT_SUPERCRUISE_ENTRY,
-        VOICE_EVENT_SUPERCRUISE_EXIT,
-        VOICE_EVENT_SWITCH_SUIT_LOADOUT,
-        VOICE_EVENT_SYNTHESIS,
-        VOICE_EVENT_SYSTEMS_SHUTDOWN,
-        VOICE_EVENT_TECHNOLOGY_BROKER,
-        VOICE_EVENT_TOUCHDOWN,
-        VOICE_EVENT_TRADE_MICRO_RESOURCES,
-        VOICE_EVENT_TRANSFER_MICRO_RESOURCES,
-        VOICE_EVENT_UNDER_ATTACK,
-        VOICE_EVENT_UNDOCKED,
-        VOICE_EVENT_UPGRADE_SUIT,
-        VOICE_EVENT_UPGRADE_WEAPON,
-        VOICE_EVENT_USE_CONSUMABLE,
-        VOICE_EVENT_USS_DROP,
-        VOICE_EVENT_VEHICLE_SWITCH,
-        VOICE_EVENT_WING_ADD,
-        VOICE_EVENT_WING_JOIN,
-        VOICE_EVENT_WING_LEAVE,
-        VOICE_EVENT_WON_A_TROPHY_FOR_SQUADRON,
+        ED_EVENT_DATA_AFMUREPAIRS,
+        ED_EVENT_DATA_APPLIED_TO_SQUADRON,
+        ED_EVENT_DATA_APPROACH_BODY,
+        ED_EVENT_DATA_APPROACH_SETTLEMENT,
+        ED_EVENT_DATA_ASTEROID_CRACKED,
+        ED_EVENT_DATA_BACKPACK_MATERIALS,
+        ED_EVENT_DATA_BOOK_DROPSHIP,
+        ED_EVENT_DATA_BOOK_TAXI,
+        ED_EVENT_DATA_BOUNTY,
+        ED_EVENT_DATA_BUY_AMMO,
+        ED_EVENT_DATA_BUY_DRONES,
+        ED_EVENT_DATA_BUY_EXPLORATION_DATA,
+        ED_EVENT_DATA_BUY_MICRO_RESOURCES,
+        ED_EVENT_DATA_BUY_SUIT,
+        ED_EVENT_DATA_BUY_TRADE_DATA,
+        ED_EVENT_DATA_BUY_WEAPON,
+        ED_EVENT_DATA_CANCEL_DROPSHIP,
+        ED_EVENT_DATA_CANCEL_TAXI,
+        ED_EVENT_DATA_CAP_SHIP_BOND,
+        ED_EVENT_DATA_CARGO_DEPOT,
+        ED_EVENT_DATA_CARGO,
+        ED_EVENT_DATA_CARGO_TRANSFER,
+        ED_EVENT_DATA_CARRIER_BANK_TRANSFER,
+        ED_EVENT_DATA_CARRIER_BUY,
+        ED_EVENT_DATA_CARRIER_CANCEL_DECOMMISSION,
+        ED_EVENT_DATA_CARRIER_CREW_SERVICES,
+        ED_EVENT_DATA_CARRIER_DECOMMISSION,
+        ED_EVENT_DATA_CARRIER_DEPOSIT_FUEL,
+        ED_EVENT_DATA_CARRIER_DOCKING_PERMISSION,
+        ED_EVENT_DATA_CARRIER_FINANCE,
+        ED_EVENT_DATA_CARRIER_JUMP_CANCELLED,
+        ED_EVENT_DATA_CARRIER_JUMP,
+        ED_EVENT_DATA_CARRIER_JUMP_REQUEST,
+        ED_EVENT_DATA_CARRIER_MODULE_PACK,
+        ED_EVENT_DATA_CARRIER_NAME_CHANGED,
+        ED_EVENT_DATA_CARRIER_SHIP_PACK,
+        ED_EVENT_DATA_CARRIER_STATS,
+        ED_EVENT_DATA_CARRIER_TRADE_ORDER,
+        ED_EVENT_DATA_CHANGE_CREW_ROLE,
+        ED_EVENT_DATA_CLEAR_SAVED_GAME,
+        ED_EVENT_DATA_COCKPIT_BREACHED,
+        ED_EVENT_DATA_CODEX_ENTRY,
+        ED_EVENT_DATA_COLLECT_CARGO,
+        ED_EVENT_DATA_COLLECT_ITEMS,
+        ED_EVENT_DATA_COMMANDER,
+        ED_EVENT_DATA_COMMIT_CRIME,
+        ED_EVENT_DATA_COMMUNITY_GOAL_DISCARD,
+        ED_EVENT_DATA_COMMUNITY_GOAL,
+        ED_EVENT_DATA_COMMUNITY_GOAL_JOIN,
+        ED_EVENT_DATA_COMMUNITY_GOAL_REWARD,
+        ED_EVENT_DATA_CONTINUED,
+        ED_EVENT_DATA_CREATE_SUIT_LOADOUT,
+        ED_EVENT_DATA_CREW_ASSIGN,
+        ED_EVENT_DATA_CREW_FIRE,
+        ED_EVENT_DATA_CREW_HIRE,
+        ED_EVENT_DATA_CREW_LAUNCH_FIGHTER,
+        ED_EVENT_DATA_CREW_MEMBER_JOINS,
+        ED_EVENT_DATA_CREW_MEMBER_QUITS,
+        ED_EVENT_DATA_CREW_MEMBER_ROLE_CHANGE,
+        ED_EVENT_DATA_CRIME_VICTIM,
+        ED_EVENT_DATA_DATALINK_SCAN,
+        ED_EVENT_DATA_DATALINK_VOUCHER,
+        ED_EVENT_DATA_DATA_SCANNED,
+        ED_EVENT_DATA_DELETE_SUIT_LOADOUT,
+        ED_EVENT_DATA_DIED,
+        ED_EVENT_DATA_DISBANDED_SQUADRON,
+        ED_EVENT_DATA_DISCOVERY_SCAN,
+        ED_EVENT_DATA_DISEMBARK,
+        ED_EVENT_DATA_DOCKED,
+        ED_EVENT_DATA_DOCK_FIGHTER,
+        ED_EVENT_DATA_DOCKING_CANCELLED,
+        ED_EVENT_DATA_DOCKING_DENIED,
+        ED_EVENT_DATA_DOCKING_GRANTED,
+        ED_EVENT_DATA_DOCKING_REQUESTED,
+        ED_EVENT_DATA_DOCKING_TIMEOUT,
+        ED_EVENT_DATA_DOCK_SRV,
+        ED_EVENT_DATA_DROP_ITEMS,
+        ED_EVENT_DATA_DROP_SHIP_DEPLOY,
+        ED_EVENT_DATA_EJECT_CARGO,
+        ED_EVENT_DATA_EMBARK,
+        ED_EVENT_DATA_END_CREW_SESSION,
+        ED_EVENT_DATA_ENGINEER_CONTRIBUTION,
+        ED_EVENT_DATA_ENGINEER_CRAFT,
+        ED_EVENT_DATA_ENGINEER_LEGACY_CONVERT,
+        ED_EVENT_DATA_ENGINEER_PROGRESS,
+        ED_EVENT_DATA_ESCAPE_INTERDICTION,
+        ED_EVENT_DATA_FACTION_KILL_BOND,
+        ED_EVENT_DATA_FETCH_REMOTE_MODULE,
+        ED_EVENT_DATA_FIGHTER_DESTROYED,
+        ED_EVENT_DATA_FIGHTER_REBUILT,
+        ED_EVENT_DATA_FILEHEADER,
+        ED_EVENT_DATA_FRIENDS,
+        ED_EVENT_DATA_FSD_JUMP,
+        ED_EVENT_DATA_FSD_TARGET,
+        ED_EVENT_DATA_FSS_ALL_BODIES_FOUND,
+        ED_EVENT_DATA_FSS_DISCOVERY_SCAN,
+        ED_EVENT_DATA_FSS_SIGNAL_DISCOVERED,
+        ED_EVENT_DATA_FUEL_SCOOP,
+        ED_EVENT_DATA_HEAT_DAMAGE,
+        ED_EVENT_DATA_HEAT_WARNING,
+        ED_EVENT_DATA_HULL_DAMAGE,
+        ED_EVENT_DATA_INTERDICTED,
+        ED_EVENT_DATA_INTERDICTION,
+        ED_EVENT_DATA_INVITED_TO_SQUADRON,
+        ED_EVENT_DATA_MAGIC_MAU_IS_LIVE_EVENT,
+        ED_EVENT_DATA_JET_CONE_BOOST,
+        ED_EVENT_DATA_JET_CONE_DAMAGE,
+        ED_EVENT_DATA_JOIN_A_CREW,
+        ED_EVENT_DATA_JOINED_SQUADRON,
+        ED_EVENT_DATA_KICK_CREW_MEMBER,
+        ED_EVENT_DATA_KICKED_FROM_SQUADRON,
+        ED_EVENT_DATA_LAUNCH_DRONE,
+        ED_EVENT_DATA_LAUNCH_FIGHTER,
+        ED_EVENT_DATA_LAUNCH_SRV,
+        ED_EVENT_DATA_LEAVE_BODY,
+        ED_EVENT_DATA_LEFT_SQUADRON,
+        ED_EVENT_DATA_LIFTOFF,
+        ED_EVENT_DATA_LOAD_GAME,
+        ED_EVENT_DATA_LOADOUT_EQUIP_MODULE,
+        ED_EVENT_DATA_LOADOUT,
+        ED_EVENT_DATA_LOADOUT_REMOVE_MODULE,
+        ED_EVENT_DATA_LOCATION,
+        ED_EVENT_DATA_MARKET_BUY,
+        ED_EVENT_DATA_MARKET,
+        ED_EVENT_DATA_MARKET_REFINED,
+        ED_EVENT_DATA_MARKET_SELL,
+        ED_EVENT_DATA_MASS_MODULE_STORE,
+        ED_EVENT_DATA_MATERIAL_COLLECTED,
+        ED_EVENT_DATA_MATERIAL_DISCARDED,
+        ED_EVENT_DATA_MATERIAL_DISCOVERED,
+        ED_EVENT_DATA_MATERIALS,
+        ED_EVENT_DATA_MATERIAL_TRADE,
+        ED_EVENT_DATA_MINING_REFINED,
+        ED_EVENT_DATA_MISSION_ABANDONED,
+        ED_EVENT_DATA_MISSION_ACCEPTED,
+        ED_EVENT_DATA_MISSION_COMPLETED,
+        ED_EVENT_DATA_MISSION_FAILED,
+        ED_EVENT_DATA_MISSION_REDIRECTED,
+        ED_EVENT_DATA_MISSIONS,
+        ED_EVENT_DATA_MODULE_BUY,
+        ED_EVENT_DATA_MODULE_INFO,
+        ED_EVENT_DATA_MODULE_RETRIEVE,
+        ED_EVENT_DATA_MODULE_SELL,
+        ED_EVENT_DATA_MODULE_SELL_REMOTE,
+        ED_EVENT_DATA_MODULES_INFO,
+        ED_EVENT_DATA_MODULE_STORE,
+        ED_EVENT_DATA_MODULE_SWAP,
+        ED_EVENT_DATA_MULTI_SELL_EXPLORATION_DATA,
+        ED_EVENT_DATA_MUSIC,
+        ED_EVENT_DATA_NAV_BEACON_SCAN,
+        ED_EVENT_DATA_NAV_ROUTE,
+        ED_EVENT_DATA_NEW_COMMANDER,
+        ED_EVENT_DATA_NPC_CREW_PAID_WAGE,
+        ED_EVENT_DATA_NPC_CREW_RANK,
+        ED_EVENT_DATA_OUTFITTING,
+        ED_EVENT_DATA_PASSENGERS,
+        ED_EVENT_DATA_PAY_BOUNTIES,
+        ED_EVENT_DATA_PAY_FINES,
+        ED_EVENT_DATA_PAY_LEGACY_FINES,
+        ED_EVENT_DATA_POWERPLAY_COLLECT,
+        ED_EVENT_DATA_POWERPLAY_DEFECT,
+        ED_EVENT_DATA_POWERPLAY_DELIVER,
+        ED_EVENT_DATA_POWERPLAY,
+        ED_EVENT_DATA_POWERPLAY_FAST_TRACK,
+        ED_EVENT_DATA_POWERPLAY_JOIN,
+        ED_EVENT_DATA_POWERPLAY_LEAVE,
+        ED_EVENT_DATA_POWERPLAY_SALARY,
+        ED_EVENT_DATA_POWERPLAY_VOTE,
+        ED_EVENT_DATA_POWERPLAY_VOUCHER,
+        ED_EVENT_DATA_PROGRESS,
+        ED_EVENT_DATA_PROMOTION,
+        ED_EVENT_DATA_PROSPECTED_ASTEROID,
+        ED_EVENT_DATA_PVP_KILL,
+        ED_EVENT_DATA_QUIT_A_CREW,
+        ED_EVENT_DATA_RANK,
+        ED_EVENT_DATA_REBOOT_REPAIR,
+        ED_EVENT_DATA_RECEIVE_TEXT,
+        ED_EVENT_DATA_REDEEM_VOUCHER,
+        ED_EVENT_DATA_REFUEL_ALL,
+        ED_EVENT_DATA_REFUEL_PARTIAL,
+        ED_EVENT_DATA_RENAME_SUIT_LOADOUT,
+        ED_EVENT_DATA_REPAIR_ALL,
+        ED_EVENT_DATA_REPAIR_DRONE,
+        ED_EVENT_DATA_REPAIR,
+        ED_EVENT_DATA_REPUTATION,
+        ED_EVENT_DATA_RESERVOIR_REPLENISHED,
+        ED_EVENT_DATA_RESTOCK_VEHICLE,
+        ED_EVENT_DATA_RESURRECT,
+        ED_EVENT_DATA_ROUTE,
+        ED_EVENT_DATA_SAA_SCAN_COMPLETE,
+        ED_EVENT_DATA_SAA_SIGNALS_FOUND,
+        ED_EVENT_DATA_SCAN,
+        ED_EVENT_DATA_SCANNED,
+        ED_EVENT_DATA_SCAN_ORGANIC,
+        ED_EVENT_DATA_SCIENTIFIC_RESEARCH,
+        ED_EVENT_DATA_SCREENSHOT,
+        ED_EVENT_DATA_SEARCH_AND_RESCUE,
+        ED_EVENT_DATA_SELF_DESTRUCT,
+        ED_EVENT_DATA_SELL_DRONES,
+        ED_EVENT_DATA_SELL_EXPLORATION_DATA,
+        ED_EVENT_DATA_SELL_MICRO_RESOURCES,
+        ED_EVENT_DATA_SELL_ORGANIC_DATA,
+        ED_EVENT_DATA_SELL_SHIP_ON_REBUY,
+        ED_EVENT_DATA_SELL_SUIT,
+        ED_EVENT_DATA_SELL_WEAPON,
+        ED_EVENT_DATA_SEND_TEXT,
+        ED_EVENT_DATA_SET_USER_SHIP_NAME,
+        ED_EVENT_DATA_SHARED_BOOKMARK_TO_SQUADRON,
+        ED_EVENT_DATA_SHIELD_STATE,
+        ED_EVENT_DATA_SHIP_LOCKER,
+        ED_EVENT_DATA_SHIP_LOCKER_MATERIALS,
+        ED_EVENT_DATA_SHIP_TARGETED,
+        ED_EVENT_DATA_SHIPYARD_BUY,
+        ED_EVENT_DATA_SHIPYARD,
+        ED_EVENT_DATA_SHIPYARD_NEW,
+        ED_EVENT_DATA_SHIPYARD_SELL,
+        ED_EVENT_DATA_SHIPYARD_SWAP,
+        ED_EVENT_DATA_SHIPYARD_TRANSFER,
+        ED_EVENT_DATA_SHUTDOWN,
+        ED_EVENT_DATA_SQUADRON_CREATED,
+        ED_EVENT_DATA_SQUADRON_DEMOTION,
+        ED_EVENT_DATA_SQUADRON_PROMOTION,
+        ED_EVENT_DATA_SQUADRON_STARTUP,
+        ED_EVENT_DATA_SRV_DESTROYED,
+        ED_EVENT_DATA_START_JUMP,
+        ED_EVENT_DATA_STATISTICS,
+        ED_EVENT_DATA_STORED_MODULES,
+        ED_EVENT_DATA_STORED_SHIPS,
+        ED_EVENT_DATA_SUPERCRUISE_ENTRY,
+        ED_EVENT_DATA_SUPERCRUISE_EXIT,
+        ED_EVENT_DATA_SWITCH_SUIT_LOADOUT,
+        ED_EVENT_DATA_SYNTHESIS,
+        ED_EVENT_DATA_SYSTEMS_SHUTDOWN,
+        ED_EVENT_DATA_TECHNOLOGY_BROKER,
+        ED_EVENT_DATA_TOUCHDOWN,
+        ED_EVENT_DATA_TRADE_MICRO_RESOURCES,
+        ED_EVENT_DATA_TRANSFER_MICRO_RESOURCES,
+        ED_EVENT_DATA_UNDER_ATTACK,
+        ED_EVENT_DATA_UNDOCKED,
+        ED_EVENT_DATA_UPGRADE_SUIT,
+        ED_EVENT_DATA_UPGRADE_WEAPON,
+        ED_EVENT_DATA_USE_CONSUMABLE,
+        ED_EVENT_DATA_USS_DROP,
+        ED_EVENT_DATA_VEHICLE_SWITCH,
+        ED_EVENT_DATA_WING_ADD,
+        ED_EVENT_DATA_WING_JOIN,
+        ED_EVENT_DATA_WING_LEAVE,
+        ED_EVENT_DATA_WON_A_TROPHY_FOR_SQUADRON,
     }
     
     public class VoiceActorsCollection
@@ -278,7 +278,6 @@ namespace WhoIs
             this.AddNewActor(this.list_actors.Count, "Алёна", "Alena");
             this.AddNewActor(this.list_actors.Count, "Филипп", "Filipp");
             this.list_actors.ElementAt(0).Used = true;
-            //MessageBox.Show("Count=" + list_actors.Count.ToString(), "VoiceActorsCollection");
         }
 
         /// <summary>
@@ -304,7 +303,6 @@ namespace WhoIs
             actor.ID = this.list_actors.Count;
             actor.PrevID(this.list_actors.Count - 1);
             this.list_actors.Add(actor);
-            //MessageBox.Show("Count=" + list_actors.Count.ToString(), "AddNewActor");
             return true;
         }
         /// <summary>
@@ -322,7 +320,6 @@ namespace WhoIs
             actor.ID = actorID;
             actor.PrevID(actorID - 1);
             this.list_actors.Add(actor);
-            //MessageBox.Show("Count=" + list_actors.Count.ToString() + "actor.ID="+ actor.ID.ToString(), "AddNewActor");
             return true;
         }
 
@@ -387,6 +384,8 @@ namespace WhoIs
     /// </summary>
     public class VoiceActor
     {
+        public  delegate void ActorHandler(string program_name, bool state);
+        public  event       ActorHandler Notify;
         public  ActorNames  Name;
         public  bool        Used = false;
         public  int         ID = -1;
@@ -427,7 +426,7 @@ namespace WhoIs
             this.Used = false;
             this.ID = -1;
             this.id_prev = -1;
-            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.sounds_data_path = $"{Application.StartupPath}\\Sounds\\{actor_program_name}";
             this.PanelParent = panelParent;
         }
         /// <summary>
@@ -445,7 +444,7 @@ namespace WhoIs
             this.Used = false;
             this.ID = -1;
             this.id_prev = -1;
-            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.sounds_data_path = $"{Application.StartupPath}\\Sounds\\{actor_program_name}";
             this.PanelParent = panelParent;
         }
         /// <summary>
@@ -463,7 +462,7 @@ namespace WhoIs
             this.Used = false;
             this.ID = actorID;
             this.id_prev = actorID - 1;
-            this.sounds_data_path = Application.StartupPath + "\\Sounds\\" + actor_program_name;
+            this.sounds_data_path = $"{Application.StartupPath}\\Sounds\\{actor_program_name}";
             this.PanelParent = panelParent;
             this.CreateControlPanel();
         }
@@ -511,8 +510,6 @@ namespace WhoIs
             this.Panel.Panel1.ForeColor = Color.FromArgb(171, 171, 171);
             this.Panel.Panel2.BackColor = Color.FromArgb(47, 49, 54);
             this.Panel.Panel2.ForeColor = Color.FromArgb(171, 171, 171);
-
-            MessageBox.Show(this.Description() + ": ID = " + this.ID + ": X = " + Panel.Location.X.ToString() + ", Y = " + Panel.Location.Y.ToString());
         }
         /// <summary>
         /// Инициализация свойств заголовка панели управления (имя ассистента)
@@ -588,9 +585,15 @@ namespace WhoIs
             {
                 this.ButtonSetActor.Checked = !this.ButtonSetActor.Checked;
                 if(this.ButtonSetActor.Checked)
+                {
                     this.SetON();
+                    Notify?.Invoke(this.Name.Program, true);
+                }
                 else
+                {
                     this.SetOFF();
+                    Notify?.Invoke(this.Name.Program, false);
+                }
             };
 
         }
@@ -622,15 +625,15 @@ namespace WhoIs
         public int  PanelBottom()   { return this.Panel.Location.Y + this.Panel.Height; }
         
         /// <summary>
-        /// Создаёт сжатый gz-файл из wav-файла и записывает его в ресурсы
+        /// Создаёт сжатый gz-файл из wav-файла и сохраняет его в папку звуков ассистента
         /// </summary>
         /// <param name="file_path"></param>
         /// <param name="game_event"></param>
-        private void CreateRecourceSound(string file_path, string event_name)
+        private void CreateGZSound(string file_path, string event_name)
         {
-            string gzName = GetResourceFileName(event_name);
+            string gzName = GetEventFileName(event_name);
             using(FileStream fileIn = File.OpenRead($@"{file_path}.wav"))
-            using(FileStream fileOut = File.Create($@"{this.sounds_data_path}\{this.GetResourceFileName(event_name)}.gz"))
+            using(FileStream fileOut = File.Create($@"{this.sounds_data_path}\{this.GetEventFileName(event_name)}.gz"))
             using(GZipStream gz = new GZipStream(fileOut, CompressionLevel.Optimal))
                 fileIn.CopyTo(gz);
         }
@@ -638,18 +641,18 @@ namespace WhoIs
         // Проигрывает одиночный звуковой файл
         protected void Play(string event_name) 
         {
-        //using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
-        //using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
-        //    new SoundPlayer(gz).Play();
-        
-        var obj = Properties.Resources.ResourceManager.GetObject(GetResourceFileName(event_name));
-        using(MemoryStream fileOut = new MemoryStream(Properties.Resources.About_Alena))
-        using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
-            new SoundPlayer(gz).Play();
+            using(MemoryStream fileOut = new MemoryStream(Properties.Resources.Alena_about))
+            using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
+                new SoundPlayer(gz).Play();
+
+            //var obj = Properties.Resources.ResourceManager.GetObject(GetEventFileName(event_name));
+            //using(MemoryStream fileOut = new MemoryStream(Properties.Resources.Alena_about))
+            //using(GZipStream gz = new GZipStream(fileOut, CompressionMode.Decompress))
+            //    new SoundPlayer(gz).Play();
         }
         
         //value = Properties.Resources.ResourceManager.GetObject(GetResourceFileName(event_name, actor));
-        private string GetResourceFileName(string event_name)
+        private string GetEventFileName(string event_name)
         {
             string fileNameFormat = "{0}_{1}.gz";
             string fileName = string.Format(fileNameFormat, this.Name.Program, event_name);

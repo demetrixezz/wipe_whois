@@ -420,8 +420,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\About_Alena.gz" />
-    <None Include="Resources\About_Filipp.gz" />
+    <None Include="Resources\Alena_about.gz" />
+    <None Include="Resources\Filipp_about.gz" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WIPE_text.png" />

@@ -63,19 +63,9 @@ namespace WhoIs.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static byte[] About_Alena {
+        public static byte[] Alena_about {
             get {
-                object obj = ResourceManager.GetObject("About_Alena", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        public static byte[] About_Filipp {
-            get {
-                object obj = ResourceManager.GetObject("About_Filipp", resourceCulture);
+                object obj = ResourceManager.GetObject("Alena_about", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -117,6 +107,16 @@ namespace WhoIs.Properties {
             get {
                 object obj = ResourceManager.GetObject("Dividing_line", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] Filipp_about {
+            get {
+                object obj = ResourceManager.GetObject("Filipp_about", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

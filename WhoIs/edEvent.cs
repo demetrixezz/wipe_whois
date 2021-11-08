@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EliteJournalReader;
-using static EliteJournalReader.Events.AfmuRepairsEvent;
+﻿using static EliteJournalReader.Events.AfmuRepairsEvent;
 using static EliteJournalReader.Events.AppliedToSquadronEvent;
 using static EliteJournalReader.Events.ApproachBodyEvent;
 using static EliteJournalReader.Events.ApproachSettlementEvent;
@@ -13,7 +7,6 @@ using static EliteJournalReader.Events.BackpackMaterialsEvent;
 using static EliteJournalReader.Events.BookDropshipEvent;
 using static EliteJournalReader.Events.BookTaxiEvent;
 using static EliteJournalReader.Events.BountyEvent;
-using static EliteJournalReader.Events.BountyEvent.BountyEventArgs;
 using static EliteJournalReader.Events.BuyAmmoEvent;
 using static EliteJournalReader.Events.BuyDronesEvent;
 using static EliteJournalReader.Events.BuyExplorationDataEvent;
@@ -52,7 +45,6 @@ using static EliteJournalReader.Events.CommanderEvent;
 using static EliteJournalReader.Events.CommitCrimeEvent;
 using static EliteJournalReader.Events.CommunityGoalDiscardEvent;
 using static EliteJournalReader.Events.CommunityGoalEvent;
-using static EliteJournalReader.Events.CommunityGoalEvent.CommunityGoalEventArgs;
 using static EliteJournalReader.Events.CommunityGoalJoinEvent;
 using static EliteJournalReader.Events.CommunityGoalRewardEvent;
 using static EliteJournalReader.Events.ContinuedEvent;
@@ -70,7 +62,6 @@ using static EliteJournalReader.Events.DatalinkVoucherEvent;
 using static EliteJournalReader.Events.DataScannedEvent;
 using static EliteJournalReader.Events.DeleteSuitLoadoutEvent;
 using static EliteJournalReader.Events.DiedEvent;
-using static EliteJournalReader.Events.DiedEvent.DiedEventArgs;
 using static EliteJournalReader.Events.DisbandedSquadronEvent;
 using static EliteJournalReader.Events.DiscoveryScanEvent;
 using static EliteJournalReader.Events.DisembarkEvent;
@@ -257,6 +248,9 @@ using static EliteJournalReader.Events.WonATrophyForSquadronEvent;
 
 namespace WhoIs
 {
+    /// <summary>
+    /// Базовый класс события игрового журнала, обработчики событий должны быть сделаны в методах Process() его наследников
+    /// </summary>
     public class edEvent
     {
         public string EventName { get; set; } = "";
