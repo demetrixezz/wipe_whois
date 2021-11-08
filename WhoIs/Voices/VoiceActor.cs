@@ -268,8 +268,12 @@ namespace WhoIs
     
     public class VoiceActorsCollection
     {
+        public delegate void ActorHandler(string program_name, bool state);
+        public event ActorHandler Notify;
+
         private List<VoiceActor> list_actors = null;
         private Panel PanelParent = null;
+        
         public VoiceActorsCollection(Panel panelParent)
         {
             this.list_actors = new List<VoiceActor>();
@@ -279,6 +283,29 @@ namespace WhoIs
             this.AddNewActor(this.list_actors.Count, "Филипп", "Filipp");
             this.list_actors.ElementAt(0).Used = true;
         }
+        /// <summary>
+        /// Обработчик события нажатия кнопки установки ассистента
+        /// </summary>
+        /// <param name="actor_name"></param>
+        /// <param name="state"></param>
+        private void OnChangeAssist(string actor_name, bool state)
+        {
+            foreach(VoiceActor actor in list_actors)
+            {
+                if(actor.Name.Program == actor_name)
+                    actor.SetON();
+                else
+                    actor.SetOFF();
+            }
+            VoiceActor used = this.CurrentUsedActor();
+            if(used==null)
+            {
+                this.SetActorCurrent("Alena");
+                used = this.CurrentUsedActor();
+            }
+            this.Notify?.Invoke(used.Name.Program, true);
+        }
+
 
         /// <summary>
         /// Возвращает список ассистентов
@@ -303,6 +330,7 @@ namespace WhoIs
             actor.ID = this.list_actors.Count;
             actor.PrevID(this.list_actors.Count - 1);
             this.list_actors.Add(actor);
+            actor.Notify += this.OnChangeAssist;
             return true;
         }
         /// <summary>
@@ -320,6 +348,7 @@ namespace WhoIs
             actor.ID = actorID;
             actor.PrevID(actorID - 1);
             this.list_actors.Add(actor);
+            actor.Notify += this.OnChangeAssist;
             return true;
         }
 
@@ -369,6 +398,19 @@ namespace WhoIs
                     return actor;
             return null;
         }
+        /// <summary>
+        /// Устанавливает ассистента по его программному имени в качестве текущего
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool SetActorCurrent(string program_name)
+        {
+            VoiceActor actor = this.ActorByProgramName(program_name);
+            if(actor == null)
+                return false;
+            actor.SetON();
+            return true;
+        }
     }
     
     /// <summary>
@@ -379,6 +421,7 @@ namespace WhoIs
         public string  Display; // Отображаемое имя (рус)
         public string  Program; // Программное имя (англ)
     }
+    
     /// <summary>
     /// Класс "Голосовой ассистент"
     /// </summary>
@@ -395,7 +438,7 @@ namespace WhoIs
         private SplitContainer Panel = null;
         private Label       Header = null;
         private Button      ButtonListen = null;
-        private RadioButton ButtonSetActor = null;
+        private Button      ButtonSetActor = null;
         
         /// <summary>
         /// Конструктор без параметров.
@@ -480,7 +523,7 @@ namespace WhoIs
             this.InitHeader();
             this.ButtonListen = new Button();
             this.InitButtonListen();
-            this.ButtonSetActor = new RadioButton();
+            this.ButtonSetActor = new Button();
             this.InitButtonSetActor();
 
             this.Panel.Show();
@@ -549,6 +592,7 @@ namespace WhoIs
             this.ButtonListen.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 79, 94);
             this.ButtonListen.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 69, 74);
 
+            
             this.ButtonListen.Click += (s, e) =>
             {
                 MessageBox.Show("Путь к папке звуков:\n" + this.sounds_data_path);
@@ -562,7 +606,6 @@ namespace WhoIs
             if(this.ButtonSetActor == null)
                 return;
             this.Panel.Panel1.Controls.Add(this.ButtonSetActor);
-            this.ButtonSetActor.Appearance = Appearance.Button;
             this.ButtonSetActor.BackColor = Color.FromArgb(57, 59, 64);
             this.ButtonSetActor.ForeColor = Color.FromArgb(171, 171, 171);
             this.ButtonSetActor.Location = new Point(110, 24);
@@ -574,25 +617,23 @@ namespace WhoIs
             this.ButtonSetActor.FlatAppearance.BorderColor = Color.FromArgb(57, 59, 64);
             this.ButtonSetActor.FlatAppearance.BorderSize = 0;
             this.ButtonSetActor.FlatAppearance.CheckedBackColor = Color.FromArgb(57, 109, 64);
-            this.ButtonSetActor.FlatAppearance.MouseDownBackColor = (!this.ButtonSetActor.Checked ? Color.FromArgb(77, 79, 94) : Color.FromArgb(77, 129, 84));
-            this.ButtonSetActor.FlatAppearance.MouseOverBackColor = (!this.ButtonSetActor.Checked ? Color.FromArgb(67, 69, 74) : Color.FromArgb(67, 119, 74));
-            this.ButtonSetActor.AutoCheck = false;
+            this.ButtonSetActor.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 79, 94);
+            this.ButtonSetActor.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 69, 74);
 
             /// <summary>
             /// Обработчик клика по кнопке
             /// </summary>
             this.ButtonSetActor.Click += (s, e) =>
             {
-                this.ButtonSetActor.Checked = !this.ButtonSetActor.Checked;
-                if(this.ButtonSetActor.Checked)
+                if(!this.Used)
                 {
                     this.SetON();
-                    Notify?.Invoke(this.Name.Program, true);
+                    this.Notify?.Invoke(this.Name.Program, true);
                 }
                 else
                 {
                     this.SetOFF();
-                    Notify?.Invoke(this.Name.Program, false);
+                    this.Notify?.Invoke(this.Name.Program, false);
                 }
             };
 
@@ -602,20 +643,26 @@ namespace WhoIs
         /// </summary>
         public void SetON()
         {
+            this.ButtonSetActor.BackColor = Color.FromArgb(57, 109, 64);
+            this.ButtonSetActor.ForeColor = Color.FromArgb(171, 171, 171);
             this.ButtonSetActor.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 129, 84);
             this.ButtonSetActor.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 119, 74);
             this.ButtonSetActor.Text = "Установлен";
             this.Used = true;
+            this.ButtonSetActor.Invalidate();
         }
         /// <summary>
         /// Установка состояния ассистента "Установить" и свойств кнопки в этом состоянии
         /// </summary>
         public void SetOFF()
         {
+            this.ButtonSetActor.BackColor = Color.FromArgb(57, 59, 64);
+            this.ButtonSetActor.ForeColor = Color.FromArgb(171, 171, 171);
             this.ButtonSetActor.FlatAppearance.MouseDownBackColor = Color.FromArgb(77, 79, 94);
             this.ButtonSetActor.FlatAppearance.MouseOverBackColor = Color.FromArgb(67, 69, 74);
             this.ButtonSetActor.Text = "Установить";
             this.Used = false;
+            this.ButtonSetActor.Invalidate();
         }
 
         public void PrevID(int id)  { this.id_prev = id;                                }

@@ -141,10 +141,19 @@ namespace WhoIs
 
             // Создаём коллекцию стандартных голосовых ассистентов
             VoiceActors = new VoiceActorsCollection(panelChoiceVoiceActor);
+            VoiceActors.Notify += OnChangeAssist;
             // Загружаем настройки программы из реестра
             SettingsLoad();
             // Создаём экземпляр класса игрока
             this.Player = new edPlayer();
+        }
+
+        private void OnChangeAssist(string actor_name, bool state)
+        {
+            using(RegistryKey RegKey = Registry.CurrentUser.CreateSubKey(@"Software\WhoIs"))
+            {
+                RegKey.SetValue("CurrentAssist", VoiceActors.CurrentUsedActor().Name.Program, RegistryValueKind.String);
+            }
         }
 
         /// <summary>
@@ -968,6 +977,7 @@ namespace WhoIs
                 RegKey.SetValue("LogFolderPath", PathToLogs, RegistryValueKind.String);
                 RegKey.SetValue("FormLocationX", Location.X, RegistryValueKind.DWord);
                 RegKey.SetValue("FormLocationY", Location.Y, RegistryValueKind.DWord);
+                RegKey.SetValue("CurrentAssist", VoiceActors.CurrentUsedActor().Name.Program, RegistryValueKind.String);
             }
         }
 
@@ -981,6 +991,7 @@ namespace WhoIs
                 int x = Convert.ToInt32(RegKey.GetValue("FormLocationX", 100));
                 int y = Convert.ToInt32(RegKey.GetValue("FormLocationY", 100));
                 this.Location = new Point(x, y);
+                this.VoiceActors.SetActorCurrent(RegKey.GetValue("CurrentAssist", "Alena").ToString());
             }
         }
 
