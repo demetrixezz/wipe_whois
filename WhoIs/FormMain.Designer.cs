@@ -42,10 +42,6 @@ namespace WhoIs
             this.panelFormMain = new System.Windows.Forms.Panel();
             this.panelMenuDataRight = new System.Windows.Forms.Panel();
             this.panelMenuLeft = new System.Windows.Forms.Panel();
-            this.panelMenuLeftPanelButtons = new System.Windows.Forms.Panel();
-            this.buttonMenuLeftAdministrations = new WhoIs.ButtonRounded();
-            this.buttonMenuLeftSettings = new WhoIs.ButtonRounded();
-            this.buttonMenuLeftViewDatas = new WhoIs.ButtonRounded();
             this.panelMenuAutorize = new System.Windows.Forms.Panel();
             this.panelLogin = new System.Windows.Forms.Panel();
             this.labelLogin = new System.Windows.Forms.Label();
@@ -61,27 +57,31 @@ namespace WhoIs
             this.labelMenuInfo = new System.Windows.Forms.Label();
             this.pictureBoxBottomPanelMenuInfoDB = new System.Windows.Forms.PictureBox();
             this.pictureBoxTopPanelMenuInfoDB = new System.Windows.Forms.PictureBox();
+            this.panelMenuLeftPanelButtons = new System.Windows.Forms.Panel();
+            this.panelMenuLeftPanelButtonSettings = new System.Windows.Forms.Panel();
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds = new WhoIs.ButtonRounded();
+            this.buttonPanelMenuLeftPanelButtonSettingsActors = new WhoIs.ButtonRounded();
+            this.buttonMenuLeftAdministrations = new WhoIs.ButtonRounded();
+            this.buttonMenuLeftSettings = new WhoIs.ButtonRounded();
+            this.buttonMenuLeftViewDatas = new WhoIs.ButtonRounded();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.buttonToTray = new System.Windows.Forms.Button();
             this.panelLogoWIPE = new System.Windows.Forms.Panel();
             this.buttonClose = new System.Windows.Forms.Button();
-            this.panelMenuLeftPanelButtonSettings = new System.Windows.Forms.Panel();
-            this.buttonPanelMenuLeftPanelButtonSettingsActors = new WhoIs.ButtonRounded();
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds = new WhoIs.ButtonRounded();
             this.contextMenuStrip.SuspendLayout();
             this.panelFormMain.SuspendLayout();
             this.panelMenuLeft.SuspendLayout();
-            this.panelMenuLeftPanelButtons.SuspendLayout();
             this.panelMenuAutorize.SuspendLayout();
             this.panelLogin.SuspendLayout();
             this.panelPass.SuspendLayout();
             this.panelMenuInfoDB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBottomPanelMenuInfoDB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).BeginInit();
-            this.panelHeader.SuspendLayout();
+            this.panelMenuLeftPanelButtons.SuspendLayout();
             this.panelMenuLeftPanelButtonSettings.SuspendLayout();
+            this.panelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -191,74 +191,6 @@ namespace WhoIs
             this.panelMenuLeft.Name = "panelMenuLeft";
             this.panelMenuLeft.Size = new System.Drawing.Size(236, 378);
             this.panelMenuLeft.TabIndex = 6;
-            // 
-            // panelMenuLeftPanelButtons
-            // 
-            this.panelMenuLeftPanelButtons.Controls.Add(this.panelMenuLeftPanelButtonSettings);
-            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftAdministrations);
-            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftSettings);
-            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftViewDatas);
-            this.panelMenuLeftPanelButtons.Location = new System.Drawing.Point(0, 0);
-            this.panelMenuLeftPanelButtons.Name = "panelMenuLeftPanelButtons";
-            this.panelMenuLeftPanelButtons.Size = new System.Drawing.Size(236, 378);
-            this.panelMenuLeftPanelButtons.TabIndex = 11;
-            // 
-            // buttonMenuLeftAdministrations
-            // 
-            this.buttonMenuLeftAdministrations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftAdministrations.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftAdministrations.FlatAppearance.BorderSize = 0;
-            this.buttonMenuLeftAdministrations.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonMenuLeftAdministrations.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonMenuLeftAdministrations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenuLeftAdministrations.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftAdministrations.Location = new System.Drawing.Point(160, 10);
-            this.buttonMenuLeftAdministrations.Name = "buttonMenuLeftAdministrations";
-            this.buttonMenuLeftAdministrations.RoundedHeight = 12;
-            this.buttonMenuLeftAdministrations.RoundedWidth = 12;
-            this.buttonMenuLeftAdministrations.Size = new System.Drawing.Size(68, 58);
-            this.buttonMenuLeftAdministrations.TabIndex = 10;
-            this.buttonMenuLeftAdministrations.Text = "Admin";
-            this.buttonMenuLeftAdministrations.UseVisualStyleBackColor = false;
-            // 
-            // buttonMenuLeftSettings
-            // 
-            this.buttonMenuLeftSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonMenuLeftSettings.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftSettings.FlatAppearance.BorderSize = 0;
-            this.buttonMenuLeftSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonMenuLeftSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonMenuLeftSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenuLeftSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftSettings.Location = new System.Drawing.Point(12, 10);
-            this.buttonMenuLeftSettings.Name = "buttonMenuLeftSettings";
-            this.buttonMenuLeftSettings.RoundedHeight = 12;
-            this.buttonMenuLeftSettings.RoundedWidth = 12;
-            this.buttonMenuLeftSettings.Size = new System.Drawing.Size(68, 58);
-            this.buttonMenuLeftSettings.TabIndex = 0;
-            this.buttonMenuLeftSettings.Text = "Settings";
-            this.buttonMenuLeftSettings.UseVisualStyleBackColor = false;
-            this.buttonMenuLeftSettings.Click += new System.EventHandler(this.ButtonMenuLeftSettings_Click);
-            // 
-            // buttonMenuLeftViewDatas
-            // 
-            this.buttonMenuLeftViewDatas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftViewDatas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonMenuLeftViewDatas.FlatAppearance.BorderSize = 0;
-            this.buttonMenuLeftViewDatas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonMenuLeftViewDatas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonMenuLeftViewDatas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMenuLeftViewDatas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftViewDatas.Location = new System.Drawing.Point(86, 10);
-            this.buttonMenuLeftViewDatas.Name = "buttonMenuLeftViewDatas";
-            this.buttonMenuLeftViewDatas.RoundedHeight = 12;
-            this.buttonMenuLeftViewDatas.RoundedWidth = 12;
-            this.buttonMenuLeftViewDatas.Size = new System.Drawing.Size(68, 58);
-            this.buttonMenuLeftViewDatas.TabIndex = 9;
-            this.buttonMenuLeftViewDatas.Text = "Data";
-            this.buttonMenuLeftViewDatas.UseVisualStyleBackColor = false;
-            this.buttonMenuLeftViewDatas.Click += new System.EventHandler(this.ButtonMenuLeftViewDatas_Click);
             // 
             // panelMenuAutorize
             // 
@@ -443,6 +375,122 @@ namespace WhoIs
             this.pictureBoxTopPanelMenuInfoDB.TabIndex = 0;
             this.pictureBoxTopPanelMenuInfoDB.TabStop = false;
             // 
+            // panelMenuLeftPanelButtons
+            // 
+            this.panelMenuLeftPanelButtons.Controls.Add(this.panelMenuLeftPanelButtonSettings);
+            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftAdministrations);
+            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftSettings);
+            this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftViewDatas);
+            this.panelMenuLeftPanelButtons.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuLeftPanelButtons.Name = "panelMenuLeftPanelButtons";
+            this.panelMenuLeftPanelButtons.Size = new System.Drawing.Size(236, 378);
+            this.panelMenuLeftPanelButtons.TabIndex = 11;
+            // 
+            // panelMenuLeftPanelButtonSettings
+            // 
+            this.panelMenuLeftPanelButtonSettings.BackColor = System.Drawing.Color.Transparent;
+            this.panelMenuLeftPanelButtonSettings.Controls.Add(this.buttonPanelMenuLeftPanelButtonSettingsSounds);
+            this.panelMenuLeftPanelButtonSettings.Controls.Add(this.buttonPanelMenuLeftPanelButtonSettingsActors);
+            this.panelMenuLeftPanelButtonSettings.Location = new System.Drawing.Point(0, 70);
+            this.panelMenuLeftPanelButtonSettings.Name = "panelMenuLeftPanelButtonSettings";
+            this.panelMenuLeftPanelButtonSettings.Size = new System.Drawing.Size(236, 97);
+            this.panelMenuLeftPanelButtonSettings.TabIndex = 11;
+            // 
+            // buttonPanelMenuLeftPanelButtonSettingsSounds
+            // 
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.BorderSize = 0;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Location = new System.Drawing.Point(10, 50);
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Name = "buttonPanelMenuLeftPanelButtonSettingsSounds";
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedHeight = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedWidth = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Size = new System.Drawing.Size(216, 41);
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.TabIndex = 2;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Text = "Настройки звуков";
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.UseVisualStyleBackColor = false;
+            // 
+            // buttonPanelMenuLeftPanelButtonSettingsActors
+            // 
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.BorderSize = 0;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Location = new System.Drawing.Point(10, 5);
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Name = "buttonPanelMenuLeftPanelButtonSettingsActors";
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedHeight = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedWidth = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Size = new System.Drawing.Size(216, 41);
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.TabIndex = 1;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Голос ассистента";
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.UseVisualStyleBackColor = false;
+            // 
+            // buttonMenuLeftAdministrations
+            // 
+            this.buttonMenuLeftAdministrations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftAdministrations.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftAdministrations.FlatAppearance.BorderSize = 0;
+            this.buttonMenuLeftAdministrations.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonMenuLeftAdministrations.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonMenuLeftAdministrations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenuLeftAdministrations.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonMenuLeftAdministrations.Location = new System.Drawing.Point(160, 10);
+            this.buttonMenuLeftAdministrations.Name = "buttonMenuLeftAdministrations";
+            this.buttonMenuLeftAdministrations.RoundedHeight = 12;
+            this.buttonMenuLeftAdministrations.RoundedWidth = 12;
+            this.buttonMenuLeftAdministrations.Size = new System.Drawing.Size(68, 58);
+            this.buttonMenuLeftAdministrations.TabIndex = 10;
+            this.buttonMenuLeftAdministrations.Text = "Admin";
+            this.buttonMenuLeftAdministrations.UseVisualStyleBackColor = false;
+            // 
+            // buttonMenuLeftSettings
+            // 
+            this.buttonMenuLeftSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonMenuLeftSettings.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftSettings.FlatAppearance.BorderSize = 0;
+            this.buttonMenuLeftSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonMenuLeftSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonMenuLeftSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenuLeftSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonMenuLeftSettings.Location = new System.Drawing.Point(12, 10);
+            this.buttonMenuLeftSettings.Name = "buttonMenuLeftSettings";
+            this.buttonMenuLeftSettings.RoundedHeight = 12;
+            this.buttonMenuLeftSettings.RoundedWidth = 12;
+            this.buttonMenuLeftSettings.Size = new System.Drawing.Size(68, 58);
+            this.buttonMenuLeftSettings.TabIndex = 0;
+            this.buttonMenuLeftSettings.Text = "Settings";
+            this.buttonMenuLeftSettings.UseVisualStyleBackColor = false;
+            this.buttonMenuLeftSettings.Click += new System.EventHandler(this.ButtonMenuLeftSettings_Click);
+            // 
+            // buttonMenuLeftViewDatas
+            // 
+            this.buttonMenuLeftViewDatas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftViewDatas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
+            this.buttonMenuLeftViewDatas.FlatAppearance.BorderSize = 0;
+            this.buttonMenuLeftViewDatas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
+            this.buttonMenuLeftViewDatas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
+            this.buttonMenuLeftViewDatas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenuLeftViewDatas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.buttonMenuLeftViewDatas.Location = new System.Drawing.Point(86, 10);
+            this.buttonMenuLeftViewDatas.Name = "buttonMenuLeftViewDatas";
+            this.buttonMenuLeftViewDatas.RoundedHeight = 12;
+            this.buttonMenuLeftViewDatas.RoundedWidth = 12;
+            this.buttonMenuLeftViewDatas.Size = new System.Drawing.Size(68, 58);
+            this.buttonMenuLeftViewDatas.TabIndex = 9;
+            this.buttonMenuLeftViewDatas.Text = "Data";
+            this.buttonMenuLeftViewDatas.UseVisualStyleBackColor = false;
+            this.buttonMenuLeftViewDatas.Click += new System.EventHandler(this.ButtonMenuLeftViewDatas_Click);
+            // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -519,54 +567,6 @@ namespace WhoIs
             this.buttonClose.TabStop = false;
             this.buttonClose.UseVisualStyleBackColor = true;
             // 
-            // panelMenuLeftPanelButtonSettings
-            // 
-            this.panelMenuLeftPanelButtonSettings.BackColor = System.Drawing.Color.Transparent;
-            this.panelMenuLeftPanelButtonSettings.Controls.Add(this.buttonPanelMenuLeftPanelButtonSettingsSounds);
-            this.panelMenuLeftPanelButtonSettings.Controls.Add(this.buttonPanelMenuLeftPanelButtonSettingsActors);
-            this.panelMenuLeftPanelButtonSettings.Location = new System.Drawing.Point(0, 70);
-            this.panelMenuLeftPanelButtonSettings.Name = "panelMenuLeftPanelButtonSettings";
-            this.panelMenuLeftPanelButtonSettings.Size = new System.Drawing.Size(236, 97);
-            this.panelMenuLeftPanelButtonSettings.TabIndex = 11;
-            // 
-            // buttonPanelMenuLeftPanelButtonSettingsActors
-            // 
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.BorderSize = 0;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Location = new System.Drawing.Point(10, 5);
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Name = "buttonPanelMenuLeftPanelButtonSettingsActors";
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedHeight = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedWidth = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Size = new System.Drawing.Size(216, 41);
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.TabIndex = 1;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Голос ассистента";
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.UseVisualStyleBackColor = false;
-            // 
-            // buttonPanelMenuLeftPanelButtonSettingsSounds
-            // 
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(59)))), ((int)(((byte)(64)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.BorderSize = 0;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(94)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Location = new System.Drawing.Point(10, 50);
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Name = "buttonPanelMenuLeftPanelButtonSettingsSounds";
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedHeight = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedWidth = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Size = new System.Drawing.Size(216, 41);
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.TabIndex = 2;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.Text = "Настройки звуков";
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.UseVisualStyleBackColor = false;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -592,7 +592,6 @@ namespace WhoIs
             this.panelFormMain.ResumeLayout(false);
             this.panelFormMain.PerformLayout();
             this.panelMenuLeft.ResumeLayout(false);
-            this.panelMenuLeftPanelButtons.ResumeLayout(false);
             this.panelMenuAutorize.ResumeLayout(false);
             this.panelMenuAutorize.PerformLayout();
             this.panelLogin.ResumeLayout(false);
@@ -603,9 +602,10 @@ namespace WhoIs
             this.panelMenuInfoDB.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBottomPanelMenuInfoDB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).EndInit();
+            this.panelMenuLeftPanelButtons.ResumeLayout(false);
+            this.panelMenuLeftPanelButtonSettings.ResumeLayout(false);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            this.panelMenuLeftPanelButtonSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
