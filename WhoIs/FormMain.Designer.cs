@@ -40,7 +40,6 @@ namespace WhoIs
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.panelFormMain = new System.Windows.Forms.Panel();
-            this.panelMenuDataRight = new System.Windows.Forms.Panel();
             this.panelMenuLeft = new System.Windows.Forms.Panel();
             this.panelMenuAutorize = new System.Windows.Forms.Panel();
             this.panelLogin = new System.Windows.Forms.Panel();
@@ -64,6 +63,9 @@ namespace WhoIs
             this.buttonMenuLeftAdministrations = new WhoIs.ButtonRounded();
             this.buttonMenuLeftSettings = new WhoIs.ButtonRounded();
             this.buttonMenuLeftViewDatas = new WhoIs.ButtonRounded();
+            this.panelDataRight = new System.Windows.Forms.Panel();
+            this.panelChoiceVoiceActor = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelHeader = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
@@ -81,6 +83,8 @@ namespace WhoIs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).BeginInit();
             this.panelMenuLeftPanelButtons.SuspendLayout();
             this.panelMenuLeftPanelButtonSettings.SuspendLayout();
+            this.panelDataRight.SuspendLayout();
+            this.panelChoiceVoiceActor.SuspendLayout();
             this.panelHeader.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -165,8 +169,8 @@ namespace WhoIs
             // panelFormMain
             // 
             this.panelFormMain.BackColor = System.Drawing.Color.Transparent;
-            this.panelFormMain.Controls.Add(this.panelMenuDataRight);
             this.panelFormMain.Controls.Add(this.panelMenuLeft);
+            this.panelFormMain.Controls.Add(this.panelDataRight);
             this.panelFormMain.Controls.Add(this.labelStatus);
             this.panelFormMain.Controls.Add(this.button1);
             this.panelFormMain.Location = new System.Drawing.Point(0, 34);
@@ -174,22 +178,15 @@ namespace WhoIs
             this.panelFormMain.Size = new System.Drawing.Size(690, 416);
             this.panelFormMain.TabIndex = 8;
             // 
-            // panelMenuDataRight
-            // 
-            this.panelMenuDataRight.Location = new System.Drawing.Point(237, 0);
-            this.panelMenuDataRight.Name = "panelMenuDataRight";
-            this.panelMenuDataRight.Size = new System.Drawing.Size(453, 378);
-            this.panelMenuDataRight.TabIndex = 9;
-            // 
             // panelMenuLeft
             // 
             this.panelMenuLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(49)))), ((int)(((byte)(54)))));
             this.panelMenuLeft.Controls.Add(this.panelMenuAutorize);
             this.panelMenuLeft.Controls.Add(this.panelMenuInfoDB);
             this.panelMenuLeft.Controls.Add(this.panelMenuLeftPanelButtons);
-            this.panelMenuLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelMenuLeft.Location = new System.Drawing.Point(2, 0);
             this.panelMenuLeft.Name = "panelMenuLeft";
-            this.panelMenuLeft.Size = new System.Drawing.Size(236, 378);
+            this.panelMenuLeft.Size = new System.Drawing.Size(234, 378);
             this.panelMenuLeft.TabIndex = 6;
             // 
             // panelMenuAutorize
@@ -201,7 +198,7 @@ namespace WhoIs
             this.panelMenuAutorize.Controls.Add(this.buttonLogin);
             this.panelMenuAutorize.Location = new System.Drawing.Point(230, 37);
             this.panelMenuAutorize.Name = "panelMenuAutorize";
-            this.panelMenuAutorize.Size = new System.Drawing.Size(236, 130);
+            this.panelMenuAutorize.Size = new System.Drawing.Size(234, 130);
             this.panelMenuAutorize.TabIndex = 7;
             // 
             // panelLogin
@@ -305,7 +302,7 @@ namespace WhoIs
             this.panelMenuInfoDB.Controls.Add(this.pictureBoxTopPanelMenuInfoDB);
             this.panelMenuInfoDB.Location = new System.Drawing.Point(230, 37);
             this.panelMenuInfoDB.Name = "panelMenuInfoDB";
-            this.panelMenuInfoDB.Size = new System.Drawing.Size(236, 130);
+            this.panelMenuInfoDB.Size = new System.Drawing.Size(234, 130);
             this.panelMenuInfoDB.TabIndex = 8;
             // 
             // buttonInfoAdmin
@@ -383,7 +380,7 @@ namespace WhoIs
             this.panelMenuLeftPanelButtons.Controls.Add(this.buttonMenuLeftViewDatas);
             this.panelMenuLeftPanelButtons.Location = new System.Drawing.Point(0, 0);
             this.panelMenuLeftPanelButtons.Name = "panelMenuLeftPanelButtons";
-            this.panelMenuLeftPanelButtons.Size = new System.Drawing.Size(236, 378);
+            this.panelMenuLeftPanelButtons.Size = new System.Drawing.Size(234, 378);
             this.panelMenuLeftPanelButtons.TabIndex = 11;
             // 
             // panelMenuLeftPanelButtonSettings
@@ -393,7 +390,7 @@ namespace WhoIs
             this.panelMenuLeftPanelButtonSettings.Controls.Add(this.buttonPanelMenuLeftPanelButtonSettingsActors);
             this.panelMenuLeftPanelButtonSettings.Location = new System.Drawing.Point(0, 70);
             this.panelMenuLeftPanelButtonSettings.Name = "panelMenuLeftPanelButtonSettings";
-            this.panelMenuLeftPanelButtonSettings.Size = new System.Drawing.Size(236, 97);
+            this.panelMenuLeftPanelButtonSettings.Size = new System.Drawing.Size(234, 97);
             this.panelMenuLeftPanelButtonSettings.TabIndex = 11;
             // 
             // buttonPanelMenuLeftPanelButtonSettingsSounds
@@ -408,8 +405,8 @@ namespace WhoIs
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.Location = new System.Drawing.Point(10, 50);
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.Name = "buttonPanelMenuLeftPanelButtonSettingsSounds";
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedHeight = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedWidth = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedHeight = 4;
+            this.buttonPanelMenuLeftPanelButtonSettingsSounds.RoundedWidth = 4;
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.Size = new System.Drawing.Size(216, 41);
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.TabIndex = 2;
             this.buttonPanelMenuLeftPanelButtonSettingsSounds.Text = "Настройки звуков";
@@ -427,12 +424,13 @@ namespace WhoIs
             this.buttonPanelMenuLeftPanelButtonSettingsActors.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
             this.buttonPanelMenuLeftPanelButtonSettingsActors.Location = new System.Drawing.Point(10, 5);
             this.buttonPanelMenuLeftPanelButtonSettingsActors.Name = "buttonPanelMenuLeftPanelButtonSettingsActors";
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedHeight = 12;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedWidth = 12;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedHeight = 4;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.RoundedWidth = 4;
             this.buttonPanelMenuLeftPanelButtonSettingsActors.Size = new System.Drawing.Size(216, 41);
             this.buttonPanelMenuLeftPanelButtonSettingsActors.TabIndex = 1;
-            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Голос ассистента";
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Text = "Выбор ассистента";
             this.buttonPanelMenuLeftPanelButtonSettingsActors.UseVisualStyleBackColor = false;
+            this.buttonPanelMenuLeftPanelButtonSettingsActors.Click += new System.EventHandler(this.ButtonPanelMenuLeftPanelButtonSettingsActors_Click);
             // 
             // buttonMenuLeftAdministrations
             // 
@@ -443,10 +441,10 @@ namespace WhoIs
             this.buttonMenuLeftAdministrations.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
             this.buttonMenuLeftAdministrations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMenuLeftAdministrations.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftAdministrations.Location = new System.Drawing.Point(160, 10);
+            this.buttonMenuLeftAdministrations.Location = new System.Drawing.Point(157, 10);
             this.buttonMenuLeftAdministrations.Name = "buttonMenuLeftAdministrations";
-            this.buttonMenuLeftAdministrations.RoundedHeight = 12;
-            this.buttonMenuLeftAdministrations.RoundedWidth = 12;
+            this.buttonMenuLeftAdministrations.RoundedHeight = 4;
+            this.buttonMenuLeftAdministrations.RoundedWidth = 4;
             this.buttonMenuLeftAdministrations.Size = new System.Drawing.Size(68, 58);
             this.buttonMenuLeftAdministrations.TabIndex = 10;
             this.buttonMenuLeftAdministrations.Text = "Admin";
@@ -462,10 +460,10 @@ namespace WhoIs
             this.buttonMenuLeftSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
             this.buttonMenuLeftSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMenuLeftSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftSettings.Location = new System.Drawing.Point(12, 10);
+            this.buttonMenuLeftSettings.Location = new System.Drawing.Point(9, 10);
             this.buttonMenuLeftSettings.Name = "buttonMenuLeftSettings";
-            this.buttonMenuLeftSettings.RoundedHeight = 12;
-            this.buttonMenuLeftSettings.RoundedWidth = 12;
+            this.buttonMenuLeftSettings.RoundedHeight = 4;
+            this.buttonMenuLeftSettings.RoundedWidth = 4;
             this.buttonMenuLeftSettings.Size = new System.Drawing.Size(68, 58);
             this.buttonMenuLeftSettings.TabIndex = 0;
             this.buttonMenuLeftSettings.Text = "Settings";
@@ -481,15 +479,40 @@ namespace WhoIs
             this.buttonMenuLeftViewDatas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(69)))), ((int)(((byte)(74)))));
             this.buttonMenuLeftViewDatas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonMenuLeftViewDatas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
-            this.buttonMenuLeftViewDatas.Location = new System.Drawing.Point(86, 10);
+            this.buttonMenuLeftViewDatas.Location = new System.Drawing.Point(83, 10);
             this.buttonMenuLeftViewDatas.Name = "buttonMenuLeftViewDatas";
-            this.buttonMenuLeftViewDatas.RoundedHeight = 12;
-            this.buttonMenuLeftViewDatas.RoundedWidth = 12;
+            this.buttonMenuLeftViewDatas.RoundedHeight = 4;
+            this.buttonMenuLeftViewDatas.RoundedWidth = 4;
             this.buttonMenuLeftViewDatas.Size = new System.Drawing.Size(68, 58);
             this.buttonMenuLeftViewDatas.TabIndex = 9;
             this.buttonMenuLeftViewDatas.Text = "Data";
             this.buttonMenuLeftViewDatas.UseVisualStyleBackColor = false;
             this.buttonMenuLeftViewDatas.Click += new System.EventHandler(this.ButtonMenuLeftViewDatas_Click);
+            // 
+            // panelDataRight
+            // 
+            this.panelDataRight.Controls.Add(this.panelChoiceVoiceActor);
+            this.panelDataRight.Location = new System.Drawing.Point(237, 0);
+            this.panelDataRight.Name = "panelDataRight";
+            this.panelDataRight.Size = new System.Drawing.Size(449, 378);
+            this.panelDataRight.TabIndex = 9;
+            // 
+            // panelChoiceVoiceActor
+            // 
+            this.panelChoiceVoiceActor.Controls.Add(this.label2);
+            this.panelChoiceVoiceActor.Location = new System.Drawing.Point(0, 0);
+            this.panelChoiceVoiceActor.Name = "panelChoiceVoiceActor";
+            this.panelChoiceVoiceActor.Size = new System.Drawing.Size(449, 378);
+            this.panelChoiceVoiceActor.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(171)))), ((int)(((byte)(171)))));
+            this.label2.Location = new System.Drawing.Point(170, 144);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 2;
             // 
             // labelStatus
             // 
@@ -604,6 +627,9 @@ namespace WhoIs
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopPanelMenuInfoDB)).EndInit();
             this.panelMenuLeftPanelButtons.ResumeLayout(false);
             this.panelMenuLeftPanelButtonSettings.ResumeLayout(false);
+            this.panelDataRight.ResumeLayout(false);
+            this.panelChoiceVoiceActor.ResumeLayout(false);
+            this.panelChoiceVoiceActor.PerformLayout();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             this.ResumeLayout(false);
@@ -642,7 +668,7 @@ namespace WhoIs
         private System.Windows.Forms.Label labelMenuInfo;
         private System.Windows.Forms.Button buttonInfoAdmin;
         private System.Windows.Forms.Button buttonCheckRegistryData;
-        private System.Windows.Forms.Panel panelMenuDataRight;
+        private System.Windows.Forms.Panel panelDataRight;
         private ButtonRounded buttonMenuLeftSettings;
         private ButtonRounded buttonMenuLeftAdministrations;
         private ButtonRounded buttonMenuLeftViewDatas;
@@ -650,5 +676,7 @@ namespace WhoIs
         private System.Windows.Forms.Panel panelMenuLeftPanelButtonSettings;
         private ButtonRounded buttonPanelMenuLeftPanelButtonSettingsSounds;
         private ButtonRounded buttonPanelMenuLeftPanelButtonSettingsActors;
+        private System.Windows.Forms.Panel panelChoiceVoiceActor;
+        private System.Windows.Forms.Label label2;
     }
 }

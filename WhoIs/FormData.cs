@@ -442,6 +442,7 @@ namespace WhoIs
 
                 lgb.InterpolationColors = cblend;
                 e.Graphics.FillRectangle(lgb, ClientRectangle);
+                e.Graphics.DrawRectangle(new Pen(color1, 2), 1, 1, this.Width-2, this.Height-2);
             }
             Paint -= OnPaintEventHandler;
             Paint += OnPaintEventHandler;

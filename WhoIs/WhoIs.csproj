@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,7 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonRounded.cs">
+    <Compile Include="Controls\ButtonRounded.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\UsersGrid.cs">
@@ -86,6 +101,7 @@
     </Compile>
     <Compile Include="DataManagers\CheckDataManager.cs" />
     <Compile Include="DataManagers\UsersDataManager.cs" />
+    <Compile Include="edEvent.cs" />
     <Compile Include="edPlayer.cs" />
     <Compile Include="FormData.cs">
       <SubType>Form</SubType>
@@ -93,7 +109,6 @@
     <Compile Include="FormData.Designer.cs">
       <DependentUpon>FormData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\EasingEquations.cs" />
     <Compile Include="Helpers\HashDataHelper.cs" />
     <Compile Include="Helpers\RegistryData.cs" />
     <Compile Include="DataManagers\BaseDataManager.cs" />
@@ -433,8 +448,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\About_Alena.gz" />
-    <None Include="Resources\About_Filipp.gz" />
+    <None Include="Resources\Alena_about.gz" />
+    <None Include="Resources\Filipp_about.gz" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WIPE_text.png" />
@@ -473,7 +488,20 @@
     <None Include="Resources\ToTray.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\textlogo.png" />
     <Content Include="WIPE_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
