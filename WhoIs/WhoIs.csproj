@@ -100,6 +100,7 @@
       <DependentUpon>UsersGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="DataManagers\CheckDataManager.cs" />
+    <Compile Include="DataManagers\GetStructureTypesDataManager.cs" />
     <Compile Include="DataManagers\UsersDataManager.cs" />
     <Compile Include="edEvent.cs" />
     <Compile Include="edPlayer.cs" />
@@ -407,7 +408,9 @@
     <Compile Include="Models\CheckPilotModel.cs" />
     <Compile Include="Models\CheckSquadModel.cs" />
     <Compile Include="Models\PilotDbModel.cs" />
+    <Compile Include="Models\PilotTypeModel.cs" />
     <Compile Include="Models\SquadDbModel.cs" />
+    <Compile Include="Models\SquadronTypeModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
