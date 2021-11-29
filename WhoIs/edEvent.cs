@@ -1,4 +1,5 @@
-﻿using static EliteJournalReader.Events.AfmuRepairsEvent;
+﻿using WhoIs.DataManagers;
+using static EliteJournalReader.Events.AfmuRepairsEvent;
 using static EliteJournalReader.Events.AppliedToSquadronEvent;
 using static EliteJournalReader.Events.ApproachBodyEvent;
 using static EliteJournalReader.Events.ApproachSettlementEvent;
@@ -276,8 +277,8 @@ namespace WhoIs
             this.eArgs = e;
         }
         public void Process()
-        { 
-            
+        {
+
         }
     }
 
