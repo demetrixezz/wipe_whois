@@ -39,7 +39,7 @@ namespace WhoIs.DataManagers
         {
             var result = new List<PilotTypeModel>();
 
-            var getPilotCmd = @"sselect pt.ID as ID, pt.Name as Name From PilotTypes pt";
+            var getPilotCmd = @"select pt.ID as ID, pt.Name as Name From PilotTypes pt";
 
             SqlDataReader reader = SqlHelper.ExecuteReader(connectionString, CommandType.Text, getPilotCmd);
 
